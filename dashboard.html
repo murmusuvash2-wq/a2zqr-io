@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Analytics Dashboard | Pro | EzQR</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #040408; --s1: #0A0A12; --s2: #12121E; --bd: #1C1C2E; --bd2: #28283E;
+      --p: #0EA5E9; --pl: #38BDF8; --tx: #F2F2FF; --mu: #8080A0; --gr: #10B981;
+    }
+    body {
+      background: var(--bg); color: var(--tx);
+      font-family: 'Syne', -apple-system, sans-serif;
+      margin: 0; padding: 0;
+    }
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(4,4,8,.92); backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--bd); width: 100%;
+    }
+    .nav-in {
+      max-width: 1100px; margin: 0 auto; padding: 0 10px;
+      height: 56px; display: flex; align-items: center; justify-content: space-between;
+    }
+    .logo {
+      text-decoration: none; color: var(--tx);
+      font-size: 18px; font-weight: 800; letter-spacing: -.3px;
+    }
+    .logo span { color: #F2F2FF; }
+    .logo em { font-style: normal; background: linear-gradient(135deg, var(--pl), #2DD4BF); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .nav-cta {
+      background: var(--s2); border: 1px solid var(--bd); padding: 7px 14px; border-radius: 8px;
+      color: var(--mu); font-size: 11px; font-weight: 700; cursor: pointer; text-decoration: none;
+    }
+    .nav-cta:hover { color: var(--tx); border-color: var(--pl); }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-in">
+      <a href="/" class="logo"><span>EzQR</span><em>.io</em></a>
+      <a href="/" class="nav-cta">Back to Studio</a>
+    </div>
+  </nav>
+  <div id="root"></div>
+  <script type="module" src="/src/dashboard-main.tsx"></script>
+</body>
+</html>

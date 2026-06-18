@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Free QR Code Generator | Custom WiFi, vCard, UPI Codes | EzQR</title>
+<meta name="description" content="Generate beautiful customized client-side multi-color QR codes for maps, WhatsApp, UPI payments, social media profiles and business landing pages instantly.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
+
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:    #040408;
+  --s1:    #0A0A12;
+  --s2:    #12121E;
+  --bd:    #1C1C2E;
+  --bd2:   #28283E;
+  --p:     #0EA5E9;
+  --pl:    #38BDF8;
+  --pd:    #0284C7;
+  --pt:    rgba(14,165,233,.1);
+  --pt2:   rgba(14,165,233,.05);
+  --tx:    #F2F2FF;
+  --mu:    #8080A0;
+  --gr:    #10B981;
+  --or:    #F59E0B;
+  --re:    #EF4444;
+}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);color:var(--tx);
+  font-family:'Syne',-apple-system,sans-serif;
+  font-size:14px;line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+  padding: 10px;
+}
+
+nav{
+  position:sticky;top:0;z-index:100;
+  background:rgba(4,4,8,.92);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--bd); width: 100%;
+}
+.nav-in{
+  max-width:1100px;margin:0 auto;padding:0 10px;
+  height:56px;display:flex;align-items:center;justify-content:space-between;
+}
+.logo{
+  text-decoration:none;color:var(--tx);
+  font-size:18px;font-weight:800;letter-spacing:-.3px;
+}
+.logo span { color: #F2F2FF; }
+.logo em{font-style:normal; background: linear-gradient(135deg, var(--pl), #2DD4BF); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+.nav-cta {
+  background: linear-gradient(135deg, var(--p), #2DD4BF);
+  color: #fff; border: none; padding: 7px 14px; border-radius: 8px;
+  font-size: 11px; font-weight: 700; cursor: pointer; text-decoration: none;
+}
+
+.hero{
+  position:relative;padding:25px 0 15px;text-align:center;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  width:100%;
+}
+.hero-in{position:relative;z-index:1;max-width:680px;margin:0 auto; width:100%;}
+.h1{
+  font-size:clamp(26px,5.5vw,44px);
+  font-weight:800;letter-spacing:-1.2px;line-height:1.15;margin-bottom:12px;
+}
+.h1 .g{
+  background:linear-gradient(135deg,var(--pl) 0%,#67E8F9 45%,#10B981 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.hsub{
+  font-size:13px;color:var(--mu);max-width:560px;
+  margin:0 auto 14px;line-height:1.45;font-weight:400;padding:0 10px;
+}
+
+.hero-bullets {
+  display: flex; justify-content: center; gap: 12px; font-size: 10px;
+  font-weight: 700; color: var(--pl); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 16px;
+}
+.hero-bullets span { color: var(--bd2); }
+
+.hero-actions-row { display: flex; justify-content: center; gap: 10px; margin-bottom: 15px; }
+.hero-btn { background: var(--s2); border: 1px solid var(--bd); color: var(--tx); font-size: 11px; font-weight: 700; padding: 8px 16px; border-radius: 8px; cursor: pointer; text-decoration: none; transition: border-color 0.2s; }
+.hero-btn.primary { background: var(--pt); border-color: var(--p); color: var(--pl); }
+.hero-btn:hover { border-color: var(--pl); }
+
+.live-counter {
+  display: inline-flex; align-items: center; gap: 6px; background: rgba(16,185,129,0.06);
+  border: 1px solid rgba(16,185,129,0.15); color: var(--gr); font-size: 11px;
+  font-weight: 700; padding: 4px 10px; border-radius: 20px; margin-bottom: 8px;
+}
+.pulse-dot { width: 6px; height: 6px; background: var(--gr); border-radius: 50%; animation: pulse 1.8s infinite; }
+@keyframes pulse { 0% { opacity:0.3; } 50% { opacity:1; } 100% { opacity:0.3; } }
+
+.studio-box {
+  width: 100%; max-width: 440px; background: var(--s1); 
+  border: 1px solid var(--bd2); border-radius: 16px; overflow: hidden;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.65);
+  text-align: left; margin: 10px auto 0;
+}
+
+.switcher-tabs {
+  display: grid; grid-template-columns: repeat(5, 1fr); 
+  background: var(--s2); border-bottom: 1px solid var(--bd); padding: 3px;
+}
+.tab-btn {
+  background: transparent; border: none; color: var(--mu); 
+  padding: 8px 1px; border-radius: 6px; cursor: pointer; 
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+}
+.tab-btn.on { background: var(--pt); color: var(--pl); font-weight: 700; }
+.tab-emoji { font-size: 13px; }
+.tab-txt { font-size: 8px; font-weight: 600; letter-spacing: 0.2px; }
+
+.form-body { padding: 16px 12px 6px; }
+.fnode { display: none; }
+.fnode.on { display: block; }
+.flabel { font-size: 9px; font-weight: 700; color: var(--mu); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; display: block; }
+.fi {
+  width: 100%; background: var(--bg); border: 1.5px solid var(--bd2); color: var(--tx);
+  padding: 10px 12px; border-radius: 8px; font-size: 13px; font-family: inherit; outline: none;
+  margin-bottom: 10px;
+}
+.fi:focus { border-color: var(--p); }
+.frow { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+
+.quality-wrapper { margin-bottom: 10px; }
+.q-bar-bg { width: 100%; height: 3px; background: var(--bd); border-radius: 2px; overflow: hidden; margin-top: 3px; }
+.q-bar-fill { width: 0%; height: 100%; background: var(--gr); transition: width 0.3s, background-color 0.3s; }
+.q-hint { font-size: 9px; font-weight: 600; margin-top: 3px; display: none; }
+.error-log-node { font-size: 10px; font-weight: 700; color: var(--re); margin-top: -4px; margin-bottom: 8px; display: none; }
+
+.shop-row { display: flex; flex-direction: column; gap: 4px; padding: 0 12px 10px; }
+.shop-lbl-wrap { display: flex; align-items: center; justify-content: space-between; }
+.shop-lbl { font-size: 9px; font-weight: 700; color: var(--mu); text-transform: uppercase; }
+.shop-helper { font-size: 9px; color: var(--mu); font-weight: 400; font-style: italic; }
+.shop-fi { width: 100%; background: var(--bg); border: 1.5px solid var(--bd2); color: var(--tx); padding: 9px 12px; border-radius: 8px; font-size: 12px; font-family: inherit; outline: none; font-weight: 700; }
+
+.dropdown-axis-grid { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--bd); border-bottom: 1px solid var(--bd); background: var(--s2); }
+.acc-trigger { width: 100%; background: transparent; border: none; color: var(--tx); padding: 11px 12px; font-size: 11px; font-weight: 700; font-family: inherit; display: flex; align-items: center; justify-content: space-between; cursor: pointer; }
+.acc-trigger:first-child { border-right: 1px solid var(--bd); }
+.acc-arr { transition: transform .2s; margin-left: 4px; flex-shrink: 0; }
+.acc-arr.open { transform: rotate(180deg); }
+
+.dropdown-relative-wrapper { position: relative; width: 100%; }
+.acc-list { position: absolute; left: 0; right: 0; top: 100%; max-height: 0; overflow: hidden; transition: max-height .25s ease-out; background: var(--s1); z-index: 80; box-shadow: 0 12px 30px rgba(0,0,0,0.5); }
+.acc-list.open { max-height: 220px; overflow-y: auto; border-bottom: 1px solid var(--bd2); }
+.acc-item { display: flex; align-items: center; justify-content: space-between; padding: 10px 12px; font-size: 11px; font-weight: 600; color: var(--mu); cursor: pointer; border-bottom: 1px solid rgba(28,28,46,.4); }
+.acc-item.on { color: var(--pl); background: var(--pt2); }
+.badge-pro { font-size: 8px; font-weight: 800; color: #fff; background: linear-gradient(135deg, #F59E0B, #EF4444); padding: 1px 5px; border-radius: 4px; letter-spacing: 0.5px; }
+
+#charFieldBlock, #photoFieldBlock { display: none; padding: 12px 12px 10px; border-bottom: 1px solid var(--bd); background: rgba(124,110,250,0.02); }
+.file-upload-wrapper { position: relative; width: 100%; background: var(--bg); border: 1.5px dashed var(--bd2); padding: 10px; border-radius: 8px; text-align: center; }
+.file-upload-wrapper input[type="file"] { position: absolute; left: 0; top: 0; opacity: 0; width: 100%; height: 100%; cursor: pointer; }
+.upload-placeholder-txt { font-size: 11px; color: var(--mu); font-weight: 600; }
+
+.color-row { display: flex; flex-direction: column; gap: 6px; padding: 12px; }
+.color-lbl { font-size: 9px; font-weight: 700; color: var(--mu); text-transform: uppercase; }
+.ccs { display: flex; gap: 8px; overflow-x: auto; width: 100%; padding-bottom: 4px; scrollbar-width: none; }
+.ccs::-webkit-scrollbar { display: none; }
+.cc { width: 24px; height: 24px; border-radius: 50%; cursor: pointer; border: 2px solid var(--bd2); flex-shrink: 0; }
+.cc.on { border-color: #fff; transform: scale(1.05); }
+
+.poster-section { padding: 16px 12px; border-top: 1px solid var(--bd); background: var(--s2); display: flex; flex-direction: column; align-items: center; gap: 12px; width: 100%; }
+.poster-card { position: relative; width: 100%; max-width: 220px; border-radius: 12px; padding: 14px 12px; display: flex; flex-direction: column; align-items: center; text-align: center; background: #F0F4FF; min-height: 245px; box-shadow: 0 4px 12px rgba(0,0,0,0.25); }
+.poster-top { font-size: 13px; font-weight: 800; margin-bottom: 8px; width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; height: 18px; line-height: 18px; text-transform: uppercase; letter-spacing: 0.5px; }
+#qr-out { width: 160px; height: 160px; display: flex; align-items: center; justify-content: center; }
+#qr-out canvas { width: 100% !important; height: auto !important; max-width: 160px; }
+.poster-bot { font-size: 8px; font-weight: 700; color: var(--p); text-transform: lowercase; margin-top: 8px; letter-spacing: 0.5px; }
+
+.lock-overlay { display: none; position: absolute; inset: 0; background: rgba(10,10,18,0.92); backdrop-filter: blur(5px); border-radius: 12px; flex-direction: column; align-items: center; justify-content: center; padding: 12px; z-index: 5; }
+.lock-title { font-size: 12px; font-weight: 800; color: #FFF; margin-bottom: 4px; }
+.lock-desc { font-size: 9px; color: var(--mu); margin-bottom: 12px; line-height: 1.3; font-weight: 600; }
+.lock-btn { background: var(--p); border: none; color: #fff; padding: 6px 12px; border-radius: 6px; font-size: 10px; font-weight: 700; cursor: pointer; }
+
+.dl-main { width: 100%; padding: 11px; background: linear-gradient(135deg, var(--p), #C084FC); color: #fff; border: none; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; font-family: inherit; }
+
+/* BUSINESS MANAGER VIEWPORTS */
+.premium-studio-suite {
+  width: 100%; max-width: 440px; margin: 24px auto; padding: 16px 12px;
+  background: var(--s1); border: 1px solid var(--bd2); border-radius: 16px;
+}
+.suite-head { margin-bottom: 14px; text-align: left; }
+.suite-title { font-size: 16px; font-weight: 800; color: #fff; }
+.suite-desc { font-size: 11px; color: var(--mu); }
+.suite-grid { display: flex; flex-direction: column; gap: 14px; }
+.suite-form { display: flex; flex-direction: column; gap: 6px; }
+.pill-row { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 4px; margin-bottom: 4px; scrollbar-width: none; }
+.pill-row::-webkit-scrollbar { display: none; }
+.pill-btn { background: var(--s2); border: 1px solid var(--bd); color: var(--mu); padding: 5px 10px; border-radius: 14px; font-size: 10px; font-weight: 700; cursor: pointer; white-space: nowrap; }
+.pill-btn.on { background: var(--p); color: #fff; border-color: var(--p); }
+
+.action-buttons-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin: 4px 0 8px; }
+.f-icon-btn { background: var(--s2); border: 1px solid var(--bd); border-radius: 8px; padding: 6px 2px; font-size: 10px; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 4px; font-weight: 700; transition: all 0.2s; color: var(--tx); }
+.f-icon-btn.off { opacity: 0.25; background: transparent; border-color: transparent; color: var(--mu); }
+.f-icon-span { font-size: 14px; }
+
+.suite-input-node { display: block; height: auto; opacity: 1; transition: opacity 0.2s; }
+.suite-input-node.hidden { display: none; opacity: 0; }
+
+.preview-split { display: flex; flex-direction: column; gap: 10px; align-items: center; background: var(--s2); padding: 12px; border-radius: 12px; border: 1px solid var(--bd); width: 100%; }
+.viewport-switcher-tabs { display: none; width: 100%; grid-template-columns: 1fr 1fr; background: var(--bg); border: 1px solid var(--bd); border-radius: 8px; padding: 2px; margin-bottom: 4px; }
+.v-tab-btn { background: transparent; border: none; color: var(--mu); font-size: 10px; font-weight: 700; padding: 6px; cursor: pointer; border-radius: 6px; font-family: inherit; }
+.v-tab-btn.on { background: var(--pt); color: var(--pl); }
+
+.preview-dual-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: 100%; align-items: start; }
+
+.mock-phone { background: #000; border: 3px solid #1C1C2E; border-radius: 16px; padding: 10px; display: flex; flex-direction: column; gap: 6px; color: #fff; font-size: 10px; text-align: left; width: 100%; }
+.mock-banner { text-align: center; font-weight: 800; padding: 4px; background: var(--bd); border-radius: 4px; font-size: 10px; color: var(--pl); text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mock-tagline { text-align: center; font-size: 8px; color: var(--mu); margin-top: -3px; font-style: italic; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mock-btn-list { display: flex; flex-direction: column; gap: 4px; margin-top: 2px; }
+.mock-btn { background: #1F1F35; padding: 5px; border-radius: 6px; text-align: center; font-weight: 700; color: #F2F2FF; font-size: 8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.pro-upsell-trigger-bar { width: 100%; margin-top: 10px; background: linear-gradient(135deg, rgba(245,158,11,0.08), rgba(239,68,68,0.08)); border: 1px dashed rgba(245,158,11,0.3); border-radius: 10px; padding: 10px; text-align: center; cursor: pointer; }
+.upsell-title-row { font-size: 11px; font-weight: 800; color: var(--or); text-transform: uppercase; letter-spacing: 0.5px; }
+.upsell-desc-row { font-size: 9px; color: var(--mu); font-weight: 600; margin-top: 2px; }
+
+.suite-qr-wrap { display: flex; flex-direction: column; align-items: center; justify-content: center; background: #FFF; border-radius: 12px; padding: 10px; width: 100%; min-height: 140px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.15); }
+#suite-qr-out { width: 110px; height: 110px; display: flex; align-items: center; justify-content: center; }
+#suite-qr-out canvas { width: 100% !important; height: auto !important; max-width: 110px; }
+.suite-qr-caption { font-size: 8px; font-weight: 700; color: var(--s2); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 4px; }
+
+/* THE COMPACT CORE EXPLORE CATALOGUE GRID */
+.tools-section { width: 100%; max-width: 440px; margin: 30px auto 0; text-align: center; border-top: 1px solid var(--bd); padding-top: 16px; }
+.dir-headline { font-size: 16px; font-weight: 800; margin-bottom: 12px; text-align: left; }
+.search-filter-box { width: 100%; margin-bottom: 12px; }
+.search-fi { width: 100%; background: var(--s1); border: 1px solid var(--bd); padding: 9px 12px; border-radius: 8px; color: #fff; outline: none; font-size: 12px; font-family: inherit; }
+.cat-row { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 6px; margin-bottom: 14px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+.cat-row::-webkit-scrollbar { display: none; }
+.cat-btn { background: var(--s1); border: 1px solid var(--bd); color: var(--mu); padding: 5px 11px; border-radius: 6px; font-size: 10px; font-weight: 700; cursor: pointer; white-space: nowrap; font-family: inherit; }
+.cat-btn.active { background: var(--p); color: #fff; border-color: var(--p); }
+.tools-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; text-align: left; }
+.t-card { background: var(--s1); border: 1px solid var(--bd); padding: 10px; border-radius: 8px; min-height: 50px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; transition: border-color 0.2s, background-color 0.2s; }
+.t-card:hover { border-color: var(--p); background: var(--pt2); }
+.t-name { font-size: 11px; font-weight: 700; color: var(--tx); line-height: 1.2; }
+.t-arr { font-size: 10px; color: var(--mu); }
+
+footer { width: 100%; max-width: 440px; margin: 40px auto 10px; text-align: center; border-top: 1px solid var(--bd); padding-top: 16px; font-size: 10px; color: var(--mu); }
+.foot-links { display: flex; justify-content: center; gap: 10px; margin-top: 6px; font-weight: 600; }
+.foot-links a { color: var(--mu); text-decoration: none; }
+.foot-links a:hover { color: var(--pl); }
+
+@media(max-width: 480px) {
+  .viewport-switcher-tabs { display: grid; }
+  .preview-dual-row { display: block; width: 100%; }
+  .mock-phone { display: block; max-width: 100%; margin: 0 auto; }
+  .suite-qr-wrap { display: none; max-width: 100%; margin: 0 auto; min-height: 160px; }
+  .suite-qr-wrap.active-mobile-view { display: flex; }
+  .mock-phone.hidden-mobile-view { display: none; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-in">
+    <a href="/" class="logo" onclick="handleInternalNav('/'); return false;"><span>EzQR</span><em>.io</em></a>
+    <a href="/dashboard.html" class="nav-cta" style="background:transparent; color:#8080A0; border-color:transparent; margin-right: 8px;">Analytics</a>
+    <a href="#poster-card" class="nav-cta" onclick="scrollAndFocusPro()">Get Pro ₹149/mo</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-in">
+    <div class="live-counter"><div class="pulse-dot"></div><span id="live-count-str">49,284 QR Generated Today</span></div>
+    <h1 class="h1" id="mainHeroTitle">The Complete <span class="g">QR Platform</span></h1>
+    <p class="hsub" id="mainHeroDesc">Generate QR Codes for Websites, Payments, Social Media and Businesses. Create WiFi, UPI, WhatsApp, PDF and Business Profile QR Codes in seconds. Download beautiful printable posters instantly.</p>
+    
+    <div class="hero-bullets">100+ Tools <span>•</span> Instant Downloads <span>•</span> Privacy First</div>
+    
+    <div class="hero-actions-row">
+      <a href="#tb-url" class="hero-btn primary" onclick="scrollAndFocusPro()">Generate QR Free</a>
+      <a href="#directory" class="hero-btn">Explore 100+ Tools</a>
+    </div>
+
+    <div class="studio-box">
+      <div class="switcher-tabs">
+        <button class="tab-btn on" id="tb-url" onclick="switchTool('url',this)"><span class="tab-emoji">🔗</span><span class="tab-txt">URL</span></button>
+        <button class="tab-btn" id="tb-wifi" onclick="switchTool('wifi',this)"><span class="tab-emoji">📶</span><span class="tab-txt">WiFi</span></button>
+        <button class="tab-btn" id="tb-vcard" onclick="switchTool('vcard',this)"><span class="tab-emoji">👤</span><span class="tab-txt">vCard</span></button>
+        <button class="tab-btn" id="tb-whatsapp" onclick="switchTool('whatsapp',this)"><span class="tab-emoji">💬</span><span class="tab-txt">WhatsApp</span></button>
+        <button class="tab-btn" id="tb-pdf" onclick="switchTool('pdf',this)"><span class="tab-emoji">📄</span><span class="tab-txt">PDF</span></button>
+      </div>
+
+      <div class="form-body">
+        <div class="error-log-node" id="error-display-node">⚠️ Sahi format daalein validation fail hua!</div>
+        
+        <div class="fnode on" id="fn-url">
+          <label class="flabel">Website URL</label>
+          <input class="fi qi" type="url" id="in-url" value="https://ezqr.io" oninput="trackQuality(this.value)">
+          <div class="quality-wrapper">
+            <div class="q-bar-bg"><div class="q-bar-fill" id="q-fill"></div></div>
+            <div class="q-hint" id="q-hint">Too long — try shortener for crisp output</div>
+          </div>
+        </div>
+        <div class="fnode" id="fn-wifi">
+          <div class="frow">
+            <div><label class="flabel">SSID / Name</label><input class="fi qi" type="text" id="in-ssid" value="HomeWiFi"></div>
+            <div><label class="flabel">Password</label><input class="fi qi" type="text" id="in-pass" value="12345678"></div>
+          </div>
+        </div>
+        <div class="fnode" id="fn-vcard">
+          <div class="frow">
+            <div><label class="flabel">Full Name</label><input class="fi qi" type="text" id="in-vcn" value="Alex Mercer"></div>
+            <div><label class="flabel">Phone Number</label><input class="fi qi" type="tel" id="in-vcp" value="+919876543210"></div>
+          </div>
+        </div>
+        <div class="fnode" id="fn-whatsapp">
+          <label class="flabel">WhatsApp Number</label>
+          <input class="fi qi" type="tel" id="in-wa" value="919876543210" placeholder="e.g. 919876543210">
+        </div>
+        <div class="fnode" id="fn-pdf">
+          <label class="flabel">PDF Document Link</label>
+          <input class="fi qi" type="url" id="in-pdf" value="https://ezqr.io/doc.pdf">
+        </div>
+      </div>
+
+      <div class="shop-row">
+        <div class="shop-lbl-wrap">
+          <span class="shop-lbl">Label Text:</span>
+          <span class="shop-helper">Appears above your printable QR</span>
+        </div>
+        <input class="shop-fi" type="text" id="in-shop" value="MY SHOP" placeholder="Your Brand / Shop Name" maxlength="28">
+      </div>
+
+      <div class="dropdown-axis-grid">
+        <div class="dropdown-relative-wrapper">
+          <button class="acc-trigger" onclick="toggleDropdown('style')">
+            <span id="acc-lbl">Design: Zen Premium</span>
+            <svg class="acc-arr" id="acc-arr-style" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="acc-list" id="acc-list-style">
+            <div class="acc-item on" onclick="pickDesign('dots','extra-rounded','Zen Premium','standard',false,this)"><span>Zen Premium</span></div>
+            <div class="acc-item" onclick="pickDesign('classy-rounded','rounded','Fluid Wave','standard',false,this)"><span>Fluid Wave</span></div>
+            <div class="acc-item" onclick="pickDesign('dots','rounded','Dot Matrix','standard',false,this)"><span>Dot Matrix</span></div>
+            <div class="acc-item" onclick="pickDesign('rounded','rounded','Classy Rounded','standard',false,this)"><span>Classy Rounded</span></div>
+            <div class="acc-item" onclick="pickDesign('custom-text','extra-rounded','Custom Name QR','text',true,this)"><span>Custom Name QR</span><span class="badge-pro">PRO</span></div>
+            <div class="acc-item" onclick="pickDesign('custom-photo','extra-rounded','Custom Photo QR','photo',true,this)"><span>Custom Photo QR</span><span class="badge-pro">PRO</span></div>
+            <div class="acc-item" onclick="pickDesign('diamond','square','Diamond Grid','standard',true,this)"><span>Diamond Grid</span><span class="badge-pro">PRO</span></div>
+            <div class="acc-item" onclick="pickSquareDesign('square','square','Classic Square','standard',false,this)"><span>Classic Square</span></div>
+          </div>
+        </div>
+
+        <div class="dropdown-relative-wrapper">
+          <button class="acc-trigger" onclick="toggleDropdown('theme')">
+            <span id="theme-lbl">Theme: Basic Look</span>
+            <svg class="acc-arr" id="acc-arr-theme" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="acc-list" id="acc-list-theme">
+            <div class="acc-item on" onclick="pickGithubTheme('basic','Theme: Basic Look','#4338CA','#F0F4FF',this)"><span>Basic Clean Look</span></div>
+            <div class="acc-item" onclick="pickGithubTheme('liquid','Theme: Liquid Matrix','#7C3AED','#FAF5FF',this)"><span>Fluid Liquid Matrix</span><span class="badge-pro">PRO</span></div>
+            <div class="acc-item" onclick="pickGithubTheme('asymmetric','Theme: Asymmetric Eyes','#059669','#F0FFF8',this)"><span>Asymmetric Eyes</span><span class="badge-pro">PRO</span></div>
+            <div class="acc-item" onclick="pickGithubTheme('conical','Theme: Conical Glow','#EC4899','#FFF1F8',this)"><span>Conical Glow Mesh</span><span class="badge-pro">PRO</span></div>
+            <div class="acc-item" onclick="pickGithubTheme('truncated','Theme: Logo Clip','#06B6D4','#ECFEFF',this)"><span>Safe-Zone Truncated</span><span class="badge-pro">PRO</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="charFieldBlock">
+        <label class="flabel">Font Matrix Name String</label>
+        <input class="fi qi" type="text" id="in-matrix-str" value="EZ" maxlength="12" style="font-family:'Space Mono',monospace;">
+      </div>
+      <div id="photoFieldBlock">
+        <label class="flabel">Upload Background Image</label>
+        <div class="file-upload-wrapper">
+          <span class="upload-placeholder-txt" id="upload-lbl">Click to browse image</span>
+          <input type="file" id="in-photo-file" accept="image/*" onchange="handlePhotoUpload(this)">
+        </div>
+      </div>
+
+      <div class="color-row">
+        <span class="color-lbl">Theme Palettes:</span>
+        <div class="ccs">
+          <div class="cc on" style="background:#4338CA" data-c="#4338CA" data-bg="#F0F4FF" onclick="pickColor(this)"></div>
+          <div class="cc" style="background:#000000" data-c="#000000" data-bg="#ffffff" onclick="pickColor(this)"></div>
+          <div class="cc" style="background:#059669" data-c="#059669" data-bg="#F0FFF8" onclick="pickColor(this)"></div>
+          <div class="cc" style="background:#DC2626" data-c="#DC2626" data-bg="#FEF2F2" onclick="pickColor(this)"></div>
+          <div class="cc" style="background:linear-gradient(45deg,#4F46E5,#7C3AED,#EC4899)" data-multitoned="true" data-shades="#4F46E5,#7C3AED,#EC4899" data-bg="#FAF5FF" onclick="pickColor(this)"></div>
+          <div class="cc" style="background:linear-gradient(45deg,#06B6D4,#3B82F6,#A855F7)" data-multitoned="true" data-shades="#06B6D4,#3B82F6,#A855F7" data-bg="#ECFEFF" onclick="pickColor(this)"></div>
+        </div>
+      </div>
+
+      <div class="poster-section">
+        <div class="poster-card" id="poster-card">
+          <div class="lock-overlay" id="lock-overlay">
+            <div class="lock-title">Premium Style Locked</div>
+            <div class="lock-desc">✦ No Watermark on Poster<br>✦ High-Res Vector SVG<br>✦ Dynamic QR Target Updates</div>
+            <button class="lock-btn" onclick="triggerAuthMock()">Unlock via Google Account</button>
+          </div>
+          <div class="poster-top" id="poster-top">MY SHOP</div>
+          <div id="qr-out"></div>
+          <div class="poster-bot">ezqr.io</div>
+        </div>
+        <div class="dl-wrap">
+          <button class="dl-main" onclick="downloadPosterCanvas()">Download High-Res Poster PNG</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="premium-studio-suite">
+      <div class="suite-head">
+        <h2 class="suite-title">Business QR Profile Studio</h2>
+        <p class="suite-desc">Generate single dynamic interactive mini business profile routing templates frames.</p>
+      </div>
+      <div class="suite-grid">
+        <div class="suite-form">
+          <div class="pill-row">
+            <button class="pill-btn on" id="pl-pet" onclick="switchSuiteTemplate('Pet Shop', this)">🐾 Pet Shop</button>
+            <button class="pill-btn" id="pl-cafe" onclick="switchSuiteTemplate('Cafe', this)">☕ Cafe</button>
+            <button class="pill-btn" id="pl-rest" onclick="switchSuiteTemplate('Restaurant', this)">🍔 Restaurant</button>
+            <button class="pill-btn" id="pl-clin" onclick="switchSuiteTemplate('Clinic', this)">🏥 Clinic</button>
+            <button class="pill-btn" id="pl-saln" onclick="switchSuiteTemplate('Salon', this)">💇 Salon</button>
+          </div>
+          
+          <div><label class="flabel">Business Name</label><input class="fi" type="text" id="sb-name" value="Tommy Pet Store" oninput="syncSuitePreview()"></div>
+          <div><label class="flabel">Tagline / Description</label><input class="fi" type="text" id="sb-tag" value="Premium Care & Organic Nutrition" oninput="syncSuitePreview()"></div>
+          <div><label class="flabel">Call Phone Number</label><input class="fi" type="tel" id="sb-phone" value="+91 98765 43210" oninput="syncSuitePreview()"></div>
+          
+          <div class="action-buttons-row">
+            <button class="f-icon-btn" id="tgl-wa" onclick="toggleSmartIconButton('wa')"><span class="f-icon-span">💬</span>WhatsApp</button>
+            <button class="f-icon-btn" id="tgl-maps" onclick="toggleSmartIconButton('maps')"><span class="f-icon-span">📍</span>Maps</button>
+            <button class="f-icon-btn" id="tgl-review" onclick="toggleSmartIconButton('review')"><span class="f-icon-span">⭐</span>Review</button>
+            <button class="f-icon-btn" id="tgl-cat" onclick="toggleSmartIconButton('cat')"><span class="f-icon-span">📦</span>Catalog</button>
+          </div>
+
+          <div class="suite-input-node" id="node-wa">
+            <label class="flabel">WhatsApp Link Data</label><input class="fi" type="tel" id="sb-wa" value="+91 98765 43210" oninput="syncSuitePreview()">
+          </div>
+          <div class="suite-input-node" id="node-maps">
+            <label class="flabel">Google Maps Destination Coordinates</label><input class="fi" type="url" id="sb-maps" value="http://maps.google.com" oninput="syncSuitePreview()">
+          </div>
+          <div class="suite-input-node" id="node-review">
+            <label class="flabel">Google Review Link Page</label><input class="fi" type="url" id="sb-review" value="https://google.com" oninput="syncSuitePreview()">
+          </div>
+          <div class="suite-input-node" id="node-cat">
+            <label class="flabel" id="lbl-catalogue">Digital Catalogue URL</label><input class="fi" type="url" id="sb-catalogue" value="https://ezqr.io/catalog" oninput="syncSuitePreview()">
+          </div>
+        </div>
+        
+        <div class="preview-split">
+          <div class="viewport-switcher-tabs" id="vTabs">
+            <button class="v-tab-btn on" id="vt-mock" onclick="switchMobileViewport('mock')">📱 Mini Profile View</button>
+            <button class="v-tab-btn" id="vt-qr" onclick="switchMobileViewport('qr')">🔳 Scan QR Code</button>
+          </div>
+          
+          <div class="preview-dual-row">
+            <div>
+              <div class="mock-phone" id="m-viewport" style="border-color: #22C55E;">
+                <div class="mock-banner" id="mock-title">Tommy Pet Store</div>
+                <div class="mock-tagline" id="mock-tag">Premium Care & Organic Nutrition</div>
+                <div class="mock-btn-list">
+                  <div class="mock-btn" id="m-btn-call">📞 Call Business (<span id="mb-p">+91 98765</span>)</div>
+                  <div class="mock-btn" id="m-btn-wa">💬 Chat on WhatsApp</div>
+                  <div class="mock-btn" id="m-btn-maps">📍 Open GPS Directions</div>
+                  <div class="mock-btn" id="m-btn-cat" style="background:#1F1F35;">📦 Digital Inventory</div>
+                  <div class="mock-btn" id="m-btn-review" style="background:var(--p); color:#fff;">⭐ Google Review</div>
+                </div>
+              </div>
+              <div class="pro-upsell-trigger-bar" onclick="triggerAuthMock()">
+                <div class="upsell-title-row">✨ Unlock Pro Dynamic Skins</div>
+                <div class="upsell-desc-row">Modify button geometry styles, fonts, track conversions for ₹149/mo</div>
+              </div>
+            </div>
+            
+            <div class="suite-qr-wrap" id="m-qr-card">
+              <div id="suite-qr-out"></div>
+              <div class="suite-qr-caption">Profile Link</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="tools-section" id="directory">
+      <h2 class="dir-headline">Tools Catalog</h2>
+      <div class="search-filter-box">
+        <input type="text" id="dirSearch" class="search-fi" placeholder="Search across all 100+ tools..." oninput="filterToolsDirectory()">
+      </div>
+      <div class="cat-row" id="catTabsRow">
+        <button class="cat-btn active" onclick="switchCategory('Technical & Math', this)">Technical & Math</button>
+        <button class="cat-btn" onclick="switchCategory('Cyber Security & Privacy', this)">Cyber Security & Privacy</button>
+        <button class="cat-btn" onclick="switchCategory('Cultural & Festive', this)">Cultural & Festive</button>
+        <button class="cat-btn" onclick="switchCategory('Emotional & Safety', this)">Emotional & Safety</button>
+        <button class="cat-btn" onclick="switchCategory('B2B & Compliance', this)">B2B & Compliance</button>
+        <button class="cat-btn" onclick="switchCategory('India Regional & Civic', this)">India Regional & Civic</button>
+        <button class="cat-btn" onclick="switchCategory('Crypto & Payments', this)">Crypto & Payments</button>
+        <button class="cat-btn" onclick="switchCategory('Restaurant & Hospitality', this)">Restaurant & Hospitality</button>
+        <button class="cat-btn" onclick="switchCategory('Healthcare & Medical', this)">Healthcare & Safety</button>
+        <button class="cat-btn" onclick="switchCategory('Real Estate & Auto', this)">Real Estate & Auto</button>
+        <button class="cat-btn" onclick="switchCategory('Education & Events', this)">Education & Events</button>
+        <button class="cat-btn" onclick="switchCategory('Utilities & Daily Life', this)">Utilities & Daily Life</button>
+      </div>
+      <div class="tools-grid" id="directoryGrid"></div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div>© 2026 EzQR.io · Complete Privacy Safe Browsing Protocols Secured.</div>
+  <div class="foot-links">
+    <a href="/#privacy" onclick="handleInternalNav('/#privacy'); return false;">Privacy Policy</a> · 
+    <a href="/#terms" onclick="handleInternalNav('/#terms'); return false;">Terms of Service</a> · 
+    <a href="/#contact" onclick="handleInternalNav('/#contact'); return false;">Contact Us</a>
+  </div>
+</footer>
+
+<script>
+let curTool = 'url', curDots = 'dots', curCorner = 'extra-rounded', curColor = '#4338CA', isMultiToned = false, colorShadesArray = [], curBg = '#F0F4FF', masterQR = null, currentActiveStyleMode = 'standard', uploadedPhotoBase64 = null, isUserPremiumPro = false;
+let activeDirectoryCategory = "Technical & Math", currentGithubThemeMode = 'basic';
+let suiteQR = null; 
+
+let smartIconsState = { wa: true, maps: true, review: true, cat: true };
+
+/* 100% FIXED PRODUCTION DATASETS WITHOUT ANY LOOPS OR MODIFICATIONS RE-MAPPED TO EXACT CATEGORIES */
+const TOOLS_DATABASE = [
+  { name: "Mathematical Fibonacci Spiral", cat: "Technical & Math", path: "/how-to-create-mathematical-fibonacci-spiral-qr-code" },
+  { name: "Mandelbrot Fractal Matrix", cat: "Technical & Math", path: "/generate-mandelbrot-fractal-matrix-qr-code-free" },
+  { name: "Sierpinski Triangle", cat: "Technical & Math", path: "/custom-sierpinski-triangle-vector-qr-code-style" },
+  { name: "Circuit Board / PCB Trace", cat: "Technical & Math", path: "/circuit-board-pcb-trace-qr-code-for-engineers" },
+  { name: "Vinyl Record Circular", cat: "Technical & Math", path: "/vinyl-record-circular-qr-code-for-music-audio" },
+  { name: "Alphabet / Letter-Shaped (A-Z)", cat: "Technical & Math", path: "/alphabet-letter-shaped-qr-code-generator-online" },
+  { name: "Number / Jersey Custom (0-9)", cat: "Technical & Math", path: "/number-jersey-custom-qr-code-for-sports-merch" },
+  { name: "Waveform Audio-Visualizer", cat: "Technical & Math", path: "/waveform-audio-visualizer-qr-code-sound-tracks" },
+  { name: "Physics Formula Posters", cat: "Technical & Math", path: "/physics-formula-posters-qr-code-for-textbooks" },
+  { name: "Constants Reference Card", cat: "Technical & Math", path: "/scientific-constants-qr-code-reference-card-for-students" },
+  { name: "Molecule Structure 3D", cat: "Technical & Math", path: "/molecule-structure-3d-qr-code-for-chemistry-labs" },
+  { name: "Password", cat: "Cyber Security & Privacy", path: "/secure-password-qr-code-generator-local-storage" },
+  { name: "2FA Backup", cat: "Cyber Security & Privacy", path: "/2fa-authenticator-backup-qr-code-seed-strings" },
+  { name: "Encrypted Message", cat: "Cyber Security & Privacy", path: "/encrypted-message-qr-code-cipher-payload-decoder" },
+  { name: "Secure WiFi Share (Auto-Expiry)", cat: "Cyber Security & Privacy", path: "/secure-wifi-share-auto-expiry-network-access" },
+  { name: "Sakura Cherry Blossom", cat: "Cultural & Festive", path: "/sakura-cherry-blossom-qr-code-aesthetic-floral" },
+  { name: "Sumi-e Ink Brush", cat: "Cultural & Festive", path: "/sumi-e-ink-brush-stroke-qr-code-artistic-presets" },
+  { name: "Torii Gate Frame", cat: "Cultural & Festive", path: "/torii-gate-frame-qr-code-japanese-themed" },
+  { name: "K-Pop Fan Card Custom", cat: "Cultural & Festive", path: "/k-pop-fan-card-custom-qr-code-collectible" },
+  { name: "Arabic Calligraphy Stroke", cat: "Cultural & Festive", path: "/arabic-calligraphy-stroke-qr-code-design-islamic" },
+  { name: "Crescent Moon & Star Eye", cat: "Cultural & Festive", path: "/crescent-moon-star-eye-qr-code-holiday-graphics" },
+  { name: "Islamic Geometric Tile", cat: "Cultural & Festive", path: "/islamic-geometric-tile-qr-code-mosaic-patterns" },
+  { name: "Festival/Holiday Theme Packs", cat: "Cultural & Festive", path: "/festival-qr-code-holiday-theme-packs-free" },
+  { name: "Time Capsule Memory", cat: "Emotional & Safety", path: "/how-to-lock-time-capsule-memory-qr-code" },
+  { name: "Baby Birth Announcement", cat: "Emotional & Safety", path: "/baby-birth-announcement-qr-code-newborn-cards" },
+  { name: "Memorial / Gravestone", cat: "Emotional & Safety", path: "/memorial-gravestone-qr-code-digital-obituary" },
+  { name: "Pet ID Collar Tag", cat: "Emotional & Safety", path: "/pet-id-collar-tag-qr-code-lost-dog-locator" },
+  { name: "Medical ID / Allergy Badge", cat: "Emotional & Safety", path: "/medical-id-allergy-badge-qr-code-emergency-vital" },
+  { name: "Child Safety Wristband", cat: "Emotional & Safety", path: "/child-safety-wristband-qr-code-parents-contact" },
+  { name: "Medicine Dosage Alert", cat: "Emotional & Safety", path: "/medicine-dosage-alert-qr-code-medication-timer" },
+  { name: "InstantCard Contact Sharing", cat: "Emotional & Safety", path: "/instantcard-free-contact-sharing-qr-code" },
+  { name: "Brand DNA Auto-Match Engine", cat: "B2B & Compliance", path: "/brand-dna-auto-match-engine-qr-branding" },
+  { name: "Handmade Product Packaging", cat: "B2B & Compliance", path: "/handmade-product-packaging-qr-code-etsy-sellers" },
+  { name: "Airbnb Host Welcome Guide", cat: "B2B & Compliance", path: "/airbnb-host-welcome-guide-qr-code-vacation-rentals" },
+  { name: "Restaurant Allergen Chart", cat: "B2B & Compliance", path: "/restaurant-allergen-chart-qr-code-fssai" },
+  { name: "Product Authenticity Anti-Counterfeit", cat: "B2B & Compliance", path: "/product-authenticity-anti-counterfeit-qr-code-secure" },
+  { name: "Hotel Secure Room WiFi", cat: "B2B & Compliance", path: "/hotel-secure-room-wifi-qr-code-seamless-onboarding" },
+  { name: "Chemical Safety SDS Labels", cat: "B2B & Compliance", path: "/chemical-safety-sds-labels-qr-code-osha-compliance" },
+  { name: "UPI Styled Code", cat: "India Regional & Civic", path: "/free-upi-qr-code-styled-generator-with-amount" },
+  { name: "Aadhaar-Safe ID", cat: "India Regional & Civic", path: "/masked-aadhaar-safe-id-qr-code-offline-kyc" },
+  { name: "FSSAI Food Label", cat: "India Regional & Civic", path: "/fssai-food-label-qr-code-merchant-license" },
+  { name: "Street Address Maps", cat: "India Regional & Civic", path: "/street-address-maps-qr-code-home-delivery" },
+  { name: "Seed Authenticity Agriculture", cat: "India Regional & Civic", path: "/seed-authenticity-agriculture-qr-code-farmers" },
+  { name: "Matrimony Profile", cat: "India Regional & Civic", path: "/matrimony-profile-qr-code-biodata-sharing" },
+  { name: "Temple Donation", cat: "India Regional & Civic", path: "/temple-donation-qr-code-digital-hundi-payments" },
+  { name: "Periodic Table Elements Set", cat: "Education & Events", path: "/periodic-table-elements-set-qr-code-programmatic-pages" },
+  { name: "Historical Monument Walk", cat: "Education & Events", path: "/historical-monument-walk-qr-code-tourism-guide" },
+  { name: "Study Group Link Drops", cat: "Education & Events", path: "/study-group-link-drops-qr-code-for-whatsapp-discord" },
+  { name: "Solana (SOL) Address", cat: "Crypto & Payments", path: "/solana-sol-address-qr-code-crypto-transfers" },
+  { name: "USDT (Tether) Address", cat: "Crypto & Payments", path: "/usdt-tether-address-qr-code-stablecoin-wallets" },
+  { name: "Binance Coin (BNB)", cat: "Crypto & Payments", path: "/binance-coin-bnb-qr-code-bep20-wallets" },
+  { name: "Custom Crypto Wallet", cat: "Crypto & Payments", path: "/custom-crypto-wallet-qr-code-public-keys" },
+  { name: "PDF Menu", cat: "Restaurant & Hospitality", path: "/free-pdf-menu-qr-code-generator-for-restaurants" },
+  { name: "Digital Menu", cat: "Restaurant & Hospitality", path: "/digital-online-menu-qr-code-contactless-dining" },
+  { name: "Table Ordering Link", cat: "Restaurant & Hospitality", path: "/table-ordering-link-qr-code-self-checkout" },
+  { name: "Waiter Calling / Service", cat: "Restaurant & Hospitality", path: "/waiter-calling-service-qr-code-table-buttons" },
+  { name: "Hotel Room WiFi", cat: "Restaurant & Hospitality", path: "/room-wifi-qr-code-seamless-onboarding" },
+  { name: "Airbnb Welcome Guide", cat: "Restaurant & Hospitality", path: "/airbnb-guide-qr-code-vacation-rentals" },
+  { name: "Hotel Concierge Contact", cat: "Restaurant & Hospitality", path: "/hotel-concierge-contact-qr-code-guest-support" },
+  { name: "Food Delivery App", cat: "Restaurant & Hospitality", path: "/food-delivery-app-qr-code-zomato-swiggy" },
+  { name: "Medical ID / Emergency Info", cat: "Healthcare & Medical", path: "/medical-id-emergency-info-qr-code-first-responders" },
+  { name: "Pet Tag / Lost Pet", cat: "Healthcare & Medical", path: "/pet-tag-lost-pet-qr-code-smart-collars" },
+  { name: "Child Safety / Luggage Tag", cat: "Healthcare & Medical", path: "/child-safety-luggage-tag-qr-code-lost-transit" },
+  { name: "Blood Donor Contact", cat: "Healthcare & Medical", path: "/blood-donor-contact-qr-code-emergency-transfusion" },
+  { name: "Hospital Appointment Link", cat: "Healthcare & Medical", path: "/hospital-appointment-link-qr-code-doctor-slots" },
+  { name: "Pharmacy Prescription Upload", cat: "Healthcare & Medical", path: "/pharmacy-prescription-upload-qr-code-medical" },
+  { name: "Wheelchair / Disability", cat: "Healthcare & Medical", path: "/wheelchair-disability-access-qr-code-civic-rights" },
+  { name: "Dietary Restrictions / Allergy", cat: "Healthcare & Medical", path: "/dietary-restrictions-allergy-qr-code-health-alerts" },
+  { name: "COVID / Vax Certificate", cat: "Healthcare & Medical", path: "/covid-vax-certificate-qr-code-official-records" },
+  { name: "First Aid Instructions PDF", cat: "Healthcare & Medical", path: "/first-aid-instructions-pdf-qr-code-survival-manual" },
+  { name: "Virtual Property Tour (360°)", cat: "Real Estate & Auto", path: "/virtual-property-tour-360-qr-code-video" },
+  { name: "Real Estate Agent Contact", cat: "Real Estate & Auto", path: "/real-estate-agent-contact-qr-code-vcard" },
+  { name: "Property Brochure PDF", cat: "Real Estate & Auto", path: "/property-brochure-pdf-qr-code-digital-flyer" },
+  { name: "Open House Registration", cat: "Real Estate & Auto", path: "/open-house-registration-qr-code-visitor-sign-in" },
+  { name: "Rent Payment Portal", cat: "Real Estate & Auto", path: "/rent-payment-portal-qr-code-tenants" },
+  { name: "Car Dealership Test Drive", cat: "Real Estate & Auto", path: "/car-dealership-test-drive-qr-code-automotive" },
+  { name: "Vehicle Service Record", cat: "Real Estate & Auto", path: "/vehicle-service-record-qr-code-maintenance-logs" },
+  { name: "Emergency Roadside Assist", cat: "Real Estate & Auto", path: "/emergency-roadside-assist-qr-code-towing-sos" },
+  { name: "Used Car Listing Link", cat: "Real Estate & Auto", path: "/used-car-listing-link-qr-code-buyer-specs" },
+  { name: "Parking Spot Payment", cat: "Real Estate & Auto", path: "/parking-spot-payment-qr-code-instant-checkout" },
+  { name: "Student ID Verification", cat: "Education & Events", path: "/student-id-verification-qr-code-for-schools-colleges" },
+  { name: "Classroom Attendance Form", cat: "Education & Events", path: "/classroom-attendance-form-qr-code-for-teachers" },
+  { name: "Exam / Quiz Link", cat: "Education & Events", path: "/online-exam-quiz-link-qr-code-test-portals" },
+  { name: "Syllabus / Study Material PDF", cat: "Education & Events", path: "/syllabus-study-material-pdf-qr-code-course-notes" },
+  { name: "Event Ticket Registration", cat: "Education & Events", path: "/event-ticket-registration-qr-code-admissions" },
+  { name: "Wedding RSVP Form", cat: "Education & Events", path: "/wedding-rsvp-form-qr-code-digital-invites" },
+  { name: "Event Itinerary / Schedule", cat: "Education & Events", path: "/event-itinerary-schedule-qr-code-timelines" },
+  { name: "Charity / Donation Page", cat: "Education & Events", path: "/charity-donation-page-qr-code-fundraisers" },
+  { name: "Event Photo Gallery Link", cat: "Education & Events", path: "/event-photo-gallery-link-qr-code-images-share" },
+  { name: "Webinar Registration", cat: "Education & Events", path: "/webinar-registration-qr-code-zoom-access" },
+  { name: "Gym / Fitness App Check-in", cat: "Utilities & Daily Life", path: "/gym-fitness-app-check-in-qr-code-scanner" },
+  { name: "Secret Message / Love Note", cat: "Utilities & Daily Life", path: "/secret-message-love-note-qr-code-hidden-text" },
+  { name: "Smart Home Device Setup", cat: "Utilities & Daily Life", path: "/smart-home-device-setup-qr-code-configuration" },
+  { name: "Guest Network WiFi", cat: "Utilities & Daily Life", path: "/guest-network-wifi-qr-code-for-office-visitors" },
+  { name: "Recipe Link", cat: "Utilities & Daily Life", path: "/recipe-link-qr-code-cooking-instructions-packaging" },
+  { name: "Book Review / Goodreads", cat: "Utilities & Daily Life", path: "/book-review-goodreads-qr-code-author-promo" },
+  { name: "Music Band Album Launch", cat: "Utilities & Daily Life", path: "/music-band-album-launch-qr-code-streaming-links" },
+  { name: "Podcast Episode Link", cat: "Utilities & Daily Life", path: "/podcast-episode-link-qr-code-spotify-apple" },
+  { name: "Resume / CV Link", cat: "Utilities & Daily Life", path: "/resume-cv-link-qr-code-job-applications" },
+  { name: "Portfolio / GitHub / Behance", cat: "Utilities & Daily Life", path: "/portfolio-github-behance-qr-code-designers" }
+];
+
+function reportSystemError(msg) {
+  const node = document.getElementById('error-display-node');
+  if(!node) return;
+  node.textContent = "⚠️ " + msg;
+  node.style.display = "block";
+  setTimeout(() => { node.style.display = "none"; }, 5000);
+}
+
+function safeInputValidate(type, inputVal) {
+  if(!inputVal) return false; 
+  if(type === 'url' || type === 'pdf') {
+    return /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/i.test(inputVal);
+  }
+  if(type === 'tel' || type === 'wa') {
+    return /^\+?[0-9\s\-]{8,20}$/.test(inputVal.replace(/[\s\(\)\-]/g, ''));
+  }
+  return true;
+}
+
+function trackQuality(val) {
+  let len = val.length, fill = document.getElementById('q-fill'), hint = document.getElementById('q-hint');
+  if(!fill || !hint) return;
+  let pct = Math.min((len / 120) * 100, 100); fill.style.width = pct + "%";
+  if (len < 50) { fill.style.backgroundColor = "var(--gr)"; hint.style.display = "none"; }
+  else if (len < 90) { fill.style.backgroundColor = "var(--or)"; hint.style.display = "none"; }
+  else { fill.style.backgroundColor = "var(--re)"; hint.style.display = "block"; }
+}
+
+function buildData() {
+  const v = id => (document.getElementById(id)||{}).value?.trim() || '';
+  switch(curTool) {
+    case 'url': return v('in-url') || 'https://ezqr.io';
+    case 'wifi': return `WIFI:S:${v('in-ssid')};P:${v('in-pass')};;`;
+    case 'vcard': return `BEGIN:VCARD\nFN:${v('in-vcn')}\nTEL:${v('in-vcp')}\nEND:VCARD`;
+    case 'whatsapp': return `https://wa.me/${v('in-wa')}`;
+    case 'pdf': return v('in-pdf') || 'https://ezqr.io';
+    default: return 'https://ezqr.io';
+  }
+}
+
+function genQR() {
+  try {
+    if (masterQR && typeof masterQR.destroy === 'function') {
+      masterQR.destroy();
+    }
+    masterQR = null;
+
+    const data = buildData();
+    const el = document.getElementById('qr-out');
+    if (!el) return; el.innerHTML = '';
+
+    if (curTool === 'url') {
+      const urlRaw = (document.getElementById('in-url')||{}).value?.trim() || '';
+      if(!safeInputValidate('url', urlRaw)) { reportSystemError("Invalid Website Link format detected!"); }
+    } else if (curTool === 'whatsapp') {
+      const waRaw = (document.getElementById('in-wa')||{}).value?.trim() || '';
+      if(!safeInputValidate('wa', waRaw)) { reportSystemError("WhatsApp number should contain country digits!"); }
+    } else if (curTool === 'pdf') {
+      const pdfRaw = (document.getElementById('in-pdf')||{}).value?.trim() || '';
+      if(!safeInputValidate('url', pdfRaw)) { reportSystemError("Invalid PDF document web reference link!"); }
+    }
+
+    let paintOptions = isMultiToned ? {
+      type: 'gradient',
+      gradient: {
+        type: 'linear', rotation: 45,
+        colorStops: colorShadesArray.map((shade, i) => ({ offset: i / (colorShadesArray.length - 1), color: shade }))
+      }
+    } : { color: curColor };
+
+    let selectedDotType = (currentActiveStyleMode === 'text' || currentActiveStyleMode === 'photo') ? 'square' : curDots;
+    let computedCornerType = currentActiveStyleMode === 'text' ? 'square' : curCorner;
+
+    if(currentGithubThemeMode === 'liquid') {
+      selectedDotType = 'classy-rounded'; computedCornerType = 'extra-rounded';
+    } else if(currentGithubThemeMode === 'asymmetric') {
+      selectedDotType = 'dots'; computedCornerType = 'square';
+    }
+
+    let maskConfig = {};
+    if(currentActiveStyleMode === 'photo' && uploadedPhotoBase64) {
+      maskConfig = {
+        image: uploadedPhotoBase64,
+        imageOptions: { hideBackgroundDots: true, imageSize: 0.4, margin: 6 }
+      };
+    }
+
+    masterQR = new QRCodeStyling({
+      width: 160, height: 160, type: 'canvas', data,
+      dotsOptions: { type: selectedDotType, ...paintOptions },
+      cornersSquareOptions: { type: computedCornerType, ...paintOptions },
+      cornersDotOptions: { type: 'dot', ...paintOptions },
+      backgroundOptions: { color: curBg },
+      qrOptions: { errorCorrectionLevel: 'H' },
+      ...maskConfig
+    });
+    
+    masterQR.append(el);
+
+    if(currentActiveStyleMode === 'text') {
+      setTimeout(() => {
+        const canv = el.querySelector('canvas');
+        if(canv) {
+          const mctx = canv.getContext('2d');
+          const matrixStr = (document.getElementById('in-matrix-str').value || 'EZ').toUpperCase();
+          mctx.fillStyle = isMultiToned ? colorShadesArray[0] : curColor;
+          mctx.font = 'bold 16px "Space Mono", monospace';
+          mctx.textAlign = 'center'; mctx.textBaseline = 'middle';
+          mctx.fillText(matrixStr, 80, 80);
+        }
+      }, 80);
+    }
+
+    const userText = document.getElementById('in-shop').value || '';
+    document.getElementById('poster-card').style.background = curBg;
+    document.getElementById('poster-top').textContent = userText;
+    document.getElementById('poster-top').style.color = isMultiToned ? colorShadesArray[0] : curColor;
+
+  } catch (err) {
+    console.error("QR Execution Fault Tree:", err);
+    reportSystemError("Canvas layer failed to render. Please verify parameters.");
+  }
+}
+
+function switchTool(tool, btn) {
+  curTool = tool;
+  document.querySelectorAll('.tab-btn').forEach(t => t.classList.remove('on'));
+  if(btn) btn.classList.add('on');
+  document.querySelectorAll('.fnode').forEach(f => f.classList.remove('on'));
+  const fnNode = document.getElementById('fn-'+tool);
+  if(fnNode) fnNode.classList.add('on');
+  genQR();
+}
+
+function toggleDropdown(type) {
+  if (type === 'style') {
+    document.getElementById('acc-list-style').classList.toggle('open');
+    document.getElementById('acc-arr-style').classList.toggle('open');
+    document.getElementById('acc-list-theme').classList.remove('open');
+    document.getElementById('acc-arr-theme').classList.remove('open');
+  } else {
+    document.getElementById('acc-list-theme').classList.toggle('open');
+    document.getElementById('acc-arr-theme').classList.toggle('open');
+    document.getElementById('acc-list-style').classList.remove('open');
+    document.getElementById('acc-arr-style').classList.remove('open');
+  }
+}
+
+function pickDesign(dots, corner, label, styleMode, isPro, el) {
+  if (isPro && !isUserPremiumPro) {
+    document.getElementById('lock-overlay').style.display = 'flex';
+    document.getElementById('qr-out').style.filter = 'blur(6px)';
+    return;
+  }
+  curDots = dots; curCorner = corner; currentActiveStyleMode = styleMode;
+  document.getElementById('charFieldBlock').style.display = (styleMode === 'text') ? 'block' : 'none';
+  document.getElementById('photoFieldBlock').style.display = (styleMode === 'photo') ? 'block' : 'none';
+  
+  document.querySelectorAll('#acc-list-style .acc-item').forEach(i => i.classList.remove('on'));
+  el.classList.add('on'); document.getElementById('acc-lbl').textContent = "Design: " + label;
+  document.getElementById('acc-list-style').classList.remove('open');
+  document.getElementById('acc-arr-style').classList.remove('open');
+  genQR();
+}
+
+function pickSquareDesign(dots, corner, label, styleMode, isPro, el) {
+  curDots = dots; curCorner = corner; currentActiveStyleMode = styleMode;
+  document.querySelectorAll('#acc-list-style .acc-item').forEach(i => i.classList.remove('on'));
+  el.classList.add('on'); document.getElementById('acc-lbl').textContent = "Design: " + label;
+  document.getElementById('acc-list-style').classList.remove('open');
+  document.getElementById('acc-arr-style').classList.remove('open');
+  genQR();
+}
+
+function pickGithubTheme(themeId, label, primaryColor, backgroundTone, el) {
+  if (themeId !== 'basic' && !isUserPremiumPro) {
+    document.getElementById('lock-overlay').style.display = 'flex';
+    document.getElementById('qr-out').style.filter = 'blur(6px)';
+    return;
+  }
+  currentGithubThemeMode = themeId;
+  curColor = primaryColor; isMultiToned = false; curBg = backgroundTone;
+  document.querySelectorAll('#acc-list-theme .acc-item').forEach(i => i.classList.remove('on'));
+  el.classList.add('on'); document.getElementById('theme-lbl').textContent = label;
+  document.getElementById('acc-list-theme').classList.remove('open');
+  document.getElementById('acc-arr-theme').classList.remove('open');
+  genQR();
+}
+
+function handlePhotoUpload(input) {
+  if (input.files && input.files[0]) {
+    const reader = new FileReader();
+    reader.onload = e => { uploadedPhotoBase64 = e.target.result; document.getElementById('upload-lbl').textContent = "✓ Image Loaded"; genQR(); };
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+
+function pickColor(el) {
+  isMultiToned = !!el.dataset.multitoned;
+  if (isMultiToned) colorShadesArray = el.dataset.shades.split(',');
+  else curColor = el.dataset.c;
+  curBg = el.dataset.bg || '#ffffff';
+  document.querySelectorAll('.cc').forEach(c => c.classList.remove('on'));
+  el.classList.add('on'); genQR();
+}
+
+window.unlockProUI = function() {
+  isUserPremiumPro = true;
+  if(document.getElementById('lock-overlay')) document.getElementById('lock-overlay').style.display = 'none';
+  if(document.getElementById('qr-out')) document.getElementById('qr-out').style.filter = 'none';
+  if(typeof genQR === 'function') genQR();
+  if(typeof syncSuitePreview === 'function') syncSuitePreview();
+};
+
+function triggerAuthMock() {
+  if (window.triggerAuth) {
+    window.triggerAuth();
+  } else {
+    unlockProUI();
+  }
+}
+
+function renderSuiteQR() {
+  const out = document.getElementById('suite-qr-out'); if(!out) return;
+  out.innerHTML = '';
+  
+  let name = document.getElementById('sb-name').value || 'Store';
+  let phone = document.getElementById('sb-phone').value || '';
+  let payloadStr = `https://ezqr.io/profile?biz=${encodeURIComponent(name)}&tel=${encodeURIComponent(phone)}`;
+  
+  let dynamicSuiteColor = isUserPremiumPro ? curColor : '#0A0A12';
+  
+  suiteQR = new QRCodeStyling({
+    width: 110, height: 110, type: 'canvas', data: payloadStr,
+    dotsOptions: { type: 'classy-rounded', color: dynamicSuiteColor },
+    cornersSquareOptions: { type: 'extra-rounded', color: dynamicSuiteColor },
+    backgroundOptions: { color: '#ffffff' }
+  });
+  suiteQR.append(out);
+}
+
+function toggleSmartIconButton(type) {
+  smartIconsState[type] = !smartIconsState[type];
+  const tglBtn = document.getElementById(`tgl-${type}`);
+  const mockBtn = document.getElementById(`m-btn-${type}`);
+  const inputNode = document.getElementById(`node-${type}`);
+  
+  if (smartIconsState[type]) {
+    if(tglBtn) tglBtn.classList.remove('off');
+    if(mockBtn) mockBtn.style.display = 'block';
+    if(inputNode) inputNode.classList.remove('hidden');
+  } else {
+    if(tglBtn) tglBtn.classList.add('off');
+    if(mockBtn) mockBtn.style.display = 'none';
+    if(inputNode) inputNode.classList.add('hidden');
+  }
+}
+
+function switchMobileViewport(target) {
+  const mockEl = document.getElementById('m-viewport').parentElement;
+  const qrEl = document.getElementById('m-qr-card');
+  document.querySelectorAll('.v-tab-btn').forEach(b => b.classList.remove('on'));
+  
+  if (target === 'mock') {
+    document.getElementById('vt-mock').classList.add('on');
+    if(mockEl) mockEl.style.display = 'block';
+    if(qrEl) qrEl.style.setProperty('display', 'none', 'important');
+  } else {
+    document.getElementById('vt-qr').classList.add('on');
+    if(mockEl) mockEl.style.display = 'none';
+    if(qrEl) qrEl.style.setProperty('display', 'flex', 'important');
+  }
+}
+
+function switchSuiteTemplate(tmpl, btn) {
+  document.querySelectorAll('.pill-btn').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+  
+  let name = document.getElementById('sb-name'); let tag = document.getElementById('sb-tag');
+  let cat = document.getElementById('sb-catalogue'); let catLbl = document.getElementById('lbl-catalogue');
+  let view = document.getElementById('m-viewport');
+  
+  if (tmpl === 'Pet Shop') {
+    view.style.borderColor = "#22C55E"; catLbl.textContent = "Digital Catalogue URL";
+    name.value = "Tommy Pet Store"; tag.value = "Premium Care & Organic Nutrition";
+  } else if (tmpl === 'Cafe') {
+    view.style.borderColor = "#B45309"; catLbl.textContent = "Digital Menu Card URL";
+    name.value = "Beans & Brews Cafe"; tag.value = "Freshly Brewed Speciality Coffee";
+  } else if (tmpl === 'Restaurant') {
+    view.style.borderColor = "#DC2626"; catLbl.textContent = "Online Order Menu URL";
+    name.value = "The Spice Grill"; tag.value = "Authentic Fine Dine & Tandoor";
+  } else if (tmpl === 'Clinic') {
+    view.style.borderColor = "#06B6D4"; catLbl.textContent = "Appointment Booking URL";
+    name.value = "CareFirst Dental Clinic"; tag.value = "Advanced Oral Healthcare Specialists";
+  } else if (tmpl === 'Salon') {
+    view.style.borderColor = "#EC4899"; catLbl.textContent = "Rate Card & Portfolio URL";
+    name.value = "Vogue Luxury Salon"; tag.value = "Trendy Haircuts, Styling & Spa";
+  }
+  syncSuitePreview();
+}
+
+function syncSuitePreview() {
+  let name = document.getElementById('sb-name').value || 'Business Name';
+  let tag = document.getElementById('sb-tag').value || 'Business Tagline Line';
+  let phone = document.getElementById('sb-phone').value || '';
+  
+  document.getElementById('mock-title').textContent = name;
+  document.getElementById('mock-tag').textContent = tag;
+  document.getElementById('mb-p').textContent = phone;
+  renderSuiteQR();
+}
+
+function switchCategory(cat, btn) {
+  activeDirectoryCategory = cat;
+  document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  filterToolsDirectory();
+}
+
+function renderDirectoryCards(dataset) {
+  const grid = document.getElementById('directoryGrid');
+  let targetData = dataset.filter(t => t.cat === activeDirectoryCategory);
+  let htmlResult = '';
+  targetData.forEach(tool => { 
+    htmlResult += `<div class="t-card" onclick="handleCardNav('${tool.name}', '${tool.path}')"><div class="t-name">${tool.name}</div><div class="t-arr">→</div></div>`; 
+  });
+  grid.innerHTML = htmlResult;
+}
+
+function filterToolsDirectory() {
+  const query = document.getElementById('dirSearch').value.toLowerCase().trim();
+  const grid = document.getElementById('directoryGrid');
+  
+  let datasets = (query === '') ? TOOLS_DATABASE.filter(t => t.cat === activeDirectoryCategory) : TOOLS_DATABASE.filter(t => t.name.toLowerCase().includes(query) || t.cat.toLowerCase().includes(query));
+  
+  if(datasets.length === 0) {
+    grid.innerHTML = `<div style="font-size:11px; color:var(--mu); grid-column:span 2; padding:10px 0;">No matching tools found. Try general keywords like 'WiFi' or 'UPI'</div>`;
+    return;
+  }
+  let htmlResult = '';
+  datasets.forEach(tool => {
+    htmlResult += `<div class="t-card" onclick="handleCardNav('${tool.name}', '${tool.path}')"><div class="t-name">${tool.name}</div><div class="t-arr">→</div></div>`; 
+  });
+  grid.innerHTML = htmlResult;
+}
+
+function handleCardNav(name, path) {
+  window.location.href = '/tools' + path + '/';
+}
+
+function handleInternalNav(routePath, customTitle, customDesc) {
+  window.history.pushState({ path: routePath }, '', routePath);
+  if(customTitle) document.title = customTitle;
+  if(customDesc) {
+    const meta = document.querySelector('meta[name="description"]');
+    if(meta) meta.setAttribute('content', customDesc);
+  }
+}
+
+function downloadPosterCanvas() {
+  if (!masterQR) return;
+  
+  masterQR.getRawData('png').then((blob) => {
+    const blobUrl = URL.createObjectURL(blob);
+    const label = document.getElementById('in-shop').value || '';
+    
+    const img = new Image();
+    img.onload = function() {
+      const c = document.createElement('canvas'); c.width = 400; c.height = 520;
+      const ctx = c.getContext('2d');
+      ctx.fillStyle = curBg || '#ffffff'; ctx.fillRect(0,0,400,520);
+      ctx.fillStyle = isMultiToned ? colorShadesArray[0] : curColor;
+      ctx.font = '800 22px Syne, sans-serif'; ctx.textAlign = 'center'; ctx.fillText(label.toUpperCase(), 200, 50);
+      
+      ctx.drawImage(img, 100, 100, 200, 200);
+      
+      if(!isUserPremiumPro) {
+        ctx.fillStyle = "rgba(128,128,160,0.5)"; ctx.font = '600 11px sans-serif';
+        ctx.fillText('⚡ generated via ezqr.io', 200, 480);
+      }
+      
+      const a = document.createElement('a'); a.href = c.toDataURL('image/png'); a.download = 'ezqr-poster-highres.png'; a.click();
+      
+      let totalLocalAudits = parseInt(localStorage.getItem('ezqr_audit_counts') || '49284');
+      localStorage.setItem('ezqr_audit_counts', totalLocalAudits + 1);
+      document.getElementById('live-count-str').textContent = (totalLocalAudits + 1).toLocaleString() + " QR Generated Today";
+    };
+    img.src = blobUrl;
+  }).catch(err => {
+    reportSystemError("High-resolution generation timeline failed.");
+  });
+}
+
+document.addEventListener('input', e => {
+  if (e.target.classList.contains('qi') || e.target.id === 'in-shop' || e.target.id === 'in-matrix-str') {
+    if(e.target.id === 'in-shop') document.getElementById('poster-top').textContent = e.target.value;
+    genQR();
+  }
+});
+
+window.addEventListener('popstate', () => {
+  switchTool('url', document.getElementById('tb-url'));
+});
+
+window.addEventListener('load', () => { 
+  let seedAudit = localStorage.getItem('ezqr_audit_counts');
+  if(!seedAudit) { localStorage.setItem('ezqr_audit_counts', '49284'); }
+  document.getElementById('live-count-str').textContent = parseInt(localStorage.getItem('ezqr_audit_counts')).toLocaleString() + " QR Generated Today";
+  
+  genQR(); renderDirectoryCards(TOOLS_DATABASE); syncSuitePreview(); 
+});
+</script>
+<script type="module" src="/auth.js"></script>
+</body>
+</html>

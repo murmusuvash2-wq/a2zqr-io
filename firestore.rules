@@ -1,0 +1,55 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+    
+    function incoming() {
+      return request.resource.data;
+    }
+    
+    function existing() {
+      return resource.data;
+    }
+    
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function isValidUserStats(data) {
+      return data.keys().hasAll(['email', 'uid', 'isPro', 'planType', 'expiryDate', 'totalGenerated', 'createdAt', 'country', 'currency']) &&
+             data.keys().size() == 9 &&
+             data.email is string && data.email.size() <= 200 &&
+             data.uid is string && data.uid.size() <= 128 && data.uid == request.auth.uid &&
+             data.isPro is bool &&
+             data.planType is string && data.planType.size() <= 20 &&
+             data.expiryDate is string && data.expiryDate.size() <= 100 &&
+             data.totalGenerated is number &&
+             data.createdAt is string && data.createdAt.size() <= 100 &&
+             data.country is string && data.country.size() <= 10 &&
+             data.currency is string && data.currency.size() <= 10;
+    }
+
+    match /users/{userId} {
+      allow get: if isSignedIn() && isValidId(userId) && request.auth.uid == userId;
+      allow list: if false;
+      allow create: if isSignedIn() && isValidId(userId) && userId == request.auth.uid && isValidUserStats(incoming());
+      
+      allow update: if isSignedIn() && isValidId(userId) && request.auth.uid == userId && (
+        (incoming().diff(existing()).affectedKeys().hasOnly(['totalGenerated'])) ||
+        (incoming().diff(existing()).affectedKeys().hasOnly(['isPro', 'planType', 'expiryDate', 'country']))
+      ) && 
+      incoming().uid == existing().uid && 
+      incoming().email == existing().email && 
+      incoming().createdAt == existing().createdAt &&
+      incoming().currency == existing().currency;
+      
+      allow delete: if false;
+    }
+  }
+}

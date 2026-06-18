@@ -1,0 +1,25 @@
+{
+  "collections": {
+    "users": {
+      "uid": {
+        "email": "string",
+        "uid": "string",
+        "isPro": "boolean",
+        "planType": "string",
+        "expiryDate": "string",
+        "totalGenerated": "number",
+        "createdAt": "string",
+        "country": "string",
+        "currency": "string"
+      }
+    },
+    "scans": {
+      "scanId": {
+        "uid": "string",
+        "data": "string",
+        "timestamp": "string",
+        "toolSlug": "string"
+      }
+    }
+  }
+}

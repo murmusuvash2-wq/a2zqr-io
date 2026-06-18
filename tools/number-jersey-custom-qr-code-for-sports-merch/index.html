@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Free Number / Jersey Custom (0-9) QR Code | EzQR.io</title>
+<meta name="description" content="Create custom Number / Jersey Custom (0-9) QR code easily. No limits, free to use, and high quality forever.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
+
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:    #040408; --s1:    #0A0A12; --s2:    #12121E; --bd:    #1C1C2E;
+  --bd2:   #28283E; --p:     #0EA5E9; --pl:    #38BDF8; --tx:    #F2F2FF;
+  --mu:    #8080A0; --gr:    #10B981; --or:    #F59E0B; --re:    #EF4444;
+}
+body{
+  background:var(--bg); color:var(--tx); font-family:'Syne',sans-serif;
+  font-size:14px; padding:12px; overflow-x:hidden; -webkit-font-smoothing:antialiased;
+}
+.seo-crumbs{ font-size:11px; color:var(--mu); margin-bottom:12px; font-weight:600; display:flex; gap:6px; }
+.seo-crumbs a{ color:var(--pl); text-decoration:none; }
+.wrapper-box{ max-width:440px; margin:0 auto; display:flex; flex-direction:column; gap:16px; }
+.studio-box { background:var(--s1); border:1px solid var(--bd2); border-radius:16px; overflow:hidden; box-shadow:0 24px 50px rgba(0,0,0,0.6); }
+.app-head{ padding:16px 12px 4px; }
+.h1-seo-node{ font-size:20px; font-weight:800; letter-spacing:-0.5px; line-height:1.2; margin-bottom:4px; }
+.h1-seo-node span{ background:linear-gradient(135deg, var(--pl), #10B981); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+.badges-row{ display:flex; flex-wrap:wrap; gap:6px; margin:8px 0; }
+.badge-node{ font-size:9px; font-weight:700; color:var(--pl); background:var(--pt2); border:1px solid var(--bd2); padding:3px 8px; border-radius:4px; text-transform:uppercase; }
+.form-body { padding:12px; }
+.flabel { font-size:10px; font-weight:700; color:var(--mu); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:4px; display:block; }
+.fi { width:100%; background:var(--bg); border:1.5px solid var(--bd2); color:var(--tx); padding:10px 12px; border-radius:8px; font-size:13px; font-family:inherit; outline:none; margin-bottom:12px; transition:border-color 0.2s; }
+.fi:focus { border-color:var(--p); }
+.dropdown-axis-grid { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--bd); border-bottom: 1px solid var(--bd); background: var(--s2); }
+.acc-trigger { width: 100%; background: transparent; border: none; color: var(--tx); padding: 11px 12px; font-size: 11px; font-weight: 700; font-family: inherit; display: flex; align-items: center; justify-content: space-between; cursor: pointer; }
+.acc-trigger:first-child { border-right: 1px solid var(--bd); }
+.acc-arr { transition: transform .2s; margin-left: 4px; flex-shrink: 0; }
+.acc-arr.open { transform: rotate(180deg); }
+.dropdown-relative-wrapper { position: relative; width: 100%; }
+.acc-list { position: absolute; left: 0; right: 0; top: 100%; max-height: 0; overflow: hidden; transition: max-height .25s ease-out; background: var(--s1); z-index: 80; box-shadow: 0 12px 30px rgba(0,0,0,0.5); }
+.acc-list.open { max-height: 220px; overflow-y: auto; border-bottom: 1px solid var(--bd2); }
+.acc-item { display: flex; align-items: center; justify-content: space-between; padding: 10px 12px; font-size: 11px; font-weight: 600; color: var(--mu); cursor: pointer; border-bottom: 1px solid rgba(28,28,46,.4); }
+.acc-item.on { color: var(--pl); background: rgba(124,110,250,.05); }
+.poster-section { padding:16px 12px; border-top:1px solid var(--bd); background:var(--s2); display:flex; flex-direction:column; align-items:center; gap:12px; }
+.poster-card { position:relative; width:100%; max-width:220px; border-radius:12px; padding:14px 12px; display:flex; flex-direction:column; align-items:center; background:#F0F4FF; box-shadow:0 4px 12px rgba(0,0,0,0.25); }
+.poster-top { font-size:12px; font-weight:800; margin-bottom:8px; text-transform:uppercase; letter-spacing:0.5px; height:16px; width:100%; text-align:center; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+#qr-out { width:160px; height:160px; display:flex; align-items:center; justify-content:center; }
+#qr-out canvas { width:100% !important; height:auto !important; }
+.poster-bot { font-size:8px; font-weight:700; color:var(--p); text-transform:lowercase; margin-top:8px; letter-spacing:0.5px; }
+.dl-main { width:100%; padding:11px; background:linear-gradient(135deg, var(--p), #2DD4BF); color:#fff; border:none; border-radius:8px; font-size:12px; font-weight:700; cursor:pointer; font-family:inherit; }
+.lock-overlay { display:none; position:absolute; inset:0; background:rgba(10,10,18,0.92); backdrop-filter:blur(5px); border-radius:12px; flex-direction:column; align-items:center; justify-content:center; padding:12px; z-index:5; text-align:center;}
+.lock-title { font-size:12px; font-weight:800; color:#FFF; margin-bottom:4px; }
+.lock-desc { font-size:9px; color:var(--mu); margin-bottom:12px; line-height:1.3; font-weight:600; }
+.lock-btn { background:var(--p); border:none; color:#fff; padding:6px 12px; border-radius:6px; font-size:10px; font-weight:700; cursor:pointer; }
+.seo-info-section { background:var(--s1); border:1px solid var(--bd2); border-radius:16px; padding:32px 24px; display:flex; flex-direction:column; gap:36px; text-align:left; margin-top:32px; width:100%; box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
+.info-block { display: flex; flex-direction: column; gap: 8px; }
+.info-title{ font-size:18px; font-weight:800; color:var(--tx); letter-spacing:-0.5px; display:flex; align-items:center; gap:10px; border-bottom:1px solid var(--bd2); padding-bottom:12px; }
+.info-desc{ font-size:14px; color:var(--mu); line-height:1.7; }
+.specs-table{ width:100%; border-collapse:separate; border-spacing:0; margin-top:12px; border:1px solid var(--bd2); border-radius: 12px; overflow: hidden; }
+.specs-table td{ padding:16px; font-size:13px; border-bottom:1px solid var(--bd2); }
+.specs-table tr:last-child td { border-bottom:none; }
+.specs-table tr:nth-child(even) td { background-color: rgba(255,255,255,0.02); }
+.specs-table td:first-child{ color:var(--tx); font-weight:700; width:45%; border-right: 1px solid var(--bd2); }
+.specs-table td:last-child{ color:var(--mu); text-align:left;}
+.faq-wrap { display: flex; flex-direction: column; gap: 12px; margin-top:12px; }
+.faq-node{ background:rgba(255,255,255,0.02); border:1px solid var(--bd2); border-radius:12px; padding:20px; }
+.faq-q{ font-size:15px; font-weight:700; color:var(--tx); margin-bottom:10px; line-height:1.5;}
+.faq-a{ font-size:14px; color:var(--mu); line-height:1.7; }
+.related-pills{ display:flex; flex-wrap:wrap; gap:10px; margin-top:12px; }
+.pill-route{ font-size:13px; font-weight:600; color:var(--tx); background:transparent; border:1px solid var(--bd2); padding:8px 16px; border-radius:20px; text-decoration:none; transition:all 0.2s; }
+.pill-route:hover{ border-color:var(--p); color:var(--pl); }
+.shop-fi{ width:100%; background:var(--bg); border:1.5px solid var(--bd2); color:var(--tx); padding:9px 12px; border-radius:8px; font-size:12px; font-family:inherit; outline:none; font-weight:700; margin-bottom:12px; }
+.error-log-node { font-size:10px; font-weight:700; color:var(--re); margin-bottom:8px; display:none; }
+</style>
+</head>
+<body>
+
+<nav style="margin:-12px -12px 16px -12px; background:rgba(4,4,8,0.95); backdrop-filter:blur(10px); border-bottom:1px solid var(--bd); position:sticky; top:0; z-index:100;">
+  <div class="nav-in" style="max-width:440px; margin:0 auto; padding:12px 16px; display:flex; align-items:center; justify-content:space-between;">
+    <a href="/" class="logo" style="text-decoration:none; color:var(--tx); font-size:18px; font-weight:800; letter-spacing:-.3px;"><span>EzQR</span><em style="font-style:normal; background:linear-gradient(135deg, var(--pl), #2DD4BF); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">.io</em></a>
+    <div style="display:flex; align-items:center; gap:8px;">
+      <a href="/dashboard.html" style="background:transparent; color:#8080A0; border:none; padding:7px 8px; font-size:11px; font-weight:700; cursor:pointer; text-decoration:none;">Analytics</a>
+      <a href="/#directory" style="background:linear-gradient(135deg, var(--p), #2DD4BF); color:#fff; border:none; padding:7px 14px; border-radius:8px; font-size:11px; font-weight:700; cursor:pointer; text-decoration:none;">Catalog</a>
+    </div>
+  </div>
+</nav>
+
+<div class="wrapper-box">
+  <div class="seo-crumbs">
+    <a href="/">Home</a> <span>&gt;</span> <a href="/#directory">Catalog</a> <span>&gt;</span> <span>Number / Jersey Custom (0-9)</span>
+  </div>
+
+  <div class="studio-box" style="margin-top:4px;">
+    <div class="app-head" style="padding-top:20px;">
+      <h1 class="h1-seo-node"><span>Number / Jersey Custom (0-9) QR Code</span></h1>
+      <p style="font-size:12px; color:var(--mu); font-weight:500; line-height:1.45; margin-top:6px; margin-bottom:8px;">Create custom Number / Jersey Custom (0-9) QR code easily. No limits, free to use, and high quality forever.</p>
+      <div class="badges-row"><span class="badge-node">⚡ Fast Render</span><span class="badge-node">🛡️ Privacy Secure</span><span class="badge-node">🎯 No Limits</span></div>
+    </div>
+
+    <div class="form-body">
+      <div class="error-log-node" id="error-display-node">⚠️ Validation Schema Error Detected!</div>
+      <div id="dynamic-fields-target"><div><label class="flabel">Target Destination URL / Link</label><input class="fi qi" type="url" id="target-url" placeholder="https://example.com/your-link" data-guard="url"></div></div>
+      
+      <label class="flabel">Branded Label Text</label>
+      <input class="shop-fi" type="text" id="in-shop" value="MY BRAND" placeholder="Label Text above QR" maxlength="28">
+    </div>
+
+    <div class="dropdown-axis-grid">
+      <div class="dropdown-relative-wrapper">
+        <button class="acc-trigger" onclick="toggleDropdown('style')">
+          <span id="acc-lbl">Design: Zen Premium</span>
+          <svg class="acc-arr" id="acc-arr-style" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="acc-list" id="acc-list-style">
+          <div class="acc-item on" onclick="pickDesign('dots','extra-rounded','Zen Premium','standard',false,this)"><span>Zen Premium</span></div>
+          <div class="acc-item" onclick="pickDesign('classy-rounded','rounded','Fluid Wave','standard',false,this)"><span>Fluid Wave</span></div>
+          <div class="acc-item" onclick="pickDesign('dots','rounded','Dot Matrix','standard',false,this)"><span>Dot Matrix</span></div>
+          <div class="acc-item" onclick="pickDesign('rounded','rounded','Classy Rounded','standard',false,this)"><span>Classy Rounded</span></div>
+          <div class="acc-item" style="opacity:0.5;"><span>Custom Photo QR (PRO)</span></div>
+          <div class="acc-item" style="opacity:0.5;"><span>Diamond Grid (PRO)</span></div>
+        </div>
+      </div>
+      <div class="dropdown-relative-wrapper">
+        <button class="acc-trigger" onclick="toggleDropdown('theme')">
+          <span id="theme-lbl">Theme: Basic Look</span>
+          <svg class="acc-arr" id="acc-arr-theme" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="acc-list" id="acc-list-theme">
+          <div class="acc-item on" onclick="pickTheme('#4338CA','#F0F4FF','Theme: Basic Look',this)"><span>Basic Clean Look</span></div>
+          <div class="acc-item" style="opacity:0.5;"><span>Fluid Liquid (PRO)</span></div>
+          <div class="acc-item" style="opacity:0.5;"><span>Asymmetric Eyes (PRO)</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="poster-section">
+      <div class="poster-card" id="poster-card">
+        <div class="lock-overlay" id="lock-overlay">
+          <div class="lock-title">Premium Access Portal</div>
+          <button class="lock-btn" onclick="unlockProPlanSync()">Activate Universal Pass</button>
+        </div>
+        <div class="poster-top" id="poster-top">MY BRAND</div>
+        <div id="qr-out"></div>
+        <div class="poster-bot">ezqr.io</div>
+      </div>
+      <button class="dl-main" onclick="downloadPosterCanvas()">Download High-Res Poster PNG</button>
+    </div>
+  </div>
+
+  <div class="seo-info-section">
+    <div>
+      <div class="info-title">📋 Step-by-Step Instructions Manual</div>
+      <div class="info-desc" style="margin-top:4px;">1. <strong>Enter Details:</strong> Fill out the required information in the form above.<br>2. <strong>Style It:</strong> Select the design pattern and theme that suits your brand.<br>3. <strong>Download:</strong> See the preview update instantly and click download to get your QR code.</div>
+    </div>
+    <div>
+      <div class="info-title">⚙️ Core Matrix Engine Protocols</div>
+      <div class="info-desc" style="margin-top:4px;">Our system works entirely in your browser window. No personal data or form inputs are ever sent to our servers. This ensures your information is fully private and secure at all times.</div>
+    </div>
+    <div>
+      <div class="info-title">📊 Technical Specifications Table</div>
+      <table class="specs-table"><tr><td>Output Formats</td><td>PNG Image</td></tr><tr><td>Data Safety</td><td>Locally Generated, Zero Server Storage</td></tr><tr><td>Usage Cost</td><td>100% Free</td></tr></table>
+    </div>
+    <div>
+      <div class="info-title">❓ Frequently Asked Questions (Q&A)</div>
+      <div class="faq-wrap"><div class="faq-node"><div class="faq-q">Q: Will my generated Number / Jersey Custom (0-9) ever expire?</div><div class="faq-a">A: No, all static QR codes created with EzQR are permanent. The data is hard-coded into the pattern itself, so it never expires.</div></div><div class="faq-node"><div class="faq-q">Q: Is it really free? Are there scan limits?</div><div class="faq-a">A: Yes, it is 100% free with absolutely no scan limits or caps.</div></div><div class="faq-node"><div class="faq-q">Q: Is my data kept private?</div><div class="faq-a">A: Absolutely. Everything is processed on your local device.</div></div></div>
+    </div>
+    <div>
+      <div class="info-title">🔗 Smart Contextual Cross-Linking</div>
+      <div class="related-pills"><a class="pill-route" href="/tools/wifi-network-access-qr/">WiFi Network</a><a class="pill-route" href="/tools/digital-vcard-qr/">Digital vCard</a></div>
+    </div>
+  </div>
+
+  <footer style="text-align:center; padding-top:20px; font-size:11px; color:var(--mu); border-top:1px solid var(--bd); margin-top:16px;">
+    <div>© 2026 EzQR.io · Privacy Secure Utility.</div>
+    <div style="display:flex; justify-content:center; gap:12px; margin-top:8px;">
+      <a href="/" style="color:var(--mu); text-decoration:none;">Home</a>
+      <a href="/#directory" style="color:var(--mu); text-decoration:none;">Catalog</a>
+    </div>
+  </footer>
+</div>
+
+<script>
+let curColor = '#4338CA', curBg = '#F0F4FF', curDots = 'dots', curCorner = 'extra-rounded', masterQR = null, isUserPremiumPro = false;
+
+function reportError(msg) {
+  const node = document.getElementById('error-display-node');
+  if(!node) return; node.textContent = "⚠️ " + msg; node.style.display = "block";
+  setTimeout(() => { node.style.display = "none"; }, 4000);
+}
+
+function toggleDropdown(type) {
+  document.getElementById('acc-list-'+type).classList.toggle('open');
+}
+
+function pickDesign(dots, corner, label, mode, isPro, el) {
+  curDots = dots; curCorner = corner;
+  document.querySelectorAll('#acc-list-style .acc-item').forEach(i => i.classList.remove('on'));
+  el.classList.add('on'); document.getElementById('acc-lbl').textContent = "Design: " + label;
+  document.getElementById('acc-list-style').classList.remove('open');
+  genQR();
+}
+
+function pickTheme(color, bg, label, el) {
+  curColor = color; curBg = bg;
+  document.querySelectorAll('#acc-list-theme .acc-item').forEach(i => i.classList.remove('on'));
+  el.classList.add('on'); document.getElementById('theme-lbl').textContent = label;
+  document.getElementById('acc-list-theme').classList.remove('open');
+  genQR();
+}
+
+function buildPayloadData() {
+  const inputs = Array.from(document.querySelectorAll('.qi'));
+  if (inputs.length === 0) return 'https://ezqr.io';
+  
+  let guard = inputs[0].dataset.guard;
+
+  if (guard === 'wifi') {
+    let ssid = document.getElementById('in-wifi-ssid')?.value || '';
+    let pass = document.getElementById('in-wifi-pass')?.value || '';
+    return `WIFI:T:WPA;S:${ssid};P:${pass};;`;
+  }
+  
+  if (guard === 'upi') {
+    let vpa = document.getElementById('in-upi-vpa')?.value || '';
+    let name = document.getElementById('in-upi-name')?.value || 'Merchant';
+    let amt = document.getElementById('in-upi-amt')?.value || '';
+    vpa = vpa.trim().toUpperCase().replace(/\s/g, '');
+    return `upi://pay?pa=${vpa}&pn=${encodeURIComponent(name)}&am=${amt}&cu=INR`;
+  }
+
+  if (guard === 'crypto') {
+    let addr = document.getElementById('in-crypto-addr')?.value || '';
+    let amt = document.getElementById('in-crypto-amt')?.value || '';
+    return `${addr}${amt ? '?amount='+amt : ''}`;
+  }
+
+  if (guard === 'map') {
+    let lat = document.getElementById('in-map-lat')?.value || '';
+    let lng = document.getElementById('in-map-lng')?.value || '';
+    if (lng) return `geo:${lat},${lng}`;
+    return `geo:0,0?q=${encodeURIComponent(lat)}`; 
+  }
+
+  if (guard === 'contact') {
+    let name = document.getElementById('in-contact-name')?.value || '';
+    let phone = document.getElementById('in-contact-phone')?.value || '';
+    let email = document.getElementById('in-contact-email')?.value || '';
+    return `BEGIN:VCARD\nVERSION:3.0\nN:${name}\nTEL:${phone}\nEMAIL:${email}\nEND:VCARD`;
+  }
+
+  if (guard === 'msg') {
+    let phone = document.getElementById('in-msg-phone')?.value || '';
+    let txt = document.getElementById('in-msg-text')?.value || '';
+    if (document.querySelector('h1')?.textContent.toLowerCase().includes('whatsapp')) {
+      phone = phone.replace(/[^0-9]/g, '');
+      return `https://wa.me/${phone}?text=${encodeURIComponent(txt)}`;
+    }
+    return `SMSTO:${phone}:${txt}`;
+  }
+
+  if (guard === 'text' || guard === 'url') {
+    return inputs[0].value.trim() || 'https://ezqr.io';
+  }
+
+  return inputs.map(i => i.value.trim()).join(' | ') || 'https://ezqr.io';
+}
+
+function genQR() {
+  const target = document.getElementById('qr-out'); if(!target) return; target.innerHTML = '';
+  const data = buildPayloadData();
+  
+  masterQR = new QRCodeStyling({
+    width: 160, height: 160, type: 'canvas', data: data,
+    dotsOptions: { type: curDots, color: curColor },
+    cornersSquareOptions: { type: curCorner, color: curColor },
+    backgroundOptions: { color: curBg },
+    qrOptions: { errorCorrectionLevel: 'H' }
+  });
+  masterQR.append(target);
+  
+  document.getElementById('poster-card').style.background = curBg;
+  document.getElementById('poster-top').style.color = curColor;
+}
+
+window.unlockProUI = function() {
+  isUserPremiumPro = true;
+  if(document.getElementById('lock-overlay')) document.getElementById('lock-overlay').style.display = 'none';
+  if(typeof genQR === 'function') genQR();
+};
+
+function unlockProPlanSync() {
+  if (window.triggerAuth) {
+    window.triggerAuth();
+  } else {
+    localStorage.setItem('isUserPremiumPro', 'true');
+    location.reload();
+  }
+}
+
+function downloadPosterCanvas() {
+  if(!masterQR) return;
+  masterQR.getRawData('png').then(blob => {
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+    a.download = 'ezqr-programmatic-highres.png'; a.click();
+  });
+}
+
+let renderTimer;
+document.addEventListener('input', e => {
+  if(e.target.classList.contains('qi')) {
+    clearTimeout(renderTimer);
+    renderTimer = setTimeout(genQR, 400);
+  }
+  if(e.target.id === 'in-shop') {
+    document.getElementById('poster-top').textContent = e.target.value.toUpperCase();
+  }
+});
+
+window.addEventListener('load', () => {
+  if(localStorage.getItem('isUserPremiumPro') === 'true') {
+    isUserPremiumPro = true; document.getElementById('lock-overlay').style.display = 'none';
+  }
+  genQR();
+});
+</script>
+
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://ezqr.io"},{"@type":"ListItem","position":2,"name":"Tools","item":"https://ezqr.io/#directory"},{"@type":"ListItem","position":3,"name":"Number / Jersey Custom (0-9)"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Will my generated Number / Jersey Custom (0-9) ever expire?","acceptedAnswer":{"@type":"Answer","text":"No, all static QR codes created with EzQR are permanent. The data is hard-coded into the pattern itself, so it never expires."}},{"@type":"Question","name":"Is it really free? Are there scan limits?","acceptedAnswer":{"@type":"Answer","text":"Yes, it is 100% free with absolutely no scan limits or caps."}},{"@type":"Question","name":"Is my data kept private?","acceptedAnswer":{"@type":"Answer","text":"Absolutely. Everything is processed on your local device."}}]}]}</script>
+<script type="module" src="/auth.js"></script>
+</body>
+</html>
