@@ -1,45 +1,117 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
-import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+import { 
+  getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged,
+  createUserWithEmailAndPassword, signInWithEmailAndPassword,
+  RecaptchaVerifier, signInWithPhoneNumber
+} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+import firebaseConfigFallback from "./firebase-applet-config.json";
 
-// Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-  appId: import.meta.env.VITE_FIREBASE_APP_ID,
-  measurementId: "G-Q44LHQHT7X"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || firebaseConfigFallback.apiKey,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || firebaseConfigFallback.authDomain,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || firebaseConfigFallback.projectId,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || firebaseConfigFallback.storageBucket,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || firebaseConfigFallback.messagingSenderId,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID || firebaseConfigFallback.appId,
+  measurementId: firebaseConfigFallback.measurementId || "G-Q44LHQHT7X"
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
 const auth = getAuth(app);
-const provider = new GoogleAuthProvider();
+const googleProvider = new GoogleAuthProvider();
 
-window.triggerAuth = async () => {
+function showError(msg) {
+  const el = document.getElementById('auth-error-msg');
+  if(el) el.textContent = msg;
+}
+
+window.triggerGoogleAuth = async () => {
   try {
-    const result = await signInWithPopup(auth, provider);
-    if(result.user) {
-      localStorage.setItem('isUserPremiumPro', 'true');
-      if (typeof window.unlockProUI === 'function') {
-        window.unlockProUI();
-      }
-    }
+    const result = await signInWithPopup(auth, googleProvider);
+    if(result.user) transitionToPayment();
   } catch(err) {
     console.error(err);
-    alert("Login failed. Please try again.");
+    showError("Google login failed.");
   }
 };
 
-onAuthStateChanged(auth, user => {
-  if (user) {
-    localStorage.setItem('isUserPremiumPro', 'true');
-    if (typeof window.unlockProUI === 'function') {
-      window.unlockProUI();
+window.triggerEmailAuth = async () => {
+  const email = document.getElementById('auth-email').value.trim();
+  const pass = document.getElementById('auth-password').value;
+  if (!email || !pass) return showError("Please enter email and password.");
+  
+  try {
+    try {
+      await signInWithEmailAndPassword(auth, email, pass);
+      transitionToPayment();
+    } catch(err) {
+      if (err.code === 'auth/invalid-credential' || err.code === 'auth/user-not-found' || err.code === 'auth/wrong-password') {
+        try {
+           await createUserWithEmailAndPassword(auth, email, pass);
+           transitionToPayment();
+        } catch(creationErr) {
+           if(creationErr.code === 'auth/email-already-in-use') {
+             showError("Incorrect password for this email.");
+           } else {
+             showError(creationErr.message);
+           }
+        }
+      } else {
+        showError(err.message);
+      }
     }
+  } catch(err) {
+    showError(err.message);
+  }
+}
+
+window.triggerSendOTP = async () => {
+  const phone = document.getElementById('auth-phone').value.trim();
+  if(!phone) return showError("Enter a valid phone number.");
+  
+  try {
+    if(!window.recaptchaVerifier) {
+      window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
+        'size': 'normal',
+        'callback': (response) => {}
+      });
+    }
+    
+    const confirmationResult = await signInWithPhoneNumber(auth, phone, window.recaptchaVerifier);
+    window.confirmationResult = confirmationResult;
+    
+    document.getElementById('view-otp').style.display = 'block';
+    document.getElementById('btn-send-otp').style.display = 'none';
+    showError("");
+  } catch(err) {
+    showError("Failed to send OTP: " + err.message);
+  }
+}
+
+window.triggerVerifyOTP = async () => {
+  const code = document.getElementById('auth-otp').value.trim();
+  if(!code) return showError("Enter OTP.");
+  if(!window.confirmationResult) return showError("Please request OTP first.");
+  
+  try {
+    await window.confirmationResult.confirm(code);
+    transitionToPayment();
+  } catch(err) {
+    showError("Invalid OTP. Try again.");
+  }
+}
+
+function transitionToPayment() {
+  if (typeof window.closeAuthModal === 'function') window.closeAuthModal();
+  const paymentModal = document.getElementById('payment-modal');
+  if(paymentModal) paymentModal.style.display = 'flex';
+}
+
+onAuthStateChanged(auth, user => {
+  window.firebaseUserLoggedIn = !!user;
+  if(user) {
+    const isPremium = localStorage.getItem('isUserPremiumPro') === 'true';
+    if(isPremium && typeof window.unlockProUI === 'function') window.unlockProUI();
   } else {
     localStorage.setItem('isUserPremiumPro', 'false');
     window.isUserPremiumPro = false;

@@ -12,18 +12,18 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:    #040408;
-  --s1:    #0A0A12;
-  --s2:    #12121E;
-  --bd:    #1C1C2E;
-  --bd2:   #28283E;
+  --bg:    #F8FAFC;
+  --s1:    #FFFFFF;
+  --s2:    #F1F5F9;
+  --bd:    #E2E8F0;
+  --bd2:   #CBD5E1;
   --p:     #0EA5E9;
-  --pl:    #38BDF8;
-  --pd:    #0284C7;
-  --pt:    rgba(14,165,233,.1);
-  --pt2:   rgba(14,165,233,.05);
-  --tx:    #F2F2FF;
-  --mu:    #8080A0;
+  --pl:    #0284C7;
+  --pd:    #0369A1;
+  --pt:    rgba(14,165,233,.15);
+  --pt2:   rgba(14,165,233,.08);
+  --tx:    #0F172A;
+  --mu:    #64748B;
   --gr:    #10B981;
   --or:    #F59E0B;
   --re:    #EF4444;
@@ -40,7 +40,7 @@ body{
 
 nav{
   position:sticky;top:0;z-index:100;
-  background:rgba(4,4,8,.92);backdrop-filter:blur(20px);
+  background:rgba(255,255,255,.92);backdrop-filter:blur(20px);
   border-bottom:1px solid var(--bd); width: 100%;
 }
 .nav-in{
@@ -51,7 +51,7 @@ nav{
   text-decoration:none;color:var(--tx);
   font-size:18px;font-weight:800;letter-spacing:-.3px;
 }
-.logo span { color: #F2F2FF; }
+.logo span { color: var(--tx); }
 .logo em{font-style:normal; background: linear-gradient(135deg, var(--pl), #2DD4BF); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
 .nav-cta {
@@ -101,7 +101,7 @@ nav{
 .studio-box {
   width: 100%; max-width: 440px; background: var(--s1); 
   border: 1px solid var(--bd2); border-radius: 16px; overflow: hidden;
-  box-shadow: 0 24px 60px rgba(0,0,0,0.65);
+  box-shadow: 0 24px 60px rgba(0,0,0,0.05);
   text-align: left; margin: 10px auto 0;
 }
 
@@ -149,7 +149,7 @@ nav{
 .acc-arr.open { transform: rotate(180deg); }
 
 .dropdown-relative-wrapper { position: relative; width: 100%; }
-.acc-list { position: absolute; left: 0; right: 0; top: 100%; max-height: 0; overflow: hidden; transition: max-height .25s ease-out; background: var(--s1); z-index: 80; box-shadow: 0 12px 30px rgba(0,0,0,0.5); }
+.acc-list { position: absolute; left: 0; right: 0; top: 100%; max-height: 0; overflow: hidden; transition: max-height .25s ease-out; background: var(--s1); z-index: 80; box-shadow: 0 12px 30px rgba(0,0,0,0.08); }
 .acc-list.open { max-height: 220px; overflow-y: auto; border-bottom: 1px solid var(--bd2); }
 .acc-item { display: flex; align-items: center; justify-content: space-between; padding: 10px 12px; font-size: 11px; font-weight: 600; color: var(--mu); cursor: pointer; border-bottom: 1px solid rgba(28,28,46,.4); }
 .acc-item.on { color: var(--pl); background: var(--pt2); }
@@ -165,17 +165,17 @@ nav{
 .ccs { display: flex; gap: 8px; overflow-x: auto; width: 100%; padding-bottom: 4px; scrollbar-width: none; }
 .ccs::-webkit-scrollbar { display: none; }
 .cc { width: 24px; height: 24px; border-radius: 50%; cursor: pointer; border: 2px solid var(--bd2); flex-shrink: 0; }
-.cc.on { border-color: #fff; transform: scale(1.05); }
+.cc.on { border-color: var(--tx); transform: scale(1.05); }
 
 .poster-section { padding: 16px 12px; border-top: 1px solid var(--bd); background: var(--s2); display: flex; flex-direction: column; align-items: center; gap: 12px; width: 100%; }
-.poster-card { position: relative; width: 100%; max-width: 220px; border-radius: 12px; padding: 14px 12px; display: flex; flex-direction: column; align-items: center; text-align: center; background: #F0F4FF; min-height: 245px; box-shadow: 0 4px 12px rgba(0,0,0,0.25); }
+.poster-card { position: relative; width: 100%; max-width: 220px; border-radius: 12px; padding: 14px 12px; display: flex; flex-direction: column; align-items: center; text-align: center; background: #F0F4FF; min-height: 245px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
 .poster-top { font-size: 13px; font-weight: 800; margin-bottom: 8px; width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; height: 18px; line-height: 18px; text-transform: uppercase; letter-spacing: 0.5px; }
 #qr-out { width: 160px; height: 160px; display: flex; align-items: center; justify-content: center; }
 #qr-out canvas { width: 100% !important; height: auto !important; max-width: 160px; }
 .poster-bot { font-size: 8px; font-weight: 700; color: var(--p); text-transform: lowercase; margin-top: 8px; letter-spacing: 0.5px; }
 
-.lock-overlay { display: none; position: absolute; inset: 0; background: rgba(10,10,18,0.92); backdrop-filter: blur(5px); border-radius: 12px; flex-direction: column; align-items: center; justify-content: center; padding: 12px; z-index: 5; }
-.lock-title { font-size: 12px; font-weight: 800; color: #FFF; margin-bottom: 4px; }
+.lock-overlay { display: none; position: absolute; inset: 0; background: rgba(255,255,255,0.92); backdrop-filter: blur(5px); border-radius: 12px; flex-direction: column; align-items: center; justify-content: center; padding: 12px; z-index: 5; }
+.lock-title { font-size: 12px; font-weight: 800; color: var(--tx); margin-bottom: 4px; }
 .lock-desc { font-size: 9px; color: var(--mu); margin-bottom: 12px; line-height: 1.3; font-weight: 600; }
 .lock-btn { background: var(--p); border: none; color: #fff; padding: 6px 12px; border-radius: 6px; font-size: 10px; font-weight: 700; cursor: pointer; }
 
@@ -187,7 +187,7 @@ nav{
   background: var(--s1); border: 1px solid var(--bd2); border-radius: 16px;
 }
 .suite-head { margin-bottom: 14px; text-align: left; }
-.suite-title { font-size: 16px; font-weight: 800; color: #fff; }
+.suite-title { font-size: 16px; font-weight: 800; color: var(--tx); }
 .suite-desc { font-size: 11px; color: var(--mu); }
 .suite-grid { display: flex; flex-direction: column; gap: 14px; }
 .suite-form { display: flex; flex-direction: column; gap: 6px; }
@@ -221,7 +221,7 @@ nav{
 .upsell-title-row { font-size: 11px; font-weight: 800; color: var(--or); text-transform: uppercase; letter-spacing: 0.5px; }
 .upsell-desc-row { font-size: 9px; color: var(--mu); font-weight: 600; margin-top: 2px; }
 
-.suite-qr-wrap { display: flex; flex-direction: column; align-items: center; justify-content: center; background: #FFF; border-radius: 12px; padding: 10px; width: 100%; min-height: 140px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.15); }
+.suite-qr-wrap { display: flex; flex-direction: column; align-items: center; justify-content: center; background: #FFF; border-radius: 12px; padding: 10px; width: 100%; min-height: 140px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
 #suite-qr-out { width: 110px; height: 110px; display: flex; align-items: center; justify-content: center; }
 #suite-qr-out canvas { width: 100% !important; height: auto !important; max-width: 110px; }
 .suite-qr-caption { font-size: 8px; font-weight: 700; color: var(--s2); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 4px; }
@@ -230,7 +230,7 @@ nav{
 .tools-section { width: 100%; max-width: 440px; margin: 30px auto 0; text-align: center; border-top: 1px solid var(--bd); padding-top: 16px; }
 .dir-headline { font-size: 16px; font-weight: 800; margin-bottom: 12px; text-align: left; }
 .search-filter-box { width: 100%; margin-bottom: 12px; }
-.search-fi { width: 100%; background: var(--s1); border: 1px solid var(--bd); padding: 9px 12px; border-radius: 8px; color: #fff; outline: none; font-size: 12px; font-family: inherit; }
+.search-fi { width: 100%; background: var(--s1); border: 1px solid var(--bd); padding: 9px 12px; border-radius: 8px; color: var(--tx); outline: none; font-size: 12px; font-family: inherit; }
 .cat-row { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 6px; margin-bottom: 14px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
 .cat-row::-webkit-scrollbar { display: none; }
 .cat-btn { background: var(--s1); border: 1px solid var(--bd); color: var(--mu); padding: 5px 11px; border-radius: 6px; font-size: 10px; font-weight: 700; cursor: pointer; white-space: nowrap; font-family: inherit; }
@@ -254,6 +254,35 @@ footer { width: 100%; max-width: 440px; margin: 40px auto 10px; text-align: cent
   .suite-qr-wrap.active-mobile-view { display: flex; }
   .mock-phone.hidden-mobile-view { display: none; }
 }
+
+/* Auth & Payment Modals */
+.overlay-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.7); display: none; align-items: center; justify-content: center; z-index: 1000; backdrop-filter: blur(4px); }
+.modal-content { background: var(--s2); border: 1px solid var(--bd); padding: 24px; border-radius: 12px; width: 90%; max-width: 360px; color: var(--tx); text-align: center; }
+.modal-content h2 { margin-bottom: 8px; font-size: 18px; }
+.modal-content p { color: var(--mu); font-size: 13px; margin-bottom: 20px; line-height: 1.4; }
+.modal-input { width: 100%; background: var(--s1); border: 1px solid var(--bd); color: var(--tx); padding: 12px; border-radius: 8px; margin-bottom: 12px; font-size: 14px; outline: none; box-sizing: border-box; }
+.modal-input:focus { border-color: var(--p); }
+.modal-btn { width: 100%; background: var(--p); color: #fff; padding: 12px; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; margin-bottom: 12px; font-size: 14px; display: flex; align-items: center; justify-content: center; gap: 8px; }
+.modal-btn.g-btn { background: #fff; color: #000; }
+.modal-btn.g-btn img { width: 18px; height: 18px; }
+.modal-btn:hover { opacity: 0.9; }
+.modal-btn.secondary { background: var(--s1); border: 1px solid var(--bd); color: var(--tx); }
+.modal-btn.secondary:hover { background: var(--bd); }
+.modal-divider { margin: 16px 0; color: var(--mu); font-size: 12px; display: flex; align-items: center; }
+.modal-divider::before, .modal-divider::after { content: ''; flex: 1; border-bottom: 1px solid var(--bd); margin: 0 10px; }
+#recaptcha-container { display: flex; justify-content: center; margin-bottom: 12px; min-height: 78px; overflow: hidden; }
+.auth-error { color: #ef4444; font-size: 12px; margin-bottom: 12px; min-height: 15px; }
+.tab-row-auth { display: flex; border: 1px solid var(--bd); border-radius: 8px; overflow: hidden; margin-bottom: 16px; background: var(--s1); }
+.tab-row-auth button { flex: 1; padding: 10px; background: transparent; border: none; color: var(--mu); font-weight: 600; cursor: pointer; font-size: 12px; transition: 0.2s; }
+.tab-row-auth button.active { background: var(--p); color: #fff; }
+.auth-view { display: none; text-align: left; }
+.auth-view.active { display: block; }
+
+/* Payment Box */
+.fake-pay-box { border: 1px solid #10B981; background: rgba(16, 185, 129, 0.1); padding: 16px; border-radius: 8px; margin-bottom: 16px; }
+.fake-pay-box p.fp-title { color: #10B981; font-weight: 600; margin-bottom: 12px; font-size: 14px; }
+.btn-pay-fail { background: #ef4444; }
+
 </style>
 </head>
 <body>
@@ -391,14 +420,19 @@ footer { width: 100%; max-width: 440px; margin: 40px auto 10px; text-align: cent
           <div class="lock-overlay" id="lock-overlay">
             <div class="lock-title">Premium Style Locked</div>
             <div class="lock-desc">✦ No Watermark on Poster<br>✦ High-Res Vector SVG<br>✦ Dynamic QR Target Updates</div>
-            <button class="lock-btn" onclick="triggerAuthMock()">Unlock via Google Account</button>
+            <button class="lock-btn" onclick="triggerAuthMock()">Unlock Pro Features</button>
           </div>
           <div class="poster-top" id="poster-top">MY SHOP</div>
           <div id="qr-out"></div>
           <div class="poster-bot">ezqr.io</div>
         </div>
-        <div class="dl-wrap">
+        <div class="dl-wrap" style="width: 100%; display: flex; flex-direction: column; gap: 8px;">
           <button class="dl-main" onclick="downloadPosterCanvas()">Download High-Res Poster PNG</button>
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px;">
+            <button class="modal-btn secondary" style="margin: 0; font-size: 10px; padding: 6px;" onclick="downloadVector('svg')">SVG <span class="badge-pro" style="margin-left:2px;">PRO</span></button>
+            <button class="modal-btn secondary" style="margin: 0; font-size: 10px; padding: 6px;" onclick="downloadVector('pdf')">PDF <span class="badge-pro" style="margin-left:2px;">PRO</span></button>
+            <button class="modal-btn secondary" style="margin: 0; font-size: 10px; padding: 6px;" onclick="downloadVector('eps')">EPS <span class="badge-pro" style="margin-left:2px;">PRO</span></button>
+          </div>
         </div>
       </div>
     </div>
@@ -512,6 +546,62 @@ footer { width: 100%; max-width: 440px; margin: 40px auto 10px; text-align: cent
   </div>
 </footer>
 
+<!-- Auth Modal -->
+<div id="auth-modal" class="overlay-modal">
+  <div class="modal-content">
+    <h2>Login or Sign up</h2>
+    <p>Sign in to your ezqr.io account to unlock Pro features.</p>
+
+    <button id="btn-google-login" class="modal-btn g-btn" onclick="triggerGoogleAuth()">
+      <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+      Continue with Google
+    </button>
+    <div class="modal-divider">OR</div>
+
+    <div class="tab-row-auth">
+      <button id="tab-email" class="active" onclick="switchAuthTab('email')">Email</button>
+      <button id="tab-phone" onclick="switchAuthTab('phone')">Phone</button>
+    </div>
+
+    <div id="view-email" class="auth-view active">
+      <input type="email" id="auth-email" class="modal-input" placeholder="Email address">
+      <input type="password" id="auth-password" class="modal-input" placeholder="Password">
+      <button class="modal-btn" id="btn-email-action" onclick="triggerEmailAuth()">Login / Sign Up</button>
+    </div>
+
+    <div id="view-phone" class="auth-view">
+      <div id="recaptcha-container"></div>
+      <input type="tel" id="auth-phone" class="modal-input" placeholder="Phone Number (+91...)">
+      <button class="modal-btn" id="btn-send-otp" onclick="triggerSendOTP()">Send OTP</button>
+
+      <div id="view-otp" style="display:-none; margin-top:12px;">
+        <input type="text" id="auth-otp" class="modal-input" placeholder="Enter OTP">
+        <button class="modal-btn" id="btn-verify-otp" onclick="triggerVerifyOTP()">Verify OTP</button>
+      </div>
+    </div>
+
+    <div id="auth-error-msg" class="auth-error"></div>
+    <button class="modal-btn secondary" onclick="closeAuthModal()">Cancel</button>
+
+  </div>
+</div>
+
+<!-- Payment Modal -->
+<div id="payment-modal" class="overlay-modal">
+  <div class="modal-content">
+    <h2>ezqr.io Pro Plan - ₹149/mo</h2>
+    <p>Complete your payment to unlock all premium features, high-res downloads, and vector styles.</p>
+    
+    <div class="fake-pay-box">
+      <p class="fp-title">🧪 TEST MODE (Simulation)</p>
+      <button class="modal-btn" onclick="simulatePayment(true)">Simulate Success Payment</button>
+      <button class="modal-btn btn-pay-fail" onclick="simulatePayment(false)">Simulate Error / Failure</button>
+    </div>
+
+    <button class="modal-btn secondary" onclick="closePaymentModal()">Cancel</button>
+  </div>
+</div>
+
 <script>
 let curTool = 'url', curDots = 'dots', curCorner = 'extra-rounded', curColor = '#4338CA', isMultiToned = false, colorShadesArray = [], curBg = '#F0F4FF', masterQR = null, currentActiveStyleMode = 'standard', uploadedPhotoBase64 = null, isUserPremiumPro = false;
 let activeDirectoryCategory = "Technical & Math", currentGithubThemeMode = 'basic';
@@ -520,10 +610,7 @@ let suiteQR = null;
 let smartIconsState = { wa: true, maps: true, review: true, cat: true };
 
 function scrollAndFocusPro() {
-  const el = document.getElementById('poster-card');
-  if(el) {
-    el.scrollIntoView({ behavior: 'smooth' });
-  }
+  triggerAuthMock();
 }
 
 /* 100% FIXED PRODUCTION DATASETS WITHOUT ANY LOOPS OR MODIFICATIONS RE-MAPPED TO EXACT CATEGORIES */
@@ -854,19 +941,12 @@ function pickColor(el) {
 
 window.unlockProUI = function() {
   isUserPremiumPro = true;
+  localStorage.setItem('isUserPremiumPro', 'true');
   if(document.getElementById('lock-overlay')) document.getElementById('lock-overlay').style.display = 'none';
   if(document.getElementById('qr-out')) document.getElementById('qr-out').style.filter = 'none';
   if(typeof genQR === 'function') genQR();
   if(typeof syncSuitePreview === 'function') syncSuitePreview();
 };
-
-function triggerAuthMock() {
-  if (window.triggerAuth) {
-    window.triggerAuth();
-  } else {
-    unlockProUI();
-  }
-}
 
 function renderSuiteQR() {
   const out = document.getElementById('suite-qr-out'); if(!out) return;
@@ -885,6 +965,38 @@ function renderSuiteQR() {
     backgroundOptions: { color: '#ffffff' }
   });
   suiteQR.append(out);
+}
+
+function closeAuthModal() { document.getElementById('auth-modal').style.display = 'none'; }
+function closePaymentModal() { document.getElementById('payment-modal').style.display = 'none'; }
+
+function switchAuthTab(tab) {
+  document.querySelectorAll('.tab-row-auth button').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.auth-view').forEach(v => v.classList.remove('active'));
+  document.getElementById(`tab-${tab}`).classList.add('active');
+  document.getElementById(`view-${tab}`).classList.add('active');
+}
+
+function simulatePayment(success) {
+  if (success) {
+    if(typeof unlockProUI === 'function') unlockProUI();
+    closePaymentModal();
+    alert("Payment Successful! Pro features unlocked.");
+  } else {
+    alert("Payment Simulation Failed. Please try again.");
+  }
+}
+
+function triggerAuthMock() {
+  if (isUserPremiumPro) {
+    alert("You already have Pro!");
+    return;
+  }
+  if (window.firebaseUserLoggedIn) {
+     document.getElementById('payment-modal').style.display = 'flex';
+  } else {
+     document.getElementById('auth-modal').style.display = 'flex';
+  }
 }
 
 function toggleSmartIconButton(type) {
@@ -1002,6 +1114,23 @@ function handleInternalNav(routePath, customTitle, customDesc) {
   if(customDesc) {
     const meta = document.querySelector('meta[name="description"]');
     if(meta) meta.setAttribute('content', customDesc);
+  }
+}
+
+function downloadVector(type) {
+  if (!isUserPremiumPro) {
+    triggerAuthMock();
+    return;
+  }
+  if (!masterQR) return alert("Please generate a QR code first.");
+  
+  if (type === 'svg') {
+    masterQR.getRawData('svg').then((blob) => {
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href = url; a.download = 'ezqr-pro-vector.svg'; a.click();
+    });
+  } else {
+    alert(type.toUpperCase() + " export is processing on the cloud server. This feature will be available shortly.");
   }
 }
 
