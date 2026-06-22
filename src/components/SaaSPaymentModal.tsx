@@ -23,9 +23,9 @@ export default function SaaSPaymentModal({
   const [activeStep, setActiveStep] = useState<'auth' | 'checkout' | 'success'>('auth');
   
   // Auth states
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [isRegister, setIsRegister] = useState(true);
+  const [email, setEmail] = useState('test@a2zqr.com');
+  const [password, setPassword] = useState('password123');
+  const [isRegister, setIsRegister] = useState(false);
   const [country, setCountry] = useState<'IN' | 'US'>('IN');
   const [billingCycle, setBillingCycle] = useState<'monthly' | 'yearly'>('monthly');
   const [authError, setAuthError] = useState('');

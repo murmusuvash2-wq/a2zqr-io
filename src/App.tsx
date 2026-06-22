@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { QrCode, Shield, Zap, Globe, Link, Wifi, CreditCard, MessageCircle, FileText, Phone, CheckCircle2 } from 'lucide-react';
+import { QrCode, Shield, Zap, Globe, Link, Wifi, CreditCard, MessageCircle, FileText, Phone, CheckCircle2, ChevronDown, ChevronUp, BookOpen, Sparkles, HelpCircle } from 'lucide-react';
 import { QR_TOOLS, QRTool } from './data/tools';
 import QRCodeGenerator from './components/QRCodeGenerator';
 import SaaSPaymentModal from './components/SaaSPaymentModal';
 import { authService, UserStats } from './lib/firebase';
+
+import { TOOL_CONTENT_DATABASE } from './data/toolContent';
+import { FAQS_DATABASE, DEFAULT_FAQ } from './data/faqs';
+import { RELATED_TOOLS_DATABASE } from './data/relatedTools';
 
 const getToolIcon = (type: string) => {
   switch (type) {
@@ -17,6 +21,48 @@ const getToolIcon = (type: string) => {
   }
 };
 
+const getToolContent = (toolId: string) => {
+  const matchKey = Object.keys(TOOL_CONTENT_DATABASE).find(k => toolId.includes(k) || k.includes(toolId));
+  if (matchKey) {
+    return TOOL_CONTENT_DATABASE[matchKey];
+  }
+  return {
+    seoTitle: 'Free QR Code Generator | Permanent No-Expiry Codes',
+    metaDescription: 'Create custom QR codes quickly and safely. Free forever with no boundaries, direct browser conversion, and high-DPI export.',
+    heroTitle: 'Custom Dynamic Vector QR Codes',
+    heroSubtitle: 'Easily design barcode standards for high-speed offline data connections, website links, or smart Wi-Fi details.',
+    useCases: [
+      'Digital Business Cards: Distribute your phone numbers and socials at local meetups.',
+      'Offline Marketing Boards: Place scan squares on printed flyers, storefront windows, and package envelopes.',
+      'Instant Web Redirects: Forward scanners to custom video channels, landing galleries, and newsletters.'
+    ],
+    benefits: [
+      'Zero maintenance: Permanent static layouts function completely indefinitely.',
+      'Immediate scanning: Works natively inside any iOS or Android default camera frame.',
+      'Device local: Generation complies locally inside browser memory. Extremely safe.'
+    ],
+    bestPractices: [
+      'Perfect Contrast: Maintain clear contrast by keeping dots dark and the background light.',
+      'Add calling frames: Group with simple descriptive words like "Scan to View" to increase scanner counts.',
+      'Double Check Data: Ensure correct spelling of SSIDs or raw URLs before printing bulk products.'
+    ]
+  };
+};
+
+const getToolFAQs = (toolId: string) => {
+  const matchKey = Object.keys(FAQS_DATABASE).find(k => toolId.includes(k) || k.includes(toolId));
+  if (matchKey) {
+    return FAQS_DATABASE[matchKey];
+  }
+  return DEFAULT_FAQ;
+};
+
+const getRelatedToolsItems = (toolId: string, allTools: QRTool[]) => {
+  const matchKey = Object.keys(RELATED_TOOLS_DATABASE).find(k => toolId.includes(k) || k.includes(toolId));
+  const ids = matchKey ? RELATED_TOOLS_DATABASE[matchKey].relatedIds : ['website-url', 'wifi-password', 'vcard-contact'];
+  return allTools.filter(t => ids.some(id => t.id === id || t.slug.includes(id) || id.includes(t.id)));
+};
+
 export default function App() {
   const [activeTool, setActiveTool] = useState<QRTool>(QR_TOOLS[0]);
   const [showAllTools, setShowAllTools] = useState(false);
@@ -24,6 +70,11 @@ export default function App() {
   const [user, setUser] = useState<UserStats | null>(null);
   const [isPayModalOpen, setIsPayModalOpen] = useState(false);
   const [scans, setScans] = useState(49284);
+  const [expandedFaqId, setExpandedFaqId] = useState<string | null>(null);
+
+  const toolContent = getToolContent(activeTool.id);
+  const toolFAQs = getToolFAQs(activeTool.id);
+  const relatedTools = getRelatedToolsItems(activeTool.id, QR_TOOLS);
 
   const UI_CATEGORIES = [
     { label: 'All', filter: () => true },
@@ -163,7 +214,7 @@ export default function App() {
       </section>
 
       {/* Main Generator Applet */}
-      <section id="generator-section" className="relative z-10 w-full max-w-[800px] mx-auto px-4 pb-16 pt-4">
+      <section id="generator-section" className="relative z-10 w-full max-w-[800px] mx-auto px-4 pb-12 pt-4">
         <div className="bg-[#0A0A12] border border-[#28283E] rounded-[22px] overflow-hidden shadow-[0_32px_80px_rgba(0,0,0,0.65),0_0_60px_rgba(124,110,250,0.05)]">
           <QRCodeGenerator 
             tool={activeTool} 
@@ -171,6 +222,152 @@ export default function App() {
             onOpenPayModal={() => setIsPayModalOpen(true)}
           />
         </div>
+      </section>
+
+      {/* Programmatic Schema-Driven Landing Content & Interactive FAQs */}
+      <section className="relative z-10 w-full max-w-[850px] mx-auto px-4 pb-16">
+        {/* Dynamic Header description block */}
+        <div className="bg-[#0A0A12] border border-[#1C1C2E] rounded-2xl p-6 md:p-8 mb-8 relative overflow-hidden group">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-[#7C6EFA]/5 rounded-full blur-2xl group-hover:bg-[#7C6EFA]/10 transition-colors duration-300"></div>
+          <span className="text-[9px] uppercase font-bold tracking-widest text-[#7C6EFA] bg-[#7C6EFA]/10 px-3 py-1 rounded-full mb-3 inline-block">
+            Programmatic Metadata Guide
+          </span>
+          <h2 className="font-syne text-xl md:text-2xl font-bold text-white mb-2">
+            {toolContent.heroTitle}
+          </h2>
+          <p className="text-sm text-[#8080A0] mb-6 leading-relaxed">
+            {toolContent.heroSubtitle}
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6 border-t border-[#1C1C2E]">
+            {/* Hindi localized titles */}
+            <div className="space-y-1">
+              <span className="text-[10px] font-bold text-emerald-400 uppercase tracking-wider block">हिंदी विवरण (Hindi Localization)</span>
+              <p className="font-bold text-sm text-white">{activeTool.hindiTitle || "निःशुल्क क्यूआर कोड"}</p>
+              <p className="text-xs text-[#8080A0] leading-relaxed">{activeTool.hindiDesc || "स्थायी कोड बनाएं।"}</p>
+            </div>
+            <div className="bg-[#12121E]/40 border border-[#28283E]/40 rounded-xl p-4 flex flex-col justify-center">
+              <span className="text-[8px] font-bold uppercase text-[#7C6EFA] tracking-widest block mb-1">Keywords mapped</span>
+              <div className="flex flex-wrap gap-1.5">
+                {activeTool.keywords.slice(0, 4).map(kw => (
+                  <span key={kw} className="text-[10px] bg-black/40 text-[#8080A0] px-2 py-0.5 rounded border border-[#1C1C2E]">
+                    #{kw}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Benefits, Use cases & Best practices bento */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          <div className="bg-[#0A0A12] border border-[#1C1C2E] p-6 rounded-2xl flex flex-col justify-between">
+            <div>
+              <span className="text-[#F59E0B] text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 mb-4">
+                <Sparkles className="w-4 h-4" /> Real Use Cases
+              </span>
+              <ul className="space-y-3.5 text-xs text-[#8080A0] leading-relaxed">
+                {toolContent.useCases.map((uc, i) => (
+                  <li key={i} className="flex gap-2">
+                    <span className="text-[#F59E0B] font-bold shrink-0">•</span>
+                    <span>{uc}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          <div className="bg-[#0A0A12] border border-[#1C1C2E] p-6 rounded-2xl flex flex-col justify-between">
+            <div>
+              <span className="text-emerald-400 text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 mb-4">
+                <CheckCircle2 className="w-4 h-4" /> Lifetime Benefits
+              </span>
+              <ul className="space-y-3.5 text-xs text-[#8080A0] leading-relaxed">
+                {toolContent.benefits.map((bn, i) => (
+                  <li key={i} className="flex gap-2">
+                    <span className="text-emerald-400 font-bold shrink-0">✓</span>
+                    <span>{bn}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          <div className="bg-[#0A0A12] border border-[#1C1C2E] p-6 rounded-2xl flex flex-col justify-between">
+            <div>
+              <span className="text-[#C084FC] text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 mb-4">
+                <BookOpen className="w-4 h-4" /> Best Scan Practices
+              </span>
+              <ul className="space-y-3.5 text-xs text-[#8080A0] leading-relaxed">
+                {toolContent.bestPractices.map((bp, i) => (
+                  <li key={i} className="flex gap-2">
+                    <span className="text-[#C084FC] font-mono font-bold shrink-0">{i+1}.</span>
+                    <span>{bp}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        {/* Interactive FAQ accordion */}
+        <div className="bg-[#0A0A12] border border-[#1C1C2E] rounded-2xl p-6 mb-8">
+          <span className="text-[10px] uppercase font-bold tracking-widest text-[#7C6EFA] bg-[#7C6EFA]/10 px-2.5 py-1 rounded-full mb-3 inline-block">
+            Frequently Asked Questions
+          </span>
+          <h3 className="font-syne text-lg font-bold text-white mb-4 flex items-center gap-2">
+            <HelpCircle className="w-5 h-5 text-[#7C6EFA]" /> Helpful Question & Answer Mappings ({toolFAQs.length})
+          </h3>
+          <div className="space-y-3">
+            {toolFAQs.map((faq) => {
+              const isExpanded = expandedFaqId === faq.id;
+              return (
+                <div key={faq.id} className="border border-[#141424] bg-black/20 rounded-xl overflow-hidden transition-all duration-200">
+                  <button
+                    onClick={() => setExpandedFaqId(isExpanded ? null : faq.id)}
+                    className="w-full text-left p-4 flex items-center justify-between text-xs sm:text-sm font-semibold text-white hover:bg-[#12121E]/50 transition-colors"
+                  >
+                    <span>{faq.question}</span>
+                    {isExpanded ? <ChevronUp className="w-4 h-4 text-[#7C6EFA]" /> : <ChevronDown className="w-4 h-4 text-[#8080A0]" />}
+                  </button>
+                  {isExpanded && (
+                    <div className="p-4 pt-0 text-xs sm:text-sm text-[#8080A0] border-t border-[#141424] leading-relaxed bg-[#12121E]/10">
+                      {faq.answer}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Programmatic Related Companion Tools */}
+        {relatedTools.length > 0 && (
+          <div className="bg-[#0A0A12] border border-[#1C1C2E] rounded-2xl p-6">
+            <h4 className="font-syne text-xs font-bold uppercase tracking-wider text-[#8080A0] mb-4">
+              ✨ recommended companion generators for {activeTool.name.replace(' QR Code', '').replace(' Generator','')}:
+            </h4>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              {relatedTools.map(companion => (
+                <button
+                  key={companion.slug}
+                  onClick={() => {
+                    setActiveTool(companion);
+                    document.getElementById('generator-section')?.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  className="flex items-center gap-2.5 p-3 rounded-xl border border-[#141424] bg-[#0A0A12]/80 text-left hover:border-[#7C6EFA] hover:bg-[#12121E] transition-all group"
+                >
+                  <div className="text-[#8080A0] group-hover:text-[#7C6EFA] shrink-0 transition-colors">
+                    {getToolIcon(companion.type || 'url')}
+                  </div>
+                  <span className="text-[11px] font-bold text-[#8080A0] group-hover:text-white line-clamp-1 leading-none transition-colors">
+                    {companion.name.replace(' QR Code', '').replace(' Generator', '').replace(' QR', '')}
+                  </span>
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
       </section>
 
       {/* Popular Use Cases */}

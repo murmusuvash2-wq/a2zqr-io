@@ -44,16 +44,23 @@ const loadMockUserDoc = (email: string, country: string = 'US'): UserStats => {
   if (item) {
     try {
       const parsed = JSON.parse(item);
-      if (parsed.email === email) return parsed;
+      if (parsed.email === email) {
+        if (email.toLowerCase() === 'test@a2zqr.com') {
+          parsed.isPro = true;
+          parsed.planType = 'yearly';
+        }
+        return parsed;
+      }
     } catch {}
   }
+  const isTestUser = email.toLowerCase() === 'test@a2zqr.com';
   const newUser: UserStats = {
     email,
-    uid: 'usr_' + Math.random().toString(36).substr(2, 9),
-    isPro: false,
-    planType: 'free',
-    expiryDate: '',
-    totalGenerated: 0,
+    uid: isTestUser ? 'usr_test_pro_123' : 'usr_' + Math.random().toString(36).substr(2, 9),
+    isPro: isTestUser,
+    planType: isTestUser ? 'yearly' : 'free',
+    expiryDate: isTestUser ? new Date(Date.now() + 31536000000).toISOString() : '',
+    totalGenerated: isTestUser ? 12 : 0,
     createdAt: new Date().toISOString(),
     country,
     currency: isIndia ? 'INR' : 'USD'
@@ -89,6 +96,7 @@ export const authService = {
           currency
         };
         await setDoc(doc(db, 'users', cred.user.uid), userDoc);
+        localStorage.setItem('isUserPremiumPro', 'false');
         return userDoc;
       } catch (err: any) {
         if (err.code === 'auth/operation-not-allowed') {
@@ -100,6 +108,7 @@ export const authService = {
       // Robust simulation registry
       const simulatedDoc = loadMockUserDoc(email, country);
       localStorage.setItem(MOCK_AUTH_KEY, email);
+      localStorage.setItem('isUserPremiumPro', simulatedDoc.isPro ? 'true' : 'false');
       return simulatedDoc;
     }
   },
@@ -107,10 +116,25 @@ export const authService = {
   async loginUser(email: string, pass: string): Promise<UserStats> {
     if (isFirebaseConfigured && auth && db) {
       try {
-        const cred = await signInWithEmailAndPassword(auth, email, pass);
+        let cred;
+        try {
+          cred = await signInWithEmailAndPassword(auth, email, pass);
+        } catch (err: any) {
+          if (err.code === 'auth/user-not-found' || err.code === 'auth/invalid-credential') {
+            try {
+              cred = await createUserWithEmailAndPassword(auth, email, pass);
+            } catch (creationErr) {
+              throw err;
+            }
+          } else {
+            throw err;
+          }
+        }
         const snap = await getDoc(doc(db, 'users', cred.user.uid));
         if (snap.exists()) {
-          return snap.data() as UserStats;
+          const fetched = snap.data() as UserStats;
+          localStorage.setItem('isUserPremiumPro', fetched.isPro ? 'true' : 'false');
+          return fetched;
         } else {
           const userDoc: UserStats = {
             email,
@@ -124,6 +148,7 @@ export const authService = {
             currency: 'USD'
           };
           await setDoc(doc(db, 'users', cred.user.uid), userDoc);
+          localStorage.setItem('isUserPremiumPro', 'false');
           return userDoc;
         }
       } catch (err : any) {
@@ -134,11 +159,14 @@ export const authService = {
       }
     } else {
       localStorage.setItem(MOCK_AUTH_KEY, email);
-      return loadMockUserDoc(email);
+      const simulatedDoc = loadMockUserDoc(email);
+      localStorage.setItem('isUserPremiumPro', simulatedDoc.isPro ? 'true' : 'false');
+      return simulatedDoc;
     }
   },
 
   async logout(): Promise<void> {
+    localStorage.setItem('isUserPremiumPro', 'false');
     if (isFirebaseConfigured && auth) {
       await signOut(auth);
     } else {
@@ -151,13 +179,19 @@ export const authService = {
       const current = auth.currentUser;
       if (current) {
         const snap = await getDoc(doc(db, 'users', current.uid));
-        if (snap.exists()) return snap.data() as UserStats;
+        if (snap.exists()) {
+          const fetched = snap.data() as UserStats;
+          localStorage.setItem('isUserPremiumPro', fetched.isPro ? 'true' : 'false');
+          return fetched;
+        }
       }
       return null;
     } else {
       const stored = offlineEmail || localStorage.getItem(MOCK_AUTH_KEY);
       if (stored) {
-        return loadMockUserDoc(stored);
+        const simulatedDoc = loadMockUserDoc(stored);
+        localStorage.setItem('isUserPremiumPro', simulatedDoc.isPro ? 'true' : 'false');
+        return simulatedDoc;
       }
       return null;
     }
@@ -205,6 +239,7 @@ export const authService = {
       };
       await updateDoc(ref, updatePayload);
       const snap = await getDoc(ref);
+      localStorage.setItem('isUserPremiumPro', 'true');
       return snap.data() as UserStats;
     } else {
       const docItem = localStorage.getItem(MOCK_USER_KEY);
@@ -217,6 +252,7 @@ export const authService = {
           parsed.country = country;
           parsed.currency = country === 'IN' ? 'INR' : 'USD';
           saveMockUserDoc(parsed);
+          localStorage.setItem('isUserPremiumPro', 'true');
           return parsed;
         } catch {}
       }

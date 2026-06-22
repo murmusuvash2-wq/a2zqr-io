@@ -83,23 +83,52 @@ body{
 .pill-route:hover{ border-color:var(--p); color:var(--pl); }
 .shop-fi{ width: 100%; background: var(--s1); border: 1px solid var(--bd); color: var(--tx); padding: 12px 16px; border-radius: 12px; font-size: 14px; font-family: inherit; outline: none; font-weight: 600; margin-top:6px; margin-bottom:12px; transition: border-color 0.2s, box-shadow 0.2s; box-shadow: inset 0 2px 4px rgba(0,0,0,0.01); }
 .error-log-node { font-size:10px; font-weight:700; color:var(--re); margin-bottom:8px; display:none; }
+.preview-selector {
+  display: flex; gap: 4px; background: var(--bg); border: 1.5px solid var(--bd2);
+  border-radius: 10px; padding: 3px; margin-bottom: 12px; width: 100%; max-width: 280px;
+}
+.preview-mode-tab {
+  flex: 1; text-align: center; background: transparent; border: none; color: var(--mu);
+  font-size: 10.5px; font-weight: 800; padding: 7px 4px; cursor: pointer; border-radius: 6px;
+  font-family: inherit; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 4px;
+}
+.preview-mode-tab.active {
+  background: var(--pt); color: var(--pl);
+}
+.poster-card.preview-compact-style {
+  background: #FFFFFF !important; color: #1E1B4B !important; border: 1.5px solid var(--bd2);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05); border-radius: 12px;
+  min-height: unset !important; max-width: 200px; padding: 12px 14px; position: relative;
+  aspect-ratio: 1 / 1; display: flex; flex-direction: column; justify-content: center; align-items: center;
+}
+.poster-card.preview-compact-style #qr-out {
+  width: 156px; height: 156px; background: #FFF !important; border-radius: 8px; padding: 4px; margin: 0 auto;
+}
+.poster-card.preview-compact-style .poster-top,
+.poster-card.preview-compact-style .poster-bot {
+  display: none !important;
+}
 </style>
 </head>
 <body>
 
 <nav style="margin:-12px -12px 16px -12px; background:rgba(4,4,8,0.95); backdrop-filter:blur(10px); border-bottom:1px solid var(--bd); position:sticky; top:0; z-index:100;">
   <div class="nav-in" style="max-width:440px; margin:0 auto; padding:12px 16px; display:flex; align-items:center; justify-content:space-between;">
-    <a href="/" class="logo" style="text-decoration:none; color:var(--tx); font-size:18px; font-weight:800; letter-spacing:-.3px;"><span>EzQR</span><em style="font-style:normal; background:linear-gradient(135deg, var(--pl), #2DD4BF); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">.io</em></a>
+    <a href="../../index.html" class="logo" style="text-decoration:none; color:var(--tx); font-size:18px; font-weight:800; letter-spacing:-.3px;"><span>EzQR</span><em style="font-style:normal; background:linear-gradient(135deg, var(--pl), #2DD4BF); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">.io</em></a>
     <div style="display:flex; align-items:center; gap:8px;">
-      <a href="/dashboard.html" style="background:transparent; color:#8080A0; border:none; padding:7px 8px; font-size:11px; font-weight:700; cursor:pointer; text-decoration:none;">Analytics</a>
-      <a href="/#directory" style="background:linear-gradient(135deg, var(--p), #2DD4BF); color:#fff; border:none; padding:7px 14px; border-radius:8px; font-size:11px; font-weight:700; cursor:pointer; text-decoration:none;">Catalog</a>
+      <a href="../../dashboard.html" style="background:transparent; color:#8080A0; border:none; padding:7px 8px; font-size:11px; font-weight:700; cursor:pointer; text-decoration:none;">Analytics</a>
+      <a href="../../index.html#directory" style="background:linear-gradient(135deg, var(--p), #2DD4BF); color:#fff; border:none; padding:7px 14px; border-radius:8px; font-size:11px; font-weight:700; cursor:pointer; text-decoration:none;">Catalog</a>
     </div>
   </div>
 </nav>
 
 <div class="wrapper-box">
+  <div style="background:var(--s1); border:1px solid var(--bd2); border-radius:8px; padding:6px 12px; text-align:center; font-size:9.5px; font-weight:800; color:var(--pl); letter-spacing:0.3px; margin-bottom:4px; box-shadow:0 2px 8px rgba(0,0,0,0.1);">
+    🎯 EZQR vs COMPETITORS: "Generate the perfect QR for your exact use case."
+  </div>
+
   <div class="seo-crumbs">
-    <a href="/">Home</a> <span>&gt;</span> <a href="/#directory">Catalog</a> <span>&gt;</span> <span>{{TOOL_SHORT_NAME}}</span>
+    <a href="../../index.html">Home</a> <span>&gt;</span> <a href="../../index.html#directory">Catalog</a> <span>&gt;</span> <span>{{TOOL_SHORT_NAME}}</span>
   </div>
 
   <div class="studio-box" style="margin-top:4px;">
@@ -113,8 +142,25 @@ body{
       <div class="error-log-node" id="error-display-node">⚠️ Validation Schema Error Detected!</div>
       <div id="dynamic-fields-target">{{DYNAMIC_FORM_FIELDS}}</div>
       
-      <label class="flabel">Branded Label Text</label>
-      <input class="shop-fi" type="text" id="in-shop" value="MY BRAND" placeholder="Label Text above QR" maxlength="28">
+      <label class="flabel">Poster Banner Caption (Text Above / Below QR)</label>
+      <input class="shop-fi" type="text" id="in-shop" value="MY BRAND" oninput="syncPosterDetails(); genQR();" placeholder="e.g. JOIN WIFI, SCAN TO ORDER" maxlength="28">
+
+      <!-- Interactive Logo & Preset Icons Picker -->
+      <div style="margin-top: 14px; padding: 12px; background: rgba(255,255,255,0.02); border: 2px dashed var(--bd); border-radius: 12px;">
+        <label class="flabel" style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
+          <span>Select Center Logo / Icon</span>
+          <span style="font-size: 8px; color: var(--pl); font-weight:800; text-transform:uppercase; background:rgba(192,132,252,0.1); padding:2px 6px; border-radius:4px;">Pro Verified</span>
+        </label>
+        
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 8px;">
+          <button class="acc-trigger" type="button" id="logo-btn-none" onclick="setPresetLogo('none', this)" style="justify-content:center; padding:8px; border-radius:8px; border:1px solid var(--bd2); background:var(--s2); font-size:11px; font-weight:700;">No Icon</button>
+          <button class="acc-trigger" type="button" id="logo-btn-auto" onclick="setPresetLogo('auto', this)" style="justify-content:center; padding:8px; border-radius:8px; border:1px solid var(--pl); background:rgba(192,132,252,0.05); color:var(--pl); font-size:11px; font-weight:700;">Use Icon</button>
+          <button class="acc-trigger" type="button" id="logo-btn-custom" onclick="document.getElementById('custom-logo-file').click()" style="justify-content:center; padding:8px; border-radius:8px; border:1px solid var(--bd2); background:var(--s2); font-size:11px; font-weight:700;">Upload PNG</button>
+        </div>
+        
+        <input type="file" id="custom-logo-file" accept="image/*" style="display:none;" onchange="handleLogoUpload(this)">
+        <div id="upload-status" style="font-size:10px; color:var(--mu); text-align:center; margin-top:2px; font-weight:600; display:none;"></div>
+      </div>
     </div>
 
     <div class="dropdown-axis-grid">
@@ -146,14 +192,21 @@ body{
     </div>
 
     <div class="poster-section">
-      <div class="poster-card" id="poster-card">
-        <div class="lock-overlay" id="lock-overlay">
+      <div class="preview-selector">
+        <button type="button" class="preview-mode-tab active" id="tab-preview-poster" onclick="switchPreviewMode('poster')">📄 Poster</button>
+        <button type="button" class="preview-mode-tab" id="tab-preview-compact" onclick="switchPreviewMode('compact')">🟦 Fitted QR</button>
+      </div>
+
+      <div class="poster-card" id="poster-card" style="transition: all 0.25s;">
+        <div class="lock-overlay" id="lock-overlay" style="border-radius:12px;">
           <div class="lock-title">Premium Access Portal</div>
           <button class="lock-btn" onclick="unlockProPlanSync()">Activate Universal Pass</button>
         </div>
-        <div class="poster-top" id="poster-top">MY BRAND</div>
+        <div class="classic-elements-wrap" id="classic-wrap" style="display:contents;">
+          <div class="poster-top" id="poster-top">MY BRAND</div>
+        </div>
         <div id="qr-out"></div>
-        <div class="poster-bot">ezqr.io</div>
+        <div class="poster-bot" id="poster-bot">ezqr.io</div>
       </div>
       <div style="width: 100%; display: flex; flex-direction: column; gap: 8px; max-width: 220px; align-self: center;">
         <button class="dl-main" onclick="downloadPosterCanvas()">Download High-Res Poster PNG</button>
@@ -192,14 +245,14 @@ body{
   <footer style="text-align:center; padding-top:20px; font-size:11px; color:var(--mu); border-top:1px solid var(--bd); margin-top:16px;">
     <div>© 2026 EzQR.io · Privacy Secure Utility.</div>
     <div style="display:flex; justify-content:center; gap:12px; margin-top:8px;">
-      <a href="/" style="color:var(--mu); text-decoration:none;">Home</a>
-      <a href="/#directory" style="color:var(--mu); text-decoration:none;">Catalog</a>
+      <a href="../../index.html" style="color:var(--mu); text-decoration:none;">Home</a>
+      <a href="../../index.html#directory" style="color:var(--mu); text-decoration:none;">Catalog</a>
     </div>
   </footer>
 </div>
 
 <script>
-let curColor = '#4338CA', curBg = '#F0F4FF', curDots = 'dots', curCorner = 'extra-rounded', masterQR = null, isUserPremiumPro = false;
+let curColor = '#4338CA', curBg = '#F0F4FF', curDots = 'dots', curCorner = 'extra-rounded', masterQR = null, isUserPremiumPro = false, curLogoUrl = '';
 
 function reportError(msg) {
   const node = document.getElementById('error-display-node');
@@ -227,10 +280,163 @@ function pickTheme(color, bg, label, el) {
   genQR();
 }
 
+function syncPosterDetails() {
+  const posterTop = document.getElementById('poster-top');
+  const inShop = document.getElementById('in-shop')?.value || 'MY BRAND';
+  
+  const restName = document.getElementById('in-restaurant-name')?.value;
+  const tableNum = document.getElementById('in-menu-table')?.value;
+  const brideName = document.getElementById('in-bride-name')?.value;
+  const groomName = document.getElementById('in-groom-name')?.value;
+  const airName = document.getElementById('in-airbnb-name')?.value;
+  const contactName = document.getElementById('in-contact-name')?.value;
+  const propName = document.getElementById('in-property-name')?.value;
+  const wifiSsid = document.getElementById('in-wifi-ssid')?.value;
+
+  let text = inShop;
+  if (restName) {
+    text = restName.toUpperCase();
+    if (tableNum) text += ` - ${tableNum.toUpperCase()}`;
+  } else if (brideName || groomName) {
+    text = `${(brideName || 'BRIDE').toUpperCase()} ❤️ ${(groomName || 'GROOM').toUpperCase()}`;
+  } else if (contactName) {
+    text = contactName.toUpperCase();
+  } else if (airName) {
+    text = airName.toUpperCase();
+  } else if (propName) {
+    text = propName.toUpperCase();
+  } else if (wifiSsid) {
+    text = `WIFI: ${wifiSsid.toUpperCase()}`;
+  }
+  
+  if (posterTop) {
+    posterTop.textContent = text;
+  }
+}
+
+function setPresetLogo(type, btn) {
+  document.querySelectorAll('#logo-btn-none, #logo-btn-auto, #logo-btn-custom').forEach(b => {
+    b.style.borderColor = 'var(--bd2)';
+    b.style.background = 'var(--s2)';
+    b.style.color = 'var(--tx)';
+  });
+  
+  if (btn) {
+    btn.style.borderColor = 'var(--pl)';
+    btn.style.background = 'rgba(192,132,252,0.05)';
+    btn.style.color = 'var(--pl)';
+  }
+  
+  if (type === 'none') {
+    curLogoUrl = '';
+    document.getElementById('upload-status').style.display = 'none';
+  } else if (type === 'auto') {
+    let emoji = '✨';
+    const h1Text = (document.querySelector('.h1-seo-node span')?.textContent || '').toLowerCase();
+    
+    if (h1Text.includes('menu') || h1Text.includes('restaurant') || h1Text.includes('allergen') || h1Text.includes('food')) {
+      emoji = '🍔';
+    } else if (h1Text.includes('wedding') || h1Text.includes('rsvp') || h1Text.includes('matrimony')) {
+      emoji = '💍';
+    } else if (h1Text.includes('wifi') || h1Text.includes('ssid')) {
+      emoji = '📶';
+    } else if (h1Text.includes('upi') || h1Text.includes('pay') || h1Text.includes('wallet')) {
+      emoji = '💸';
+    } else if (h1Text.includes('resume') || h1Text.includes('cv') || h1Text.includes('portfolio')) {
+      emoji = '💼';
+    } else if (h1Text.includes('airbnb') || h1Text.includes('welcome') || h1Text.includes('room wifi')) {
+      emoji = '🏠';
+    } else if (h1Text.includes('vcard') || h1Text.includes('contact') || h1Text.includes('profile')) {
+      emoji = '👤';
+    } else if (h1Text.includes('brochure') || h1Text.includes('property') || h1Text.includes('maps')) {
+      emoji = '🏢';
+    }
+    
+    curLogoUrl = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60"><rect width="60" height="60" rx="30" fill="white" stroke="%23333" stroke-width="2"/><text x="50%" y="62%" font-size="34" text-anchor="middle" dominant-baseline="middle">${emoji}</text></svg>`;
+    const status = document.getElementById('upload-status');
+    status.textContent = `Preset Icon Applied: ${emoji}`;
+    status.style.display = 'block';
+  }
+  genQR();
+}
+
+function handleLogoUpload(input) {
+  const file = input.files[0];
+  if (file) {
+    if (file.size > 2 * 1024 * 1024) {
+      alert("Please upload a logo smaller than 2MB.");
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      curLogoUrl = e.target.result;
+      document.querySelectorAll('#logo-btn-none, #logo-btn-auto, #logo-btn-custom').forEach(b => {
+        b.style.borderColor = 'var(--bd2)';
+        b.style.background = 'var(--s2)';
+        b.style.color = 'var(--tx)';
+      });
+      const btn = document.getElementById('logo-btn-custom');
+      btn.style.borderColor = 'var(--pl)';
+      btn.style.background = 'rgba(192,132,252,0.05)';
+      btn.style.color = 'var(--pl)';
+      
+      const status = document.getElementById('upload-status');
+      status.textContent = `🎯 Loaded Logo: ${file.name}`;
+      status.style.display = 'block';
+      genQR();
+    };
+    reader.readAsDataURL(file);
+  }
+}
+
 function buildPayloadData() {
   const inputs = Array.from(document.querySelectorAll('.qi'));
   if (inputs.length === 0) return 'https://ezqr.io';
   
+  // Custom Dynamic Bindings Based on Element Presence
+  let restMenuUrl = document.getElementById('in-menu-url')?.value || '';
+  if (restMenuUrl) return restMenuUrl;
+
+  let rsvpUrl = document.getElementById('in-rsvp-url')?.value || '';
+  if (rsvpUrl) return rsvpUrl;
+
+  let resUrl = document.getElementById('in-resume-url')?.value || '';
+  let portUrl = document.getElementById('in-portfolio-url')?.value || '';
+  let linkedUrl = document.getElementById('in-linkedin-url')?.value || '';
+  if (resUrl) return resUrl;
+  if (portUrl) return portUrl;
+  if (linkedUrl) return linkedUrl;
+
+  let guideUrl = document.getElementById('in-airbnb-guide')?.value || '';
+  if (guideUrl) return guideUrl;
+
+  let propPdf = document.getElementById('in-property-pdf')?.value || '';
+  if (propPdf) return propPdf;
+
+  let contactName = document.getElementById('in-contact-name')?.value || '';
+  if (contactName) {
+    let phone = document.getElementById('in-contact-phone')?.value || '';
+    let email = document.getElementById('in-contact-email')?.value || '';
+    let web = document.getElementById('in-contact-web')?.value || '';
+    return `BEGIN:VCARD\nVERSION:3.0\nN:${contactName}\nTEL:${phone}\nEMAIL:${email}\nURL:${web}\nEND:VCARD`;
+  }
+
+  let upiVpa = document.getElementById('in-upi-vpa')?.value || '';
+  if (upiVpa) {
+    let name = document.getElementById('in-upi-name')?.value || 'Merchant';
+    let amt = document.getElementById('in-upi-amt')?.value || '';
+    upiVpa = upiVpa.trim().toUpperCase().replace(/\s/g, '');
+    return `upi://pay?pa=${upiVpa}&pn=${encodeURIComponent(name)}&am=${amt}&cu=INR`;
+  }
+
+  let wifiSsid = document.getElementById('in-wifi-ssid')?.value || '';
+  if (wifiSsid) {
+    let pass = document.getElementById('in-wifi-pass')?.value || '';
+    let sec = document.getElementById('in-wifi-sec')?.value || 'WPA';
+    return `WIFI:T:${sec};S:${wifiSsid};P:${pass};;`;
+  }
+  
+  // Backwards Compatibility / Fallbacks
   let guard = inputs[0].dataset.guard;
 
   if (guard === 'wifi') {
@@ -293,7 +499,9 @@ function genQR() {
     dotsOptions: { type: curDots, color: curColor },
     cornersSquareOptions: { type: curCorner, color: curColor },
     backgroundOptions: { color: curBg },
-    qrOptions: { errorCorrectionLevel: 'H' }
+    qrOptions: { errorCorrectionLevel: 'H' },
+    image: curLogoUrl,
+    imageOptions: { crossOrigin: 'anonymous', margin: 3, imageSize: 0.35 }
   });
   masterQR.append(target);
   
@@ -305,6 +513,40 @@ function genQR() {
   document.getElementById('poster-top').style.color = curColor;
 }
 
+let activePreviewMode = 'poster';
+function switchPreviewMode(mode) {
+  activePreviewMode = mode;
+  const card = document.getElementById('poster-card');
+  const classicWrap = document.getElementById('classic-wrap');
+  const overlay = document.getElementById('lock-overlay');
+  
+  document.querySelectorAll('.preview-mode-tab').forEach(btn => btn.classList.remove('active'));
+  const activeBtn = document.getElementById('tab-preview-' + mode);
+  if (activeBtn) activeBtn.classList.add('active');
+
+  card.classList.remove('preview-compact-style');
+  classicWrap.style.display = "none";
+
+  if (mode === 'poster') {
+    classicWrap.style.display = "contents";
+    card.style.background = curBg || '#F0F4FF';
+    if (overlay) overlay.style.borderRadius = "12px";
+  } else if (mode === 'compact') {
+    card.classList.add('preview-compact-style');
+    card.style.background = "#FFFFFF";
+    if (overlay) overlay.style.borderRadius = "12px";
+  }
+  
+  const dlBtn = document.querySelector('.dl-main');
+  if (dlBtn) {
+    if (mode === 'poster') {
+      dlBtn.textContent = 'Download High-Res Poster PNG';
+    } else if (mode === 'compact') {
+      dlBtn.textContent = 'Download Fitted QR Code PNG';
+    }
+  }
+}
+
 window.unlockProUI = function() {
   isUserPremiumPro = true;
   localStorage.setItem('isUserPremiumPro', 'true');
@@ -313,7 +555,7 @@ window.unlockProUI = function() {
 };
 
 function unlockProPlanSync() {
-  window.location.href = '/';
+  window.location.href = '../../index.html';
 }
 
 function downloadVector(type) {
@@ -336,19 +578,69 @@ function downloadVector(type) {
 function downloadPosterCanvas() {
   if(!masterQR) return;
   masterQR.getRawData('png').then(blob => {
-    const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
-    a.download = 'ezqr-programmatic-highres.png'; a.click();
+    const label = document.getElementById('poster-top') ? (document.getElementById('poster-top').textContent || 'MY BRAND') : 'MY BRAND';
+    const blobUrl = URL.createObjectURL(blob);
+    const img = new Image();
+    img.onload = function() {
+      const c = document.createElement('canvas');
+      const ctx = c.getContext('2d');
+      
+      if (activePreviewMode === 'compact') {
+        c.width = 500; c.height = 500;
+        ctx.fillStyle = '#FFFFFF'; ctx.fillRect(0, 0, 500, 500);
+        ctx.drawImage(img, 25, 25, 450, 450);
+        
+        if (!isUserPremiumPro) {
+          ctx.fillStyle = "rgba(0, 0, 0, 0.4)";
+          ctx.font = '600 12px sans-serif';
+          ctx.textAlign = 'center';
+          ctx.fillText('⚡ generated via ezqr.io', 250, 485);
+        }
+      } else {
+        c.width = 400; c.height = 440;
+        ctx.fillStyle = curBg || '#F0F4FF'; ctx.fillRect(0,0,400,440);
+        
+        ctx.fillStyle = curColor || '#4338CA';
+        ctx.font = '800 24px Syne, sans-serif'; ctx.textAlign = 'center';
+        ctx.fillText(label.toUpperCase(), 200, 50);
+        
+        ctx.drawImage(img, 70, 75, 260, 260);
+        
+        if (!isUserPremiumPro) {
+          ctx.fillStyle = "rgba(128,128,160,0.5)"; ctx.font = '600 11px sans-serif';
+          ctx.textAlign = 'center';
+          ctx.fillText('⚡ generated via ezqr.io', 200, 390);
+        } else {
+          ctx.fillStyle = curColor || '#4338CA'; ctx.font = '700 13px sans-serif';
+          ctx.textAlign = 'center';
+          ctx.fillText('ezqr.io', 200, 390);
+        }
+      }
+      
+      const a = document.createElement('a');
+      a.href = c.toDataURL('image/png');
+      a.download = 'ezqr-' + activePreviewMode + '-highres.png';
+      a.click();
+    };
+    img.src = blobUrl;
   });
 }
 
 let renderTimer;
 document.addEventListener('input', e => {
-  if(e.target.classList.contains('qi')) {
+  if (e.target.classList.contains('qi') || e.target.id === 'in-shop') {
     clearTimeout(renderTimer);
-    renderTimer = setTimeout(genQR, 400);
+    renderTimer = setTimeout(() => {
+      syncPosterDetails();
+      genQR();
+    }, 200);
   }
-  if(e.target.id === 'in-shop') {
-    document.getElementById('poster-top').textContent = e.target.value.toUpperCase();
+});
+
+document.addEventListener('change', e => {
+  if (e.target.classList.contains('qi')) {
+    syncPosterDetails();
+    genQR();
   }
 });
 
@@ -356,6 +648,7 @@ window.addEventListener('load', () => {
   if(localStorage.getItem('isUserPremiumPro') === 'true') {
     isUserPremiumPro = true; document.getElementById('lock-overlay').style.display = 'none';
   }
+  syncPosterDetails();
   genQR();
 });
 </script>

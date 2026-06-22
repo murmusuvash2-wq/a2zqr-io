@@ -168,6 +168,55 @@ nav{
 .cc.on { border-color: var(--tx); transform: scale(1.05); }
 
 .poster-section { padding: 16px 12px; border-top: 1px solid var(--bd); background: var(--s2); display: flex; flex-direction: column; align-items: center; gap: 12px; width: 100%; }
+
+/* Mockup Switcher and Modes */
+.preview-selector {
+  display: flex; gap: 4px; background: var(--bg); border: 1.5px solid var(--bd2);
+  border-radius: 10px; padding: 3px; margin-bottom: 12px; width: 100%; max-width: 280px;
+}
+.preview-mode-tab {
+  flex: 1; text-align: center; background: transparent; border: none; color: var(--mu);
+  font-size: 10.5px; font-weight: 800; padding: 7px 4px; cursor: pointer; border-radius: 6px;
+  font-family: inherit; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 4px;
+}
+.preview-mode-tab.active {
+  background: var(--pt); color: var(--pl);
+}
+
+/* Compact format style override on .poster-card */
+.poster-card.preview-compact-style {
+  background: #FFFFFF !important; color: #1E1B4B !important; border: 1.5px solid var(--bd2);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05); border-radius: 12px;
+  min-height: unset !important; max-width: 200px; padding: 12px 14px; position: relative;
+  aspect-ratio: 1 / 1; display: flex; flex-direction: column; justify-content: center; align-items: center;
+}
+.poster-card.preview-compact-style #qr-out {
+  width: 156px; height: 156px; background: #FFF !important; border-radius: 8px; padding: 4px; margin: 0 auto;
+}
+.poster-card.preview-compact-style .poster-top,
+.poster-card.preview-compact-style .poster-bot {
+  display: none !important;
+}
+
+/* Card frame styles override on .poster-card */
+.poster-card.preview-card-style {
+  background: linear-gradient(135deg, #12121E, var(--s1)) !important; color: #FFF !important;
+  border: 1.5px solid var(--bd2); min-height: 154px; max-width: 320px; width: 100%;
+  flex-direction: row !important; padding: 12px; gap: 10px; justify-content: space-between; text-align: left; align-items: center;
+}
+.poster-card.preview-card-style .card-info-wrap {
+  display: flex !important; flex-direction: column !important; justify-content: center; gap: 4px; flex: 1;
+}
+.poster-card.preview-card-style .poster-top {
+  font-size: 13px; color: var(--pl) !important; font-weight: 800; text-align: left; margin: 0; text-transform: uppercase;
+}
+.poster-card.preview-card-style #qr-out {
+  width: 110px; height: 110px; background: #FFF !important; border-radius: 8px; padding: 4px; flex-shrink: 0; margin-top: 0;
+}
+.poster-card.preview-card-style .poster-bot {
+  font-size: 8px; color: var(--mu) !important; margin: 0; text-align: left; font-family: monospace;
+}
+
 .poster-card { position: relative; width: 100%; max-width: 220px; border-radius: 12px; padding: 14px 12px; display: flex; flex-direction: column; align-items: center; text-align: center; background: #F0F4FF; min-height: 245px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
 .poster-top { font-size: 13px; font-weight: 800; margin-bottom: 8px; width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; height: 18px; line-height: 18px; text-transform: uppercase; letter-spacing: 0.5px; }
 #qr-out { width: 160px; height: 160px; display: flex; align-items: center; justify-content: center; }
@@ -385,11 +434,15 @@ footer { width: 100%; max-width: 440px; margin: 40px auto 10px; text-align: cent
 
 <nav>
   <div class="nav-in">
-    <a href="/" class="logo" onclick="handleInternalNav('/'); return false;"><span>EzQR</span><em>.io</em></a>
-    <a href="/dashboard.html" class="nav-cta" style="background:transparent; color:#8080A0; border-color:transparent; margin-right: 8px;">Analytics</a>
+    <a href="./index.html" class="logo"><span>EzQR</span><em>.io</em></a>
+    <a href="./dashboard.html" class="nav-cta" style="background:transparent; color:#8080A0; border-color:transparent; margin-right: 8px;">Analytics</a>
     <a href="#poster-card" class="nav-cta" onclick="scrollAndFocusPro()">Get Pro ₹149/mo</a>
   </div>
 </nav>
+
+<div style="background:var(--s1); border-bottom:1px solid var(--bd); padding:8px 12px; text-align:center; font-size:11px; font-weight:800; color:var(--pl); letter-spacing:0.5px;">
+  🎯 COMPETITOR COMPARISON: "Generate the perfect QR for your exact use case."
+</div>
 
 <section class="hero">
   <div class="hero-in">
@@ -522,16 +575,36 @@ footer { width: 100%; max-width: 440px; margin: 40px auto 10px; text-align: cent
       </div>
 
       <div class="poster-section">
-        <div class="poster-card" id="poster-card">
-          <div class="lock-overlay" id="lock-overlay">
+        <div class="preview-selector">
+          <button type="button" class="preview-mode-tab active" id="tab-preview-poster" onclick="switchPreviewMode('poster')">📄 Poster</button>
+          <button type="button" class="preview-mode-tab" id="tab-preview-compact" onclick="switchPreviewMode('compact')">🟦 Fitted QR</button>
+          <button type="button" class="preview-mode-tab" id="tab-preview-card" onclick="switchPreviewMode('card')">💳 Card</button>
+        </div>
+
+        <div class="poster-card" id="poster-card" style="transition: all 0.25s;">
+          <div class="lock-overlay" id="lock-overlay" style="border-radius:12px;">
             <div class="lock-title">Premium Style Locked</div>
             <div class="lock-desc">✦ No Watermark on Poster<br>✦ High-Res Vector SVG<br>✦ Dynamic QR Target Updates</div>
             <button class="lock-btn" onclick="triggerAuthMock()">Unlock Pro Features</button>
           </div>
-          <div class="poster-top" id="poster-top">MY SHOP</div>
+          
+          <div class="classic-elements-wrap" id="classic-wrap" style="display:contents;">
+            <div class="poster-top" id="poster-top">MY SHOP</div>
+          </div>
+          
+          <div class="card-info-wrap" id="card-wrap" style="display:none; flex-direction:column; justify-content:center; text-align:left; flex:1; gap:4px;">
+            <div class="poster-top" id="card-title-node" style="text-align:left; font-weight:800; font-size:12px; margin-bottom:2px;">MY SHOP</div>
+            <p style="font-size:9px; color:var(--mu); line-height:1.25; margin-bottom:4px;" id="card-sub-title">Premium Contact Card</p>
+            <div style="font-size:7px; color:var(--mu); display:flex; flex-direction:column; gap:2.5px; font-weight:600;">
+              <span>⚡ Tap or Scan to view links</span>
+              <span>🔒 100% Scribe Handshake SSL</span>
+            </div>
+          </div>
+
           <div id="qr-out"></div>
-          <div class="poster-bot">ezqr.io</div>
+          <div class="poster-bot" id="poster-bot">ezqr.io</div>
         </div>
+
         <div class="dl-wrap" style="width: 100%; display: flex; flex-direction: column; gap: 8px;">
           <button class="dl-main" onclick="downloadPosterCanvas()">Download High-Res Poster PNG</button>
           <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px;">
@@ -589,29 +662,29 @@ footer { width: 100%; max-width: 440px; margin: 40px auto 10px; text-align: cent
     </div>
     
     <div class="qr-gallery-scroll">
-      <div class="qr-gallery-card" onclick="quickLoadExample('wedding')">
-        <img class="qr-gallery-img" src="https://api.qrserver.com/v1/create-qr-code/?data=wedding&color=ffffff&bgcolor=be123c" alt="Wedding RSVP QR">
-        <span class="qr-gallery-label">💖 Wedding Guest RSVP</span>
-      </div>
-      <div class="qr-gallery-card" onclick="quickLoadExample('restaurant')">
-        <img class="qr-gallery-img" src="https://api.qrserver.com/v1/create-qr-code/?data=restaurant&color=ffffff&bgcolor=1C1C2E" alt="Restaurant QR">
-        <span class="qr-gallery-label">🍔 Spicegrill Dinner Menu</span>
-      </div>
-      <div class="qr-gallery-card" onclick="quickLoadExample('airbnb')">
-        <img class="qr-gallery-img" src="https://api.qrserver.com/v1/create-qr-code/?data=airbnb&color=ffffff&bgcolor=10B981" alt="Airbnb Welcome QR">
-        <span class="qr-gallery-label">🏡 Cozy Guest Cabin WiFi</span>
+      <div class="qr-gallery-card" onclick="quickLoadExample('fibonacci')">
+        <img class="qr-gallery-img" src="https://api.qrserver.com/v1/create-qr-code/?data=fibonacci&color=ffffff&bgcolor=312e81" alt="Fibonacci Spiral QR">
+        <span class="qr-gallery-label">🌀 Fibonacci QR Spiral</span>
       </div>
       <div class="qr-gallery-card" onclick="quickLoadExample('arabic')">
         <img class="qr-gallery-img" src="https://api.qrserver.com/v1/create-qr-code/?data=arabic&color=ffffff&bgcolor=F59E0B" alt="Arabic Brand QR">
-        <span class="qr-gallery-label">🕌 Arabian Luxury Glow</span>
+        <span class="qr-gallery-label">🕌 Arabic Luxury Calligraphy</span>
       </div>
-      <div class="qr-gallery-card" onclick="quickLoadExample('fibonacci')">
-        <img class="qr-gallery-img" src="https://api.qrserver.com/v1/create-qr-code/?data=fibonacci&color=ffffff&bgcolor=312e81" alt="Math Fibonacci QR">
-        <span class="qr-gallery-label">🌀 Mathematical Fibonacci</span>
+      <div class="qr-gallery-card" onclick="quickLoadExample('vinyl')">
+        <img class="qr-gallery-img" src="https://api.qrserver.com/v1/create-qr-code/?data=vinyl&color=ffffff&bgcolor=111827" alt="Vinyl Record QR">
+        <span class="qr-gallery-label">📀 Vinyl Retro Record</span>
       </div>
-      <div class="qr-gallery-card" onclick="quickLoadExample('property')">
-        <img class="qr-gallery-img" src="https://api.qrserver.com/v1/create-qr-code/?data=property&color=ffffff&bgcolor=4f46e5" alt="Property Scan QR">
-        <span class="qr-gallery-label">🏢 Beachside Open House</span>
+      <div class="qr-gallery-card" onclick="quickLoadExample('sakura')">
+        <img class="qr-gallery-img" src="https://api.qrserver.com/v1/create-qr-code/?data=sakura&color=ffffff&bgcolor=db2777" alt="Sakura Blossom QR">
+        <span class="qr-gallery-label">🌸 Sakura Spirit Blossom</span>
+      </div>
+      <div class="qr-gallery-card" onclick="quickLoadExample('wedding')">
+        <img class="qr-gallery-img" src="https://api.qrserver.com/v1/create-qr-code/?data=wedding&color=ffffff&bgcolor=be123c" alt="Wedding RSVP QR">
+        <span class="qr-gallery-label">💖 Classic Wedding RSVP</span>
+      </div>
+      <div class="qr-gallery-card" onclick="quickLoadExample('restaurant')">
+        <img class="qr-gallery-img" src="https://api.qrserver.com/v1/create-qr-code/?data=restaurant&color=ffffff&bgcolor=1C1C2E" alt="Restaurant QR">
+        <span class="qr-gallery-label">🍔 Culinary Restaurant Menu</span>
       </div>
     </div>
 
@@ -621,30 +694,26 @@ footer { width: 100%; max-width: 440px; margin: 40px auto 10px; text-align: cent
       <p class="section-subtitle">Select a category folder to instantly jump and filter specific solutions</p>
     </div>
     
-    <div class="categories-nav-grid">
-      <div class="category-nav-card" onclick="selectCategoryAndScroll('B2B & Compliance')">
+    <div class="categories-nav-grid" style="grid-template-columns: repeat(5, 1fr);">
+      <div class="category-nav-card" onclick="selectCategoryAndScroll('Business')">
         <span class="category-nav-icon">🏢</span>
-        <span class="category-nav-label">Business B2B</span>
+        <span class="category-nav-label">Business</span>
       </div>
-      <div class="category-nav-card" onclick="selectCategoryAndScroll('Education & Events')">
+      <div class="category-nav-card" onclick="selectCategoryAndScroll('Restaurant')">
+        <span class="category-nav-icon">🍔</span>
+        <span class="category-nav-label">Restaurant</span>
+      </div>
+      <div class="category-nav-card" onclick="selectCategoryAndScroll('Events')">
         <span class="category-nav-icon">🎉</span>
-        <span class="category-nav-label">Events & Social</span>
+        <span class="category-nav-label">Events</span>
       </div>
-      <div class="category-nav-card" onclick="selectCategoryAndScroll('Utilities & Daily Life')">
-        <span class="category-nav-icon">❤️</span>
-        <span class="category-nav-label">Personal Life</span>
+      <div class="category-nav-card" onclick="selectCategoryAndScroll('Personal')">
+        <span class="category-nav-icon">👤</span>
+        <span class="category-nav-label">Personal</span>
       </div>
-      <div class="category-nav-card" onclick="selectCategoryAndScroll('Technical & Math')">
+      <div class="category-nav-card" onclick="selectCategoryAndScroll('Art QR')">
         <span class="category-nav-icon">🎨</span>
-        <span class="category-nav-label">Art & Math</span>
-      </div>
-      <div class="category-nav-card" onclick="selectCategoryAndScroll('Cyber Security & Privacy')">
-        <span class="category-nav-icon">🔒</span>
-        <span class="category-nav-label">Cyber Security</span>
-      </div>
-      <div class="category-nav-card" onclick="selectCategoryAndScroll('India Regional & Civic')">
-        <span class="category-nav-icon">🇮🇳</span>
-        <span class="category-nav-label">India QR Portal</span>
+        <span class="category-nav-label">Art QR</span>
       </div>
     </div>
 
@@ -780,18 +849,11 @@ footer { width: 100%; max-width: 440px; margin: 40px auto 10px; text-align: cent
         <input type="text" id="dirSearch" class="search-fi" placeholder="Search across all 100+ tools..." oninput="filterToolsDirectory()">
       </div>
       <div class="cat-row" id="catTabsRow">
-        <button class="cat-btn active" onclick="switchCategory('Technical & Math', this)">Technical & Math</button>
-        <button class="cat-btn" onclick="switchCategory('Cyber Security & Privacy', this)">Cyber Security & Privacy</button>
-        <button class="cat-btn" onclick="switchCategory('Cultural & Festive', this)">Cultural & Festive</button>
-        <button class="cat-btn" onclick="switchCategory('Emotional & Safety', this)">Emotional & Safety</button>
-        <button class="cat-btn" onclick="switchCategory('B2B & Compliance', this)">B2B & Compliance</button>
-        <button class="cat-btn" onclick="switchCategory('India Regional & Civic', this)">India Regional & Civic</button>
-        <button class="cat-btn" onclick="switchCategory('Crypto & Payments', this)">Crypto & Payments</button>
-        <button class="cat-btn" onclick="switchCategory('Restaurant & Hospitality', this)">Restaurant & Hospitality</button>
-        <button class="cat-btn" onclick="switchCategory('Healthcare & Medical', this)">Healthcare & Safety</button>
-        <button class="cat-btn" onclick="switchCategory('Real Estate & Auto', this)">Real Estate & Auto</button>
-        <button class="cat-btn" onclick="switchCategory('Education & Events', this)">Education & Events</button>
-        <button class="cat-btn" onclick="switchCategory('Utilities & Daily Life', this)">Utilities & Daily Life</button>
+        <button class="cat-btn active" onclick="switchCategoryGroup('Business', this)">Business</button>
+        <button class="cat-btn" onclick="switchCategoryGroup('Restaurant', this)">Restaurant</button>
+        <button class="cat-btn" onclick="switchCategoryGroup('Events', this)">Events</button>
+        <button class="cat-btn" onclick="switchCategoryGroup('Personal', this)">Personal</button>
+        <button class="cat-btn" onclick="switchCategoryGroup('Art QR', this)">Art QR Signature</button>
       </div>
       <div class="tools-grid" id="directoryGrid"></div>
     </div>
@@ -826,8 +888,13 @@ footer { width: 100%; max-width: 440px; margin: 40px auto 10px; text-align: cent
     </div>
 
     <div id="view-email" class="auth-view active">
-      <input type="email" id="auth-email" class="modal-input" placeholder="Email address">
-      <input type="password" id="auth-password" class="modal-input" placeholder="Password">
+      <input type="email" id="auth-email" class="modal-input" placeholder="Email address" value="test@a2zqr.com">
+      <div style="position: relative; width: 100%; display: flex; align-items: center; margin-bottom: 12px;">
+        <input type="password" id="auth-password" class="modal-input" placeholder="Password" value="password123" style="width: 100%; margin-bottom: 0; padding-right: 42px;">
+        <button type="button" onclick="togglePasswordVisibility('auth-password', this)" style="position: absolute; right: 12px; background: none; border: none; cursor: pointer; color: var(--mu); font-size: 16px; padding: 4px; display: flex; align-items: center; justify-content: center; outline: none; -webkit-tap-highlight-color: transparent;" title="Show/Hide Password">
+          👁️
+        </button>
+      </div>
       <button class="modal-btn" id="btn-email-action" onclick="triggerEmailAuth()">Login / Sign Up</button>
     </div>
 
@@ -1109,7 +1176,11 @@ function genQR() {
     }
 
     const userText = document.getElementById('in-shop').value || '';
-    document.getElementById('poster-card').style.background = curBg;
+    if (activePreviewMode === 'poster') {
+      document.getElementById('poster-card').style.background = curBg;
+    } else {
+      document.getElementById('poster-card').style.background = "";
+    }
     document.getElementById('poster-top').textContent = userText;
     document.getElementById('poster-top').style.color = isMultiToned ? colorShadesArray[0] : curColor;
 
@@ -1232,6 +1303,19 @@ function renderSuiteQR() {
 function closeAuthModal() { document.getElementById('auth-modal').style.display = 'none'; }
 function closePaymentModal() { document.getElementById('payment-modal').style.display = 'none'; }
 
+function togglePasswordVisibility(fieldId, btnEl) {
+  const field = document.getElementById(fieldId);
+  if (field) {
+    if (field.type === 'password') {
+      field.type = 'text';
+      btnEl.textContent = '🙈';
+    } else {
+      field.type = 'password';
+      btnEl.textContent = '👁️';
+    }
+  }
+}
+
 function switchAuthTab(tab) {
   document.querySelectorAll('.tab-row-auth button').forEach(b => b.classList.remove('active'));
   document.querySelectorAll('.auth-view').forEach(v => v.classList.remove('active'));
@@ -1332,8 +1416,19 @@ function syncSuitePreview() {
   renderSuiteQR();
 }
 
-function switchCategory(cat, btn) {
-  activeDirectoryCategory = cat;
+let activeDirectoryGroup = 'Business';
+
+function getCategoryGroup(cat) {
+  if (cat === 'B2B & Compliance' || cat === 'Real Estate & Auto' || cat === 'Crypto & Payments' || cat === 'Business') return 'Business';
+  if (cat === 'Restaurant & Hospitality' || cat === 'Restaurant') return 'Restaurant';
+  if (cat === 'Education & Events' || cat === 'Cultural & Festive' || cat === 'Events') return 'Events';
+  if (cat === 'Utilities & Daily Life' || cat === 'Emotional & Safety' || cat === 'Healthcare & Medical' || cat === 'India Regional & Civic' || cat === 'Personal') return 'Personal';
+  if (cat === 'Technical & Math' || cat === 'Cyber Security & Privacy' || cat === 'Art QR') return 'Art QR';
+  return 'Personal';
+}
+
+function switchCategoryGroup(group, btn) {
+  activeDirectoryGroup = group;
   document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   filterToolsDirectory();
@@ -1341,7 +1436,7 @@ function switchCategory(cat, btn) {
 
 function renderDirectoryCards(dataset) {
   const grid = document.getElementById('directoryGrid');
-  let targetData = dataset.filter(t => t.cat === activeDirectoryCategory);
+  let targetData = dataset.filter(t => getCategoryGroup(t.cat) === activeDirectoryGroup);
   let htmlResult = '';
   targetData.forEach(tool => { 
     htmlResult += `<div class="t-card" onclick="handleCardNav('${tool.name}', '${tool.path}')"><div class="t-name">${tool.name}</div><div class="t-arr">→</div></div>`; 
@@ -1353,7 +1448,16 @@ function filterToolsDirectory() {
   const query = document.getElementById('dirSearch').value.toLowerCase().trim();
   const grid = document.getElementById('directoryGrid');
   
-  let datasets = (query === '') ? TOOLS_DATABASE.filter(t => t.cat === activeDirectoryCategory) : TOOLS_DATABASE.filter(t => t.name.toLowerCase().includes(query) || t.cat.toLowerCase().includes(query));
+  let datasets;
+  if (query === '') {
+    datasets = TOOLS_DATABASE.filter(t => getCategoryGroup(t.cat) === activeDirectoryGroup);
+  } else {
+    datasets = TOOLS_DATABASE.filter(t => 
+      t.name.toLowerCase().includes(query) || 
+      getCategoryGroup(t.cat).toLowerCase().includes(query) || 
+      t.cat.toLowerCase().includes(query)
+    );
+  }
   
   if(datasets.length === 0) {
     grid.innerHTML = `<div style="font-size:11px; color:var(--mu); grid-column:span 2; padding:10px 0;">No matching tools found. Try general keywords like 'WiFi' or 'UPI'</div>`;
@@ -1372,16 +1476,27 @@ function selectCategoryAndScroll(catName) {
     directory.scrollIntoView({ behavior: 'smooth' });
   }
   
+  let targetGroup = 'Personal';
+  if (catName === 'B2B & Compliance' || catName === 'Real Estate & Auto' || catName === 'Crypto & Payments' || catName === 'Business') {
+    targetGroup = 'Business';
+  } else if (catName === 'Restaurant & Hospitality' || catName === 'Restaurant') {
+    targetGroup = 'Restaurant';
+  } else if (catName === 'Education & Events' || catName === 'Cultural & Festive' || catName === 'Events') {
+    targetGroup = 'Events';
+  } else if (catName === 'Technical & Math' || catName === 'Art' || catName === 'Art QR') {
+    targetGroup = 'Art QR';
+  }
+  
   const buttons = document.querySelectorAll('#catTabsRow .cat-btn');
   let matchedBtn = null;
   buttons.forEach(btn => {
-    if (btn.textContent.toLowerCase().includes(catName.toLowerCase())) {
+    if (btn.textContent.toLowerCase().includes(targetGroup.toLowerCase())) {
       matchedBtn = btn;
     }
   });
   
   if (matchedBtn) {
-    switchCategory(matchedBtn.textContent, matchedBtn);
+    switchCategoryGroup(targetGroup, matchedBtn);
   }
 }
 
@@ -1529,6 +1644,63 @@ function quickLoadExample(type) {
     
     const accLbl = document.getElementById('acc-lbl');
     if(accLbl) accLbl.textContent = "Design: Fluid Wave";
+  } else if (type === 'vinyl') {
+    switchTool('url', tbUrl);
+    if(inUrl) inUrl.value = 'https://spotify.com/album/dark-side-of-the-moon';
+    if(inShop) inShop.value = 'VINYL AUDIO DISK';
+    const top = document.getElementById('poster-top');
+    if(top) top.textContent = 'VINYL AUDIO DISK';
+    
+    curColor = '#000000';
+    isMultiToned = false;
+    curBg = '#ffffff';
+    curDots = 'dots';
+    curCorner = 'rounded';
+    currentActiveStyleMode = 'standard';
+    
+    document.querySelectorAll('.cc').forEach(c => c.classList.remove('on'));
+    const matchedColor = document.querySelector('.cc[style*="000000"]');
+    if (matchedColor) matchedColor.classList.add('on');
+    
+    const accLbl = document.getElementById('acc-lbl');
+    if(accLbl) accLbl.textContent = "Design: Classy Rounded";
+  } else if (type === 'sakura') {
+    switchTool('url', tbUrl);
+    if(inUrl) inUrl.value = 'https://japan-tourism.org/sakura-bloom-track';
+    if(inShop) inShop.value = 'SAKURA CHERRY';
+    const top = document.getElementById('poster-top');
+    if(top) top.textContent = 'SAKURA CHERRY';
+    
+    curColor = '#EC4899';
+    isMultiToned = false;
+    curBg = '#FFF1F8';
+    curDots = 'dots';
+    curCorner = 'extra-rounded';
+    currentActiveStyleMode = 'standard';
+    
+    document.querySelectorAll('.cc').forEach(c => c.classList.remove('on'));
+    const accLbl = document.getElementById('acc-lbl');
+    if(accLbl) accLbl.textContent = "Design: Classy Rounded";
+  } else if (type === 'resume') {
+    switchTool('url', tbUrl);
+    if(inUrl) inUrl.value = 'https://linkedin.com/in/alex-mercer-cv';
+    if(inShop) inShop.value = 'ALEX MERCER RESUME';
+    const top = document.getElementById('poster-top');
+    if(top) top.textContent = 'ALEX MERCER RESUME';
+    
+    curColor = '#4338CA';
+    isMultiToned = false;
+    curBg = '#F0F4FF';
+    curDots = 'dots';
+    curCorner = 'extra-rounded';
+    currentActiveStyleMode = 'standard';
+    
+    document.querySelectorAll('.cc').forEach(c => c.classList.remove('on'));
+    const matchedColor = document.querySelector('.cc[style*="4338CA"]');
+    if (matchedColor) matchedColor.classList.add('on');
+    
+    const accLbl = document.getElementById('acc-lbl');
+    if(accLbl) accLbl.textContent = "Design: Zen Premium";
   }
   
   genQR();
@@ -1539,8 +1711,60 @@ function quickLoadExample(type) {
   }
 }
 
+let activePreviewMode = 'poster';
+function switchPreviewMode(mode) {
+  activePreviewMode = mode;
+  const card = document.getElementById('poster-card');
+  const classicWrap = document.getElementById('classic-wrap');
+  const cardWrap = document.getElementById('card-wrap');
+  const overlay = document.getElementById('lock-overlay');
+  
+  // Highlight active selector tab
+  document.querySelectorAll('.preview-mode-tab').forEach(btn => btn.classList.remove('active'));
+  const activeBtn = document.getElementById('tab-preview-' + mode);
+  if (activeBtn) activeBtn.classList.add('active');
+
+  // Reset classes and components
+  card.classList.remove('preview-phone-style', 'preview-compact-style', 'preview-card-style');
+  classicWrap.style.display = "none";
+  cardWrap.style.display = "none";
+
+  if (mode === 'poster') {
+    classicWrap.style.display = "contents";
+    card.style.background = curBg || '#F0F4FF';
+    if (overlay) overlay.style.borderRadius = "12px";
+  } else if (mode === 'compact') {
+    card.classList.add('preview-compact-style');
+    // Hide text blocks inside card for pure 1:1 fitted look
+    card.style.background = "#FFFFFF";
+    if (overlay) overlay.style.borderRadius = "12px";
+  } else if (mode === 'card') {
+    card.classList.add('preview-card-style');
+    cardWrap.style.display = "flex";
+    card.style.background = ""; // Controlled by CSS linear-gradient
+    if (overlay) overlay.style.borderRadius = "12px";
+  }
+  
+  const dlBtn = document.querySelector('.dl-main');
+  if (dlBtn) {
+    if (mode === 'poster') {
+      dlBtn.textContent = 'Download High-Res Poster PNG';
+    } else if (mode === 'compact') {
+      dlBtn.textContent = 'Download Fitted QR Code PNG';
+    } else if (mode === 'card') {
+      dlBtn.textContent = 'Download Business Card PNG';
+    }
+  }
+
+  // Refresh labels
+  const textVal = document.getElementById('in-shop').value || 'MY SHOP';
+  document.getElementById('poster-top').textContent = textVal;
+  document.getElementById('card-title-node').textContent = textVal;
+}
+
 function handleCardNav(name, path) {
-  window.location.href = '/tools' + path + '/';
+  const cleanSlug = path.replace(/^\//, '');
+  window.location.href = './tools/' + cleanSlug + '/index.html';
 }
 
 function handleInternalNav(routePath, customTitle, customDesc) {
@@ -1578,20 +1802,89 @@ function downloadPosterCanvas() {
     
     const img = new Image();
     img.onload = function() {
-      const c = document.createElement('canvas'); c.width = 400; c.height = 520;
+      const c = document.createElement('canvas');
       const ctx = c.getContext('2d');
-      ctx.fillStyle = curBg || '#ffffff'; ctx.fillRect(0,0,400,520);
-      ctx.fillStyle = isMultiToned ? colorShadesArray[0] : curColor;
-      ctx.font = '800 22px Syne, sans-serif'; ctx.textAlign = 'center'; ctx.fillText(label.toUpperCase(), 200, 50);
       
-      ctx.drawImage(img, 100, 100, 200, 200);
-      
-      if(!isUserPremiumPro) {
-        ctx.fillStyle = "rgba(128,128,160,0.5)"; ctx.font = '600 11px sans-serif';
-        ctx.fillText('⚡ generated via ezqr.io', 200, 480);
+      function drawRoundRect(x, y, w, h, r) {
+        if (ctx.roundRect) {
+          ctx.roundRect(x, y, w, h, r);
+        } else {
+          if (w < 2 * r) r = w / 2;
+          if (h < 2 * r) r = h / 2;
+          ctx.beginPath();
+          ctx.moveTo(x + r, y);
+          ctx.arcTo(x + w, y, x + w, y + h, r);
+          ctx.arcTo(x + w, y + h, x, y + h, r);
+          ctx.arcTo(x, y + h, x, y, r);
+          ctx.arcTo(x, y, x + w, y, r);
+          ctx.closePath();
+        }
+      }
+
+      if (activePreviewMode === 'compact') {
+        c.width = 500; c.height = 500;
+        ctx.fillStyle = '#FFFFFF'; ctx.fillRect(0, 0, 500, 500);
+        ctx.drawImage(img, 25, 25, 450, 450);
+        
+        if (!isUserPremiumPro) {
+          ctx.fillStyle = "rgba(0, 0, 0, 0.4)";
+          ctx.font = '600 12px sans-serif';
+          ctx.textAlign = 'center';
+          ctx.fillText('⚡ generated via ezqr.io', 250, 485);
+        }
+      } else if (activePreviewMode === 'card') {
+        c.width = 540; c.height = 320;
+        const grad = ctx.createLinearGradient(0, 0, 540, 320);
+        grad.addColorStop(0, '#12121E');
+        grad.addColorStop(1, curBg || '#4338CA');
+        ctx.fillStyle = grad; ctx.fillRect(0, 0, 540, 320);
+        
+        ctx.fillStyle = '#FFFFFF';
+        ctx.font = '800 22px Syne, sans-serif'; ctx.textAlign = 'left';
+        ctx.fillText(label.toUpperCase(), 40, 85);
+        
+        ctx.fillStyle = '#8080A0'; ctx.font = '500 13px sans-serif';
+        ctx.fillText('Premium Contact Card', 40, 115);
+        
+        ctx.fillStyle = '#A89EFF'; ctx.font = '600 10px monospace';
+        ctx.fillText('⚡ Tap or Scan to view links', 40, 160);
+        ctx.fillText('🔒 100% Scribe Handshake SSL', 40, 185);
+        
+        ctx.fillStyle = '#FFFFFF';
+        ctx.beginPath();
+        drawRoundRect(310, 55, 190, 190, 16);
+        ctx.fill();
+        ctx.drawImage(img, 325, 70, 160, 160);
+        
+        if (!isUserPremiumPro) {
+          ctx.fillStyle = "rgba(255,255,255,0.4)"; ctx.font = '600 10px sans-serif';
+          ctx.textAlign = 'center';
+          ctx.fillText('⚡ generated via ezqr.io', 270, 290);
+        }
+      } else {
+        // Standard fitted Poster Card
+        c.width = 400; c.height = 440;
+        ctx.fillStyle = curBg || '#F0F4FF'; ctx.fillRect(0, 0, 400, 440);
+        
+        ctx.fillStyle = isMultiToned ? colorShadesArray[0] : curColor;
+        ctx.font = '800 24px Syne, sans-serif'; ctx.textAlign = 'center';
+        ctx.fillText(label.toUpperCase(), 200, 50);
+        
+        ctx.drawImage(img, 70, 75, 260, 260);
+        
+        if (!isUserPremiumPro) {
+          ctx.fillStyle = "rgba(128,128,160,0.5)"; ctx.font = '600 11px sans-serif';
+          ctx.textAlign = 'center';
+          ctx.fillText('⚡ generated via ezqr.io', 200, 390);
+        } else {
+          ctx.fillStyle = isMultiToned ? colorShadesArray[0] : curColor;
+          ctx.font = '700 13px sans-serif';
+          ctx.textAlign = 'center';
+          ctx.fillText('ezqr.io', 200, 390);
+        }
       }
       
-      const a = document.createElement('a'); a.href = c.toDataURL('image/png'); a.download = 'ezqr-poster-highres.png'; a.click();
+      const a = document.createElement('a'); a.href = c.toDataURL('image/png'); a.download = 'ezqr-' + activePreviewMode + '-highres.png'; a.click();
       
       let totalLocalAudits = parseInt(localStorage.getItem('ezqr_audit_counts') || '49284');
       localStorage.setItem('ezqr_audit_counts', totalLocalAudits + 1);
