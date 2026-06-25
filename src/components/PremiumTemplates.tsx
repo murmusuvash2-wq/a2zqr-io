@@ -63,18 +63,23 @@ export const DUMMY_TEMPLATES = [
     category: 'Posters',
     type: 'Pro',
     layoutType: 'artistic_portrait',
-    imgUrl: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=400',
+    imgUrl: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?auto=format&fit=crop&q=80&w=400',
     description: 'Charcoal pencil-sketch fine art merging a custom QR code beautifully into a paper texture.',
-    bgType: 'image',
+    bgType: 'gradient',
+    gradient: {
+      from: '#FAF9F6',
+      to: '#F4F1EA',
+      angle: '180deg'
+    },
     qrConfig: {
-      fgColor: '#1A1A1A',
-      bgColor: '#FAF9F6',
+      fgColor: '#1C1C1C',
+      bgColor: 'transparent',
       dotsStyle: 'rounded',
       cornersStyle: 'extra-rounded'
     },
     textElements: [
-      { content: 'ARTISTIC GALLERY', x: 80, y: 65, color: '#1A1A1A', fontSize: 24 },
-      { content: 'SCAN TO EXPLORE EXHIBITION', x: 55, y: 510, color: '#333333', fontSize: 15 }
+      { content: 'ARTISTIC PORTRAIT', x: 80, y: 55, color: '#111111', fontSize: 24 },
+      { content: 'SCAN TO SEE ARTIST PORTFOLIO', x: 50, y: 505, color: '#333333', fontSize: 14 }
     ]
   },
   {
@@ -570,89 +575,93 @@ export default function PremiumTemplates({
         {/* Studio Gallery Container */}
         <div className="flex-1 p-8 space-y-8 max-w-7xl mx-auto w-full">
           
-          {/* AI prompt box: STRICTLY visible to Creator Admin Mode ONLY */}
-          {isAdminMode ? (
-            <div className="bg-gradient-to-br from-[#0F0F24]/90 to-[#181838]/80 rounded-2xl border border-[#2A2A54]/50 p-6 shadow-2xl relative overflow-hidden animate-fade-in">
+          {/* Gemini AI Layout Lab & Curated Challenge Dashboard */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            {/* AI Generator Lab */}
+            <div className="lg:col-span-7 bg-gradient-to-br from-[#0F0F24]/90 to-[#181838]/80 rounded-2xl border border-[#2A2A54]/50 p-6 shadow-2xl relative overflow-hidden flex flex-col justify-between">
               <div className="absolute top-0 right-0 w-80 h-80 bg-[#7C6EFA]/10 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20"></div>
               
-              <div className="flex items-start gap-4">
-                <div className="p-3 bg-[#7C6EFA]/15 rounded-xl border border-[#7C6EFA]/30">
-                  <Wand2 className="w-6 h-6 text-[#A89EFF] animate-pulse" />
-                </div>
-                <div className="flex-1">
-                  <div className="flex items-center gap-2">
-                    <h2 className="font-syne text-lg font-bold text-white">
-                      Gemini AI Layout Lab
-                    </h2>
-                    <span className="bg-[#10B981]/20 text-[#10B981] text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded border border-[#10B981]/30">
-                      System Creator authorized
-                    </span>
+              <div>
+                <div className="flex items-start gap-4">
+                  <div className="p-3 bg-[#7C6EFA]/15 rounded-xl border border-[#7C6EFA]/30">
+                    <Wand2 className="w-6 h-6 text-[#A89EFF] animate-pulse" />
                   </div>
-                  <p className="text-xs text-[#8080A0] mt-1 leading-relaxed">
-                    Enter a client concept or specific prompt. Gemini will generate a master coordinated configuration (background color swatches, precise coordinate font offsets, and eye patterns) and save it directly to the live gallery below!
-                  </p>
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2">
+                      <h2 className="font-syne text-lg font-bold text-white flex items-center gap-2">
+                        <Sparkles className="w-4 h-4 text-[#A89EFF]" />
+                        Gemini AI Studio Mockup
+                      </h2>
+                      <span className="bg-[#7C6EFA]/20 text-[#A89EFF] text-[9px] uppercase font-bold tracking-wider px-2 py-0.5 rounded border border-[#7C6EFA]/30">
+                        Premium AI Customizer
+                      </span>
+                    </div>
+                    <p className="text-xs text-[#8080A0] mt-1 leading-relaxed">
+                      Type your creative theme below (e.g. <em>"Organic green coffee menu"</em>, <em>"Cyberpunk DJ ticket"</em>, <em>"Elegant wedding gold"</em>). Gemini will design custom color swatches, coordinate font offsets, floating emojis, and vector hand-drawn outlines!
+                    </p>
+                  </div>
                 </div>
+
+                {/* Input Box */}
+                <div className="mt-5 flex flex-col sm:flex-row gap-3">
+                  <input 
+                    type="text"
+                    placeholder="Describe your design mockup... e.g. Neon Cyberpunk underground club flyer"
+                    disabled={isGenerating}
+                    value={promptInput}
+                    onChange={(e) => setPromptInput(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') handleGenerateTemplate();
+                    }}
+                    className="flex-1 bg-[#06060F]/95 border border-[#1C1C2E] focus:border-[#7C6EFA] focus:ring-1 focus:ring-[#7C6EFA] rounded-xl px-4 py-3.5 text-sm text-white placeholder-[#4E4E6E] outline-none transition-all disabled:opacity-50"
+                  />
+                  <button
+                    onClick={handleGenerateTemplate}
+                    disabled={isGenerating || !promptInput.trim()}
+                    className="bg-gradient-to-r from-[#7C6EFA] to-[#C084FC] hover:opacity-90 disabled:opacity-40 text-white font-bold text-sm px-6 py-3.5 rounded-xl flex items-center justify-center gap-2 transition-all shadow-lg select-none shrink-0"
+                  >
+                    {isGenerating ? (
+                      <>
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                        Generating...
+                      </>
+                    ) : (
+                      <>
+                        <Sparkles className="w-4 h-4" />
+                        Design Mockup
+                      </>
+                    )}
+                  </button>
+                </div>
+
+                {/* Steps & loading simulator */}
+                {isGenerating && (
+                  <div className="mt-5 bg-[#06060F]/80 border border-[#1C1C2E] p-4 rounded-xl flex flex-col gap-3 animate-pulse">
+                    <div className="flex items-center justify-between text-xs font-semibold text-[#A89EFF]">
+                      <span>{LOADING_STEPS[currentStep]}</span>
+                      <span>Step {currentStep + 1} of {LOADING_STEPS.length}</span>
+                    </div>
+                    <div className="h-1.5 w-full bg-[#121226] rounded-full overflow-hidden">
+                      <div 
+                        className="h-full bg-gradient-to-r from-[#7C6EFA] to-[#C084FC] transition-all duration-1000 rounded-full" 
+                        style={{ width: `${((currentStep + 1) / LOADING_STEPS.length) * 100}%` }}
+                      />
+                    </div>
+                  </div>
+                )}
+
+                {/* Error messaging */}
+                {genError && (
+                  <div className="mt-4 bg-red-950/40 border border-red-500/20 text-red-400 text-xs px-4 py-3 rounded-xl leading-relaxed">
+                    {genError}
+                  </div>
+                )}
               </div>
-
-              {/* Input Box */}
-              <div className="mt-5 flex flex-col sm:flex-row gap-3">
-                <input 
-                  type="text"
-                  placeholder="e.g., A minimalist pastel pink matcha cafe menu flyer..."
-                  disabled={isGenerating}
-                  value={promptInput}
-                  onChange={(e) => setPromptInput(e.target.value)}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter') handleGenerateTemplate();
-                  }}
-                  className="flex-1 bg-[#06060F]/95 border border-[#1C1C2E] focus:border-[#7C6EFA] focus:ring-1 focus:ring-[#7C6EFA] rounded-xl px-4 py-3.5 text-sm text-white placeholder-[#4E4E6E] outline-none transition-all disabled:opacity-50"
-                />
-                <button
-                  onClick={handleGenerateTemplate}
-                  disabled={isGenerating || !promptInput.trim()}
-                  className="bg-gradient-to-r from-[#7C6EFA] to-[#C084FC] hover:opacity-90 disabled:opacity-40 text-white font-bold text-sm px-6 py-3.5 rounded-xl flex items-center justify-center gap-2 transition-all shadow-lg select-none shrink-0"
-                >
-                  {isGenerating ? (
-                    <>
-                      <Loader2 className="w-4 h-4 animate-spin" />
-                      Generating...
-                    </>
-                  ) : (
-                    <>
-                      <Sparkles className="w-4 h-4" />
-                      Construct Layout
-                    </>
-                  )}
-                </button>
-              </div>
-
-              {/* Steps & loading simulator */}
-              {isGenerating && (
-                <div className="mt-5 bg-[#06060F]/80 border border-[#1C1C2E] p-4 rounded-xl flex flex-col gap-3 animate-pulse">
-                  <div className="flex items-center justify-between text-xs font-semibold text-[#A89EFF]">
-                    <span>{LOADING_STEPS[currentStep]}</span>
-                    <span>Step {currentStep + 1} of {LOADING_STEPS.length}</span>
-                  </div>
-                  <div className="h-1.5 w-full bg-[#121226] rounded-full overflow-hidden">
-                    <div 
-                      className="h-full bg-gradient-to-r from-[#7C6EFA] to-[#C084FC] transition-all duration-1000 rounded-full" 
-                      style={{ width: `${((currentStep + 1) / LOADING_STEPS.length) * 100}%` }}
-                    />
-                  </div>
-                </div>
-              )}
-
-              {/* Error messaging */}
-              {genError && (
-                <div className="mt-4 bg-red-950/40 border border-red-500/20 text-red-400 text-xs px-4 py-3 rounded-xl leading-relaxed">
-                  {genError}
-                </div>
-              )}
 
               {/* Quick Presets */}
               <div className="mt-5 pt-4 border-t border-[#1C1C2E]">
                 <div className="text-[10px] font-bold text-[#8080A0] uppercase tracking-wider mb-2.5">
-                  Quick Idea Starters
+                  Creative Mockup Starters
                 </div>
                 <div className="flex flex-wrap gap-2">
                   {PRESET_IDEAS.map((preset, i) => (
@@ -667,55 +676,55 @@ export default function PremiumTemplates({
                   ))}
                 </div>
               </div>
-
             </div>
-          ) : (
-            /* Live AI Auto-Sync Active Dashboard Panel */
-            <div className="bg-[#0B0B18]/70 border border-[#23233D] rounded-2xl p-6 relative overflow-hidden shadow-2xl space-y-6">
+
+            {/* Live AI Daily Curated Challenge */}
+            <div className="lg:col-span-5 bg-[#0B0B18]/70 border border-[#23233D] rounded-2xl p-6 relative overflow-hidden shadow-2xl flex flex-col justify-between">
               <div className="absolute top-0 right-0 w-80 h-80 bg-[#7C6EFA]/10 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20"></div>
               
-              <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
-                <div className="space-y-2 flex-1">
-                  <div className="flex items-center gap-2">
-                    <span className="relative flex h-2.5 w-2.5">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                      <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
-                    </span>
-                    <span className="text-[10px] uppercase tracking-widest font-black text-emerald-400 flex items-center gap-1.5">
-                      LIVE AI AUTO-SYNC ACTIVE
-                    </span>
-                  </div>
-                  <h2 className="font-syne text-xl lg:text-2xl font-bold text-white tracking-tight">
-                    Today's Curated Challenge: {dailyTheme?.themeTitle || "Bespoke Creative Poster Frames"}
+              <div className="space-y-4">
+                <div className="flex items-center gap-2">
+                  <span className="relative flex h-2.5 w-2.5">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                  </span>
+                  <span className="text-[10px] uppercase tracking-widest font-black text-emerald-400 flex items-center gap-1.5">
+                    LIVE AI AUTO-SYNC ACTIVE
+                  </span>
+                </div>
+                
+                <div>
+                  <h2 className="font-syne text-lg font-bold text-white tracking-tight leading-snug">
+                    Today: {dailyTheme?.themeTitle || "Artistic Poster Frames"}
                   </h2>
-                  <p className="text-xs text-[#8080A0] leading-relaxed max-w-2xl">
-                    Our dynamic design pipeline connects with Gemini every 24 hours to automatically generate 10 fresh, beautifully coordinated art prints, contact cards, badges, and scanner posters. Today is <strong className="text-white">{dailyTheme?.dayName || "Design Day"}</strong> and the templates have been loaded directly into the visual gallery catalog below!
+                  <p className="text-[11px] text-[#8080A0] leading-relaxed mt-2">
+                    Our dynamic design pipeline connects with Gemini every 24 hours to automatically generate 10 fresh, beautifully coordinated art prints, contact cards, badges, and scanner posters. Today is <strong className="text-white">{dailyTheme?.dayName || "Design Day"}</strong>.
                   </p>
                 </div>
+              </div>
 
-                <div className="grid grid-cols-3 gap-3 shrink-0 w-full lg:w-auto">
-                  <div className="bg-[#121226]/80 border border-[#23233D] p-3 rounded-xl text-center">
-                    <span className="block text-[9px] text-[#8080A0] font-bold uppercase tracking-wider">Today's Date</span>
-                    <span className="block text-white font-mono text-xs font-bold mt-1">
-                      {dailyTheme?.date || new Date().toISOString().split('T')[0]}
-                    </span>
-                  </div>
-                  <div className="bg-[#121226]/80 border border-[#23233D] p-3 rounded-xl text-center">
-                    <span className="block text-[9px] text-[#8080A0] font-bold uppercase tracking-wider">Active Challenge</span>
-                    <span className="block text-[#A89EFF] text-xs font-bold mt-1">
-                      {dailyTheme?.dayName || "Design Day"}
-                    </span>
-                  </div>
-                  <div className="bg-[#121226]/80 border border-[#23233D] p-3 rounded-xl text-center">
-                    <span className="block text-[9px] text-[#8080A0] font-bold uppercase tracking-wider">Spotlight Category</span>
-                    <span className="block text-emerald-400 text-xs font-bold mt-1 truncate max-w-[100px]">
-                      {dailyTheme ? (dailyTheme.dayName === "Sunday" || dailyTheme.dayName === "Thursday" ? "Posters" : dailyTheme.dayName === "Monday" ? "Badges" : dailyTheme.dayName === "Tuesday" ? "vCards" : dailyTheme.dayName === "Wednesday" ? "Social Media" : dailyTheme.dayName === "Friday" ? "Events" : "Events") : "All Frames"}
-                    </span>
-                  </div>
+              <div className="grid grid-cols-3 gap-3 mt-6">
+                <div className="bg-[#121226]/80 border border-[#23233D] p-3 rounded-xl text-center">
+                  <span className="block text-[8px] text-[#8080A0] font-bold uppercase tracking-wider">Date</span>
+                  <span className="block text-white font-mono text-xs font-bold mt-1">
+                    {dailyTheme?.date || new Date().toISOString().split('T')[0]}
+                  </span>
+                </div>
+                <div className="bg-[#121226]/80 border border-[#23233D] p-3 rounded-xl text-center">
+                  <span className="block text-[8px] text-[#8080A0] font-bold uppercase tracking-wider">Day</span>
+                  <span className="block text-[#A89EFF] text-xs font-bold mt-1">
+                    {dailyTheme?.dayName || "Design Day"}
+                  </span>
+                </div>
+                <div className="bg-[#121226]/80 border border-[#23233D] p-3 rounded-xl text-center">
+                  <span className="block text-[8px] text-[#8080A0] font-bold uppercase tracking-wider">Spotlight</span>
+                  <span className="block text-emerald-400 text-xs font-bold mt-1 truncate">
+                    {dailyTheme ? (dailyTheme.dayName === "Sunday" || dailyTheme.dayName === "Thursday" ? "Posters" : dailyTheme.dayName === "Monday" ? "Badges" : dailyTheme.dayName === "Tuesday" ? "vCards" : dailyTheme.dayName === "Wednesday" ? "Social Media" : dailyTheme.dayName === "Friday" ? "Events" : "Events") : "All"}
+                  </span>
                 </div>
               </div>
             </div>
-          )}
+          </div>
 
           {/* Unified Template Gallery Title */}
           <div className="pt-2">

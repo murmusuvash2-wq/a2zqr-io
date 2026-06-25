@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { QrCode, Shield, Zap, Globe, Link, Wifi, CreditCard, MessageCircle, FileText, Phone, CheckCircle2, ChevronDown, ChevronUp, BookOpen, Sparkles, HelpCircle, Box, LayoutGrid, ArrowLeft } from 'lucide-react';
+import { QrCode, Shield, Zap, Globe, Link, Wifi, CreditCard, MessageCircle, FileText, Phone, CheckCircle2, ChevronDown, ChevronUp, BookOpen, Sparkles, HelpCircle, Box, LayoutGrid, ArrowLeft, LayoutDashboard } from 'lucide-react';
 import { QR_TOOLS, QRTool } from './data/tools';
 import QRCodeGenerator from './components/QRCodeGenerator';
 import SaaSPaymentModal from './components/SaaSPaymentModal';
@@ -263,6 +263,14 @@ export default function App() {
           </div>
 
           <div className="flex items-center gap-2">
+            <a 
+              href="/dashboard.html"
+              className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 bg-[#12121E] border border-[#28283E] text-xs font-bold text-[#A89EFF] rounded-lg hover:text-white hover:border-[#7C6EFA] transition-all"
+            >
+              <LayoutDashboard className="w-4 h-4" />
+              Console Panel
+            </a>
+
             <button 
               onClick={() => setShowTemplateGallery(true)}
               className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-[#7C6EFA] to-[#C084FC] text-xs font-bold text-white rounded-lg hover:opacity-90 transition-opacity shadow-lg"

@@ -228,14 +228,21 @@ Adhere strictly to the response schema. Ensure that your output contains exactly
       const response = await ai.models.generateContent({
         model: "gemini-3.5-flash",
         contents: `Generate a gorgeous, visually striking, and perfectly coordinated QR Code poster or card template design based on this prompt: "${prompt}". 
-Select premium, cohesive, and high-contrast color pairings, beautiful coordinate layouts, and matching QR code eye/dot pattern styles. Ensure everything matches the theme perfectly.`,
+Select premium, cohesive, and high-contrast color pairings, beautiful coordinate layouts, and matching QR code eye/dot pattern styles.
+Ensure you specify a matching "layoutType" (preferably "dynamic_custom" if a custom artistic illustration overlay is required, otherwise "artistic_portrait", "kawaii_pastel", "mascot_bear", or "japan_travel").
+If choosing "dynamic_custom", design a breath-taking "visualOverlay" with floating themed emojis, borders, and hand-drawn matching vector SVG outlines (svgPaths) to serve as a stunning layout visual mockup. Ensure everything matches the theme perfectly.`,
         config: {
           systemInstruction: `You are an elite graphic designer, brand strategist, and template creator. 
 Your task is to generate a highly professional JSON template configuration for a 400px wide by 600px high (Aspect Ratio 3:4) visual QR canvas.
 Choose matching colors, text fonts, coordinate placements, and dot patterns.
 The canvas has dimensions Width=400, Height=600.
-Always choose high-contrast text color relative to the background so that it is readable.
-The QR code container sits at the center (X=100-300, Y=200-400), so place text elements either at the top (Y=40-160) or at the bottom (Y=440-540) to prevent overlap.
+The QR code container sits at the center (X=100-300, Y=200-400, or specifically X=105 to 295, Y=215 to 405), so place text elements and emojis either at the top (Y=40-160) or at the bottom (Y=440-540) to prevent overlap.
+For "dynamic_custom" layouts, design highly creative visual overlays. For example:
+- A cyberpunk theme could have glowing circuit paths, corner brackets, and electric lightning bolt or gaming emojis.
+- A floral/organic theme could have sweeping wave paths, leaf lines, and plant/flower emojis.
+- A minimalist luxury theme could have thin diagonal golden framing lines, elegant diamond vectors, and sparkle emojis.
+- All SVG paths in "svgPaths" must use clean, valid coordinate numbers (within X=0-400, Y=0-600) and match the palette perfectly. Keep the lines elegant and subtle so they don't cover the QR code.
+Always choose high-contrast text and graphic colors relative to the background so that it is perfectly readable.
 Adhere strictly to the provided response schema. Return valid JSON only.`,
           responseMimeType: "application/json",
           responseSchema: {
@@ -282,6 +289,58 @@ Adhere strictly to the provided response schema. Return valid JSON only.`,
                   cornersStyle: { type: Type.STRING, description: "Must be exactly one of: 'extra-rounded', 'dot', 'square'" }
                 },
                 required: ["fgColor", "bgColor", "dotsStyle", "cornersStyle"]
+              },
+              layoutType: {
+                type: Type.STRING,
+                description: "Layout theme style. Must be exactly one of: 'kawaii_pastel', 'mascot_bear', 'artistic_portrait', 'japan_travel', 'dynamic_custom'"
+              },
+              visualOverlay: {
+                type: Type.OBJECT,
+                description: "Custom decorative elements for 'dynamic_custom' layoutType.",
+                properties: {
+                  themeType: {
+                    type: Type.STRING,
+                    description: "Aesthetic theme style: 'cyberpunk_glow', 'luxurious_elegant', 'organic_minimal', 'cute_kawaii', 'retro_arcade', 'neon_art'"
+                  },
+                  texture: {
+                    type: Type.BOOLEAN,
+                    description: "Whether to apply a textured paper/grain surface"
+                  },
+                  borderStyle: {
+                    type: Type.STRING,
+                    description: "Aesthetic border: 'none', 'dashed', 'thick_dark', 'cyber_brackets'"
+                  },
+                  emojis: {
+                    type: Type.ARRAY,
+                    description: "Floating theme-matching emojis (2 to 5 elements) with clean coordinates to avoid center QR block (x=105 to 295, y=215 to 405). Ensure text isn't covered.",
+                    items: {
+                      type: Type.OBJECT,
+                      properties: {
+                        char: { type: Type.STRING, description: "Emoji character e.g. '🌸', '✨', '☕', '🎵', '⚡', '🌟'" },
+                        x: { type: Type.NUMBER, description: "X coordinate (10 to 360)" },
+                        y: { type: Type.NUMBER, description: "Y coordinate (Y=40-160 or Y=440-560)" },
+                        size: { type: Type.NUMBER, description: "Font size of emoji in px (16 to 48)" }
+                      },
+                      required: ["char", "x", "y", "size"]
+                    }
+                  },
+                  svgPaths: {
+                    type: Type.ARRAY,
+                    description: "Aesthetic hand-drawn visual path outlines (vector sketches, curves, neon wireframe lines, patterns). Max 6 paths to keep it clean.",
+                    items: {
+                      type: Type.OBJECT,
+                      properties: {
+                        d: { type: Type.STRING, description: "SVG path 'd' string (e.g. M10 10 C20 20, 40 40, 100 100)" },
+                        stroke: { type: Type.STRING, description: "Hex color stroke code matching theme" },
+                        strokeWidth: { type: Type.NUMBER, description: "Width of stroke (e.g. 1 to 4)" },
+                        fill: { type: Type.STRING, description: "Hex fill color or 'none'" },
+                        opacity: { type: Type.NUMBER, description: "Opacity from 0.1 to 1.0" }
+                      },
+                      required: ["d", "stroke", "strokeWidth", "fill", "opacity"]
+                    }
+                  }
+                },
+                required: ["themeType", "texture", "borderStyle"]
               },
               textElements: {
                 type: Type.ARRAY,
