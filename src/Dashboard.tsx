@@ -555,7 +555,6 @@ export default function Dashboard() {
                 License & Settings
               </span>
               <SidebarLink id="settings" label="White-Label Domain" icon={<Settings />} active={activeTab} onClick={setActiveTab} />
-              <SidebarLink id="subscription" label="Billing & Plan" icon={<CreditCard />} active={activeTab} onClick={setActiveTab} />
             </div>
           </nav>
         </div>
@@ -1481,33 +1480,6 @@ export default function Dashboard() {
               </div>
             </div>
           )}
-
-          {/* TAB 17: BILLING & SUBSCRIPTION */}
-          {activeTab === 'subscription' && (
-            <div className="space-y-6">
-              <div className="border-b border-[#1C1C2E] pb-4">
-                <h2 className="text-2xl font-extrabold text-white flex items-center gap-2">
-                  <CreditCard className="w-6 h-6 text-[#7C6EFA]" /> Console Billing & Plan
-                </h2>
-                <p className="text-xs text-[#8080A0]">Manage your plan license keys, premium downloads, and transaction invoices.</p>
-              </div>
-
-              <div className="bg-[#0A0A12] border border-[#1C1C2E] rounded-2xl p-6 flex flex-col md:flex-row justify-between items-center gap-6">
-                <div>
-                  <span className="text-[10px] bg-gradient-to-r from-[#7C6EFA] to-[#C084FC] text-white font-extrabold px-3 py-1 rounded-full uppercase tracking-wider block w-max mb-2">
-                    Premium Pro Tier Active
-                  </span>
-                  <h3 className="font-bold text-white text-lg">Pro Console Unlimited License</h3>
-                  <p className="text-xs text-[#8080A0] mt-1">Unlimited templates, high-DPI vector SVG exports, and dynamic campaign pings.</p>
-                </div>
-                <div className="text-right">
-                  <span className="text-2xl font-black text-white font-mono">₹149 / month</span>
-                  <span className="text-xs text-[#8080A0] block mt-1">Next renewal: July 25, 2026</span>
-                </div>
-              </div>
-            </div>
-          )}
-
         </div>
 
         {/* Console global footer */}
