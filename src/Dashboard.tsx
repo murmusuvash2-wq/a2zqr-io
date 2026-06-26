@@ -305,9 +305,25 @@ export default function Dashboard() {
       if (res.ok) {
         const data = await res.json();
         setScheduleConfig(data);
+      } else {
+        console.warn("Failed to fetch scheduler config, setting defaults");
+        setScheduleConfig({
+          enabled: false,
+          time: "09:00",
+          dailyChallenge: "Futuristic Neon Synthwave",
+          lastRunDate: "",
+          history: []
+        });
       }
     } catch (e) {
       console.warn("Failed to fetch scheduler config", e);
+      setScheduleConfig({
+        enabled: false,
+        time: "09:00",
+        dailyChallenge: "Futuristic Neon Synthwave",
+        lastRunDate: "",
+        history: []
+      });
     }
   };
 
