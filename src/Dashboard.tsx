@@ -830,10 +830,10 @@ export default function Dashboard() {
           </div>
 
           {/* Sidebar Menu Groups */}
-          <nav className="p-4 space-y-6 max-h-[80vh] overflow-y-auto scrollbar-thin scrollbar-thumb-[#28283E]">
+          <nav className="p-4 space-y-6 max-h-[80vh] overflow-y-auto scrollbar-thin scrollbar-thumb-slate-200">
             {/* Core Monitoring */}
             <div className="space-y-1">
-              <span className="text-[9px] text-[#4E4E6E] uppercase tracking-wider font-extrabold px-3 block mb-1.5">
+              <span className="text-[9px] text-slate-450 uppercase tracking-wider font-extrabold px-3 block mb-1.5">
                 Core System
               </span>
               <SidebarLink id="analytics" label="Analytics & Scans" icon={<Activity />} active={activeTab} onClick={setActiveTab} />
@@ -842,7 +842,7 @@ export default function Dashboard() {
 
             {/* Design & Asset Factory */}
             <div className="space-y-1">
-              <span className="text-[9px] text-[#4E4E6E] uppercase tracking-wider font-extrabold px-3 block mb-1.5">
+              <span className="text-[9px] text-slate-450 uppercase tracking-wider font-extrabold px-3 block mb-1.5">
                 Asset & Design Engine
               </span>
               <SidebarLink id="templates" label="Templates Register" icon={<LayoutGrid />} active={activeTab} onClick={setActiveTab} count={customTemplates.length} />
@@ -859,7 +859,7 @@ export default function Dashboard() {
 
             {/* Scale operations */}
             <div className="space-y-1">
-              <span className="text-[9px] text-[#4E4E6E] uppercase tracking-wider font-extrabold px-3 block mb-1.5">
+              <span className="text-[9px] text-slate-450 uppercase tracking-wider font-extrabold px-3 block mb-1.5">
                 System Utilities
               </span>
               <SidebarLink id="bulk" label="Bulk Generator" icon={<Settings2 />} active={activeTab} onClick={setActiveTab} />
@@ -871,7 +871,7 @@ export default function Dashboard() {
 
             {/* Configuration */}
             <div className="space-y-1">
-              <span className="text-[9px] text-[#4E4E6E] uppercase tracking-wider font-extrabold px-3 block mb-1.5">
+              <span className="text-[9px] text-slate-450 uppercase tracking-wider font-extrabold px-3 block mb-1.5">
                 License & Settings
               </span>
               <SidebarLink id="settings" label="White-Label Domain" icon={<Settings />} active={activeTab} onClick={setActiveTab} />
@@ -939,11 +939,11 @@ export default function Dashboard() {
           {/* TAB 1: ANALYTICS & SCANS */}
           {activeTab === 'analytics' && (
             <div className="space-y-6">
-              <div className="border-b border-[#1C1C2E] pb-4">
+              <div className="border-b border-slate-200 pb-4">
                 <h2 className="text-2xl font-extrabold text-white flex items-center gap-2">
                   <Activity className="w-6 h-6 text-[#7C6EFA]" /> Multi-Category Scan Analytics
                 </h2>
-                <p className="text-xs text-[#8080A0]">Real-time device tracking, country codes, and unique client visits.</p>
+                <p className="text-xs text-slate-500">Real-time device tracking, country codes, and unique client visits.</p>
               </div>
 
               {/* KPI Cards */}
@@ -956,7 +956,7 @@ export default function Dashboard() {
 
               {/* Chart section */}
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <div className="bg-[#0A0A12] border border-[#1C1C2E] rounded-2xl p-6 lg:col-span-2">
+                <div className="bg-white border border-slate-200 rounded-2xl p-6 lg:col-span-2">
                   <div className="flex items-center justify-between mb-4">
                     <h3 className="text-sm font-bold text-white uppercase tracking-wider">Dynamic Scan Velocity</h3>
                     <span className="text-[10px] text-emerald-400 font-mono bg-emerald-400/10 px-2 py-0.5 rounded">Live Refresh active</span>
@@ -980,7 +980,7 @@ export default function Dashboard() {
                   </div>
                 </div>
 
-                <div className="bg-[#0A0A12] border border-[#1C1C2E] rounded-2xl p-6">
+                <div className="bg-white border border-slate-200 rounded-2xl p-6">
                   <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-4">Scanner Systems (OS)</h3>
                   <div className="h-56">
                     <ResponsiveContainer width="100%" height="100%">
@@ -999,14 +999,14 @@ export default function Dashboard() {
               </div>
 
               {/* Geo Table */}
-              <div className="bg-[#0A0A12] border border-[#1C1C2E] rounded-2xl p-6">
+              <div className="bg-white border border-slate-200 rounded-2xl p-6">
                 <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-4 flex items-center gap-1.5">
                   <MapPin className="w-4 h-4 text-emerald-400" /> High-Intensity Scanning Regions
                 </h3>
                 <div className="overflow-x-auto">
                   <table className="w-full text-left border-collapse text-xs">
                     <thead>
-                      <tr className="border-b border-[#1C1C2E] text-[#8080A0]">
+                      <tr className="border-b border-slate-200 text-slate-500">
                         <th className="py-3 px-4 font-bold">Region Code</th>
                         <th className="py-3 px-4 font-bold">Country</th>
                         <th className="py-3 px-4 font-bold text-right">Traffic Volume</th>
@@ -1016,19 +1016,19 @@ export default function Dashboard() {
                     <tbody className="divide-y divide-[#12121E]">
                       <tr className="hover:bg-white/5 transition-colors">
                         <td className="py-3 px-4 font-bold text-white">IN-MH (Mumbai/Pune)</td>
-                        <td className="py-3 px-4 text-[#8080A0]">India</td>
+                        <td className="py-3 px-4 text-slate-500">India</td>
                         <td className="py-3 px-4 text-right font-mono font-bold text-white">12,490</td>
                         <td className="py-3 px-4 text-right text-emerald-400 font-mono">51%</td>
                       </tr>
                       <tr className="hover:bg-white/5 transition-colors">
                         <td className="py-3 px-4 font-bold text-white">IN-DL (Delhi NCR)</td>
-                        <td className="py-3 px-4 text-[#8080A0]">India</td>
+                        <td className="py-3 px-4 text-slate-500">India</td>
                         <td className="py-3 px-4 text-right font-mono font-bold text-white">6,240</td>
                         <td className="py-3 px-4 text-right text-emerald-400 font-mono">25%</td>
                       </tr>
                       <tr className="hover:bg-white/5 transition-colors">
                         <td className="py-3 px-4 font-bold text-white">US-CA (San Jose)</td>
-                        <td className="py-3 px-4 text-[#8080A0]">United States</td>
+                        <td className="py-3 px-4 text-slate-500">United States</td>
                         <td className="py-3 px-4 text-right font-mono font-bold text-white">2,410</td>
                         <td className="py-3 px-4 text-right text-emerald-400 font-mono">10%</td>
                       </tr>
@@ -1042,46 +1042,46 @@ export default function Dashboard() {
           {/* TAB 2: QR REDIRECTION MANAGEMENT */}
           {activeTab === 'qrs' && (
             <div className="space-y-6">
-              <div className="border-b border-[#1C1C2E] pb-4">
+              <div className="border-b border-slate-200 pb-4">
                 <h2 className="text-2xl font-extrabold text-white flex items-center gap-2">
                   <QrCode className="w-6 h-6 text-indigo-400" /> Active Dynamic QR Redirection
                 </h2>
-                <p className="text-xs text-[#8080A0]">Modify destination URLs instantly without ever printing new cards or stickers.</p>
+                <p className="text-xs text-slate-500">Modify destination URLs instantly without ever printing new cards or stickers.</p>
               </div>
 
               {/* Add New Dynamic QR Form */}
-              <div className="bg-[#0A0A12] border border-[#1C1C2E] rounded-2xl p-6">
+              <div className="bg-white border border-slate-200 rounded-2xl p-6">
                 <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-4">Initialize New Dynamic Redirect</h3>
                 <form onSubmit={handleCreateQr} className="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
                   <div className="space-y-1.5">
-                    <label className="text-[10px] text-[#8080A0] uppercase font-bold">Campaign Name</label>
+                    <label className="text-[10px] text-slate-500 uppercase font-bold">Campaign Name</label>
                     <input 
                       type="text" 
                       value={newQrName}
                       onChange={(e) => setNewQrName(e.target.value)}
                       placeholder="e.g. Dessert Menu Stand" 
-                      className="w-full bg-[#06060F] border border-[#28283E] text-xs px-4 py-3 rounded-xl text-white outline-none"
+                      className="w-full bg-white border border-slate-200 text-xs px-4 py-3 rounded-xl text-slate-900 outline-none"
                       required
                     />
                   </div>
                   <div className="space-y-1.5 md:col-span-2">
-                    <label className="text-[10px] text-[#8080A0] uppercase font-bold">Scan Redirection Destination</label>
+                    <label className="text-[10px] text-slate-500 uppercase font-bold">Scan Redirection Destination</label>
                     <input 
                       type="text" 
                       value={newQrTarget}
                       onChange={(e) => setNewQrTarget(e.target.value)}
                       placeholder="e.g. https://myrestaurant.com/spring-desserts" 
-                      className="w-full bg-[#06060F] border border-[#28283E] text-xs px-4 py-3 rounded-xl text-white outline-none"
+                      className="w-full bg-white border border-slate-200 text-xs px-4 py-3 rounded-xl text-slate-900 outline-none"
                       required
                     />
                   </div>
                   <div className="flex gap-2">
                     <div className="flex-1 space-y-1.5">
-                      <label className="text-[10px] text-[#8080A0] uppercase font-bold">Category</label>
+                      <label className="text-[10px] text-slate-500 uppercase font-bold">Category</label>
                       <select 
                         value={newQrCategory}
                         onChange={(e) => setNewQrCategory(e.target.value)}
-                        className="w-full bg-[#06060F] border border-[#28283E] text-xs px-3 py-3 rounded-xl text-white outline-none"
+                        className="w-full bg-white border border-slate-200 text-xs px-3 py-3 rounded-xl text-slate-900 outline-none"
                       >
                         <option value="Restaurant">Restaurant</option>
                         <option value="Events">Events</option>
@@ -1100,15 +1100,15 @@ export default function Dashboard() {
               </div>
 
               {/* QR Redirection Code Registry Table */}
-              <div className="bg-[#0A0A12] border border-[#1C1C2E] rounded-2xl overflow-hidden">
-                <div className="p-6 border-b border-[#1C1C2E] flex justify-between items-center">
+              <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden">
+                <div className="p-6 border-b border-slate-200 flex justify-between items-center">
                   <h3 className="text-sm font-bold text-white uppercase tracking-wider">Campaign Target Registry</h3>
-                  <span className="text-xs text-[#8080A0] font-mono">{dynamicQRs.length} active redirections configured</span>
+                  <span className="text-xs text-slate-500 font-mono">{dynamicQRs.length} active redirections configured</span>
                 </div>
                 <div className="overflow-x-auto">
                   <table className="w-full text-left border-collapse text-xs">
                     <thead>
-                      <tr className="border-b border-[#1C1C2E] text-[#8080A0] bg-[#12121E]/30">
+                      <tr className="border-b border-slate-200 text-slate-500 bg-slate-50/30">
                         <th className="py-3 px-4 font-bold">Campaign Name</th>
                         <th className="py-3 px-4 font-bold">Static Gateway Link</th>
                         <th className="py-3 px-4 font-bold">Live Target Destination</th>
@@ -1133,7 +1133,7 @@ export default function Dashboard() {
                                   type="text" 
                                   value={editingQrTarget}
                                   onChange={(e) => setEditingQrTarget(e.target.value)}
-                                  className="bg-black/60 border border-[#28283E] text-xs text-white rounded px-2 py-1 flex-1 outline-none font-mono"
+                                  className="bg-black/60 border border-slate-200 text-xs text-white rounded px-2 py-1 flex-1 outline-none font-mono"
                                 />
                                 <button 
                                   onClick={() => saveRedirectionEdit(qr.id)}
@@ -1143,7 +1143,7 @@ export default function Dashboard() {
                                 </button>
                               </div>
                             ) : (
-                              <span className="text-[#8080A0] font-mono">{qr.targetUrl}</span>
+                              <span className="text-slate-500 font-mono">{qr.targetUrl}</span>
                             )}
                           </td>
                           <td className="py-3 px-4 text-center font-mono font-bold text-white text-[13px]">
@@ -1154,7 +1154,7 @@ export default function Dashboard() {
                               {editingQrId !== qr.id && (
                                 <button 
                                   onClick={() => startEditRedirection(qr)}
-                                  className="px-2.5 py-1.5 bg-[#1C1C2E] text-white hover:bg-indigo-500/15 rounded text-[10px] font-bold border border-[#28283E] transition-all"
+                                  className="px-2.5 py-1.5 bg-[#1C1C2E] text-white hover:bg-indigo-500/15 rounded text-[10px] font-bold border border-slate-200 transition-all"
                                 >
                                   Update Target
                                 </button>
@@ -1179,31 +1179,31 @@ export default function Dashboard() {
           {/* TAB 3: TEMPLATES REGISTER */}
           {activeTab === 'templates' && (
             <div className="space-y-6">
-              <div className="border-b border-[#1C1C2E] pb-4">
+              <div className="border-b border-slate-200 pb-4">
                 <h2 className="text-2xl font-extrabold text-white flex items-center gap-2">
                   <LayoutGrid className="w-6 h-6 text-indigo-400" /> Core Template Registry
                 </h2>
-                <p className="text-xs text-[#8080A0]">Manage built-in template structures and custom recipe presets synced by our layout engine.</p>
+                <p className="text-xs text-slate-500">Manage built-in template structures and custom recipe presets synced by our layout engine.</p>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {customTemplates.map((t: any) => (
-                  <div key={t.id} className="bg-[#0A0A12] border border-[#1C1C2E] rounded-2xl p-6 space-y-4 hover:border-indigo-500/40 transition-all relative group">
+                  <div key={t.id} className="bg-white border border-slate-200 rounded-2xl p-6 space-y-4 hover:border-indigo-500/40 transition-all relative group">
                     <div className="flex items-center justify-between">
-                      <span className="text-[10px] uppercase font-bold tracking-wider text-[#8080A0] font-mono bg-[#12121E] px-2.5 py-1 rounded border border-[#28283E]">
+                      <span className="text-[10px] uppercase font-bold tracking-wider text-slate-500 font-mono bg-slate-50 px-2.5 py-1 rounded border border-slate-200">
                         {t.theme} Pack Structure
                       </span>
                       <span className="w-2 h-2 rounded-full bg-emerald-400" title="Active on Website"></span>
                     </div>
                     <div className="space-y-1">
                       <h3 className="font-bold text-white text-lg">{t.name}</h3>
-                      <p className="text-xs text-[#8080A0]">Background: <span className="font-mono text-white">{t.bg}</span></p>
-                      <p className="text-xs text-[#8080A0]">Decorative Frame: <span className="font-mono text-white">{t.frame}</span></p>
-                      <p className="text-xs text-[#8080A0]">Layout Typography: <span className="font-mono text-white">{t.font}</span></p>
+                      <p className="text-xs text-slate-500">Background: <span className="font-mono text-white">{t.bg}</span></p>
+                      <p className="text-xs text-slate-500">Decorative Frame: <span className="font-mono text-white">{t.frame}</span></p>
+                      <p className="text-xs text-slate-500">Layout Typography: <span className="font-mono text-white">{t.font}</span></p>
                     </div>
 
-                    <div className="pt-4 border-t border-[#1C1C2E] flex justify-between items-center text-xs">
-                      <span className="text-[#8080A0]">{t.elements} layers mapped</span>
+                    <div className="pt-4 border-t border-slate-200 flex justify-between items-center text-xs">
+                      <span className="text-slate-500">{t.elements} layers mapped</span>
                       <button 
                         onClick={() => {
                           setCustomTemplates(customTemplates.filter(item => item.id !== t.id));
@@ -1219,11 +1219,11 @@ export default function Dashboard() {
                 {/* Empty block trigger AI */}
                 <div 
                   onClick={() => setActiveTab('ai')}
-                  className="bg-[#0A0A12] border border-dashed border-[#28283E] rounded-2xl p-6 flex flex-col justify-center items-center text-center cursor-pointer hover:border-[#7C6EFA] hover:bg-[#12121E]/10 transition-all group"
+                  className="bg-white border border-dashed border-slate-200 rounded-2xl p-6 flex flex-col justify-center items-center text-center cursor-pointer hover:border-[#7C6EFA] hover:bg-slate-50/10 transition-all group"
                 >
-                  <Sparkles className="w-8 h-8 text-[#A89EFF] mb-3 group-hover:scale-110 transition-transform" />
+                  <Sparkles className="w-8 h-8 text-indigo-600 mb-3 group-hover:scale-110 transition-transform" />
                   <span className="font-bold text-sm text-white">Create Coordinated AI Layout Recipe</span>
-                  <span className="text-[11px] text-[#8080A0] mt-1 leading-normal max-w-[180px]">Draft template parameters automatically via natural prompts.</span>
+                  <span className="text-[11px] text-slate-500 mt-1 leading-normal max-w-[180px]">Draft template parameters automatically via natural prompts.</span>
                 </div>
               </div>
             </div>
@@ -1232,15 +1232,15 @@ export default function Dashboard() {
           {/* TAB 4: POSTERS CONFIGURATION */}
           {activeTab === 'posters' && (
             <div className="space-y-6">
-              <div className="border-b border-[#1C1C2E] pb-4">
+              <div className="border-b border-slate-200 pb-4">
                 <h2 className="text-2xl font-extrabold text-white flex items-center gap-2">
                   <FileText className="w-6 h-6 text-pink-400" /> Poster Size & Bleed Margins
                 </h2>
-                <p className="text-xs text-[#8080A0]">Configure high-DPI aspect ratio standards, CMYK color spaces, and print safe bleeds.</p>
+                <p className="text-xs text-slate-500">Configure high-DPI aspect ratio standards, CMYK color spaces, and print safe bleeds.</p>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="bg-[#0A0A12] border border-[#1C1C2E] rounded-2xl p-6 space-y-4">
+                <div className="bg-white border border-slate-200 rounded-2xl p-6 space-y-4">
                   <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-2">Print Resolution Standards</h3>
                   <div className="space-y-3">
                     <PosterRatioRow label="A4 International Portrait" size="210 x 297 mm" res="300 DPI (2480 x 3508 px)" active={true} />
@@ -1249,17 +1249,17 @@ export default function Dashboard() {
                   </div>
                 </div>
 
-                <div className="bg-[#0A0A12] border border-[#1C1C2E] rounded-2xl p-6 space-y-4">
+                <div className="bg-white border border-slate-200 rounded-2xl p-6 space-y-4">
                   <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-2">Bleed & Safe Boundary Guide</h3>
-                  <p className="text-xs text-[#8080A0] leading-relaxed">
+                  <p className="text-xs text-slate-500 leading-relaxed">
                     Most industrial printing presses require a <strong>3mm bleed margin</strong> on all edges to account for paper cutting misalignment.
                   </p>
-                  <div className="p-4 bg-[#12121E]/80 border border-[#28283E] rounded-xl space-y-3">
+                  <div className="p-4 bg-slate-50/80 border border-slate-200 rounded-xl space-y-3">
                     <div className="flex justify-between text-xs">
-                      <span className="text-white font-bold">Recommended Safety Offsets:</span>
+                      <span className="text-slate-800 font-bold">Recommended Safety Offsets:</span>
                       <span className="text-emerald-400 font-mono">3mm Active</span>
                     </div>
-                    <div className="text-[11px] text-[#8080A0] space-y-1 leading-normal">
+                    <div className="text-[11px] text-slate-500 space-y-1 leading-normal">
                       <div>• Safe Zone (Internal): Always keep your scan QR matrix and header texts inside X=40, Y=40.</div>
                       <div>• Cut Boundary: The actual line where paper gets cut.</div>
                       <div>• Bleed Zone: Outer color overflow to avoid raw white borders.</div>
@@ -1273,15 +1273,15 @@ export default function Dashboard() {
           {/* TAB 5: STICKER BADGES */}
           {activeTab === 'stickers' && (
             <div className="space-y-6">
-              <div className="border-b border-[#1C1C2E] pb-4">
+              <div className="border-b border-slate-200 pb-4">
                 <h2 className="text-2xl font-extrabold text-white flex items-center gap-2">
                   <Tags className="w-6 h-6 text-amber-400" /> Sticker Cut & Badges Console
                 </h2>
-                <p className="text-xs text-[#8080A0]">Setup physical contour outlines, customized ribbon headings, and sticker sizes.</p>
+                <p className="text-xs text-slate-500">Setup physical contour outlines, customized ribbon headings, and sticker sizes.</p>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="bg-[#0A0A12] border border-[#1C1C2E] rounded-2xl p-6 space-y-4">
+                <div className="bg-white border border-slate-200 rounded-2xl p-6 space-y-4">
                   <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-2">Interactive Sticker Contour Shapes</h3>
                   <div className="grid grid-cols-3 gap-3">
                     <StickerShapeCard name="Die-Cut Outline" desc="Perfect star/oval hugs" icon="⭐" active={true} />
@@ -1290,15 +1290,15 @@ export default function Dashboard() {
                   </div>
                 </div>
 
-                <div className="bg-[#0A0A12] border border-[#1C1C2E] rounded-2xl p-6 space-y-4">
+                <div className="bg-white border border-slate-200 rounded-2xl p-6 space-y-4">
                   <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-2">Preset Print Sizes</h3>
-                  <p className="text-xs text-[#8080A0] leading-relaxed">Choose standard roll sizes for physical print vendors (Stickermule, etc.):</p>
+                  <p className="text-xs text-slate-500 leading-relaxed">Choose standard roll sizes for physical print vendors (Stickermule, etc.):</p>
                   <div className="space-y-2">
-                    <div className="p-3 bg-[#12121E] border border-[#1C1C2E] rounded-xl flex justify-between items-center text-xs">
+                    <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl flex justify-between items-center text-xs">
                       <span className="font-bold text-white">Small Table Stickers</span>
                       <span className="font-mono text-indigo-400">50mm x 50mm (2")</span>
                     </div>
-                    <div className="p-3 bg-[#12121E] border border-[#1C1C2E] rounded-xl flex justify-between items-center text-xs">
+                    <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl flex justify-between items-center text-xs">
                       <span className="font-bold text-white">Standard Delivery Stickers</span>
                       <span className="font-mono text-indigo-400">75mm x 75mm (3")</span>
                     </div>
@@ -1311,11 +1311,11 @@ export default function Dashboard() {
           {/* TAB 6: DECORATIVE FRAMES */}
           {activeTab === 'frames' && (
             <div className="space-y-6">
-              <div className="border-b border-[#1C1C2E] pb-4">
+              <div className="border-b border-slate-200 pb-4">
                 <h2 className="text-2xl font-extrabold text-white flex items-center gap-2">
                   <Square className="w-6 h-6 text-purple-400" /> Framing Boundaries Registry
                 </h2>
-                <p className="text-xs text-[#8080A0]">Configure and review luxury, minimal, and neon vector frame overlays.</p>
+                <p className="text-xs text-slate-500">Configure and review luxury, minimal, and neon vector frame overlays.</p>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -1330,19 +1330,19 @@ export default function Dashboard() {
           {/* TAB 7: SVG ASSET LIBRARY */}
           {activeTab === 'library' && (
             <div className="space-y-6">
-              <div className="border-b border-[#1C1C2E] pb-4">
+              <div className="border-b border-slate-200 pb-4">
                 <h2 className="text-2xl font-extrabold text-white flex items-center gap-2">
                   <Library className="w-6 h-6 text-[#7C6EFA]" /> SVG Asset Library (Control Hub)
                 </h2>
-                <p className="text-xs text-[#8080A0]">Index and categorize vector icons, background stamps, and geometric accents.</p>
+                <p className="text-xs text-slate-500">Index and categorize vector icons, background stamps, and geometric accents.</p>
               </div>
 
               {/* Categorized Filter Pills */}
               <div className="flex flex-wrap gap-2">
                 <button className="px-4 py-2 bg-gradient-to-r from-[#7C6EFA] to-[#C084FC] text-xs font-bold rounded-lg text-white">All SVG Assets</button>
-                <button className="px-4 py-2 bg-[#12121E] border border-[#1C1C2E] text-xs font-bold rounded-lg text-[#8080A0] hover:text-white">Hospitality & Cafe Icons</button>
-                <button className="px-4 py-2 bg-[#12121E] border border-[#1C1C2E] text-xs font-bold rounded-lg text-[#8080A0] hover:text-white">Ribbons & Banners</button>
-                <button className="px-4 py-2 bg-[#12121E] border border-[#1C1C2E] text-xs font-bold rounded-lg text-[#8080A0] hover:text-white">Retro Ornaments</button>
+                <button className="px-4 py-2 bg-slate-50 border border-slate-200 text-xs font-bold rounded-lg text-slate-500 hover:text-white">Hospitality & Cafe Icons</button>
+                <button className="px-4 py-2 bg-slate-50 border border-slate-200 text-xs font-bold rounded-lg text-slate-500 hover:text-white">Ribbons & Banners</button>
+                <button className="px-4 py-2 bg-slate-50 border border-slate-200 text-xs font-bold rounded-lg text-slate-500 hover:text-white">Retro Ornaments</button>
               </div>
 
               <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-4">
@@ -1359,11 +1359,11 @@ export default function Dashboard() {
           {/* TAB 8: THEME PACKS */}
           {activeTab === 'packs' && (
             <div className="space-y-6">
-              <div className="border-b border-[#1C1C2E] pb-4">
+              <div className="border-b border-slate-200 pb-4">
                 <h2 className="text-2xl font-extrabold text-white flex items-center gap-2">
                   <Layers className="w-6 h-6 text-indigo-400" /> Presets Theme Packs
                 </h2>
-                <p className="text-xs text-[#8080A0]">Bundled packages comprising tailored backgrounds, specialized fonts, and matched vector frames.</p>
+                <p className="text-xs text-slate-500">Bundled packages comprising tailored backgrounds, specialized fonts, and matched vector frames.</p>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -1377,17 +1377,17 @@ export default function Dashboard() {
           {/* TAB 9: AI RECIPE GENERATOR (Connected to Gemini Server API) */}
           {activeTab === 'ai' && (
             <div className="space-y-6">
-              <div className="border-b border-[#1C1C2E] pb-4">
+              <div className="border-b border-slate-200 pb-4">
                 <div className="flex items-center gap-2">
                   <h2 className="text-2xl font-extrabold text-white">
                     ✨ Gemini Coordinated Layout Builder
                   </h2>
                   <span className="text-[10px] uppercase font-black text-amber-400 bg-amber-400/10 px-2 py-0.5 rounded border border-amber-400/20">GEMINI ACTIVE</span>
                 </div>
-                <p className="text-xs text-[#8080A0]">Provide a descriptive branding prompt. Our backend triggers Gemini 3.5 Flash to write custom layout colors, coordinates, and custom SVG paths instantly.</p>
+                <p className="text-xs text-slate-500">Provide a descriptive branding prompt. Our backend triggers Gemini 3.5 Flash to write custom layout colors, coordinates, and custom SVG paths instantly.</p>
               </div>
 
-              <div className="bg-[#0A0A12] border border-[#1C1C2E] rounded-2xl p-6">
+              <div className="bg-white border border-slate-200 rounded-2xl p-6">
                 <form onSubmit={handleTriggerAiRecipe} className="space-y-4">
                   <div className="space-y-2">
                     <label className="text-xs text-white font-extrabold flex items-center gap-1.5">
@@ -1397,7 +1397,7 @@ export default function Dashboard() {
                       value={aiPrompt}
                       onChange={(e) => setAiPrompt(e.target.value)}
                       rows={3}
-                      className="w-full bg-[#06060F] border border-[#28283E] rounded-xl p-4 text-xs text-white outline-none focus:border-[#7C6EFA]"
+                      className="w-full bg-white border border-slate-200 rounded-xl p-4 text-xs text-slate-900 outline-none focus:border-[#7C6EFA]"
                       placeholder="e.g. Minimalist boutique hotel in Kyoto. Needs off-white backgrounds, luxurious gold thin border frames, and calligraphy-styled text labels..."
                       required
                     />
@@ -1414,8 +1414,8 @@ export default function Dashboard() {
 
               {/* Display generated recipe result */}
               {aiGeneratedRecipe && (
-                <div className="bg-[#0A0A12] border border-emerald-500/30 rounded-2xl p-6 space-y-4 animate-fade-in">
-                  <div className="flex justify-between items-center border-b border-[#1C1C2E] pb-3">
+                <div className="bg-white border border-emerald-500/30 rounded-2xl p-6 space-y-4 animate-fade-in">
+                  <div className="flex justify-between items-center border-b border-slate-200 pb-3">
                     <div className="flex items-center gap-2">
                       <CheckCircle2 className="w-5 h-5 text-emerald-400" />
                       <div>
@@ -1425,7 +1425,7 @@ export default function Dashboard() {
                     </div>
                     <button 
                       onClick={loadRecipeIntoTemplates}
-                      className="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs rounded-xl shadow-md transition-colors"
+                      className="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-slate-800 font-bold text-xs rounded-xl shadow-md transition-colors"
                     >
                       Sync Recipe to Template Registry
                     </button>
@@ -1433,7 +1433,7 @@ export default function Dashboard() {
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
                     <div className="p-4 bg-black/40 rounded-xl space-y-2">
-                      <span className="text-[#8080A0] uppercase font-bold text-[10px] block">Coordinated Visual Variables</span>
+                      <span className="text-slate-500 uppercase font-bold text-[10px] block">Coordinated Visual Variables</span>
                       <div>• Category: <span className="text-white font-semibold">{aiGeneratedRecipe.category}</span></div>
                       <div>• Background Pattern: <span className="text-white font-semibold">{aiGeneratedRecipe.bgType}</span></div>
                       <div>• Dots Eye Style: <span className="text-white font-semibold">{aiGeneratedRecipe.qrConfig?.dotsStyle}</span></div>
@@ -1441,9 +1441,9 @@ export default function Dashboard() {
                       <div>• Custom Canvas Overlay: <span className="text-white font-semibold">{aiGeneratedRecipe.layoutType}</span></div>
                     </div>
 
-                    <div className="p-4 bg-[#06060F] rounded-xl overflow-x-auto">
-                      <span className="text-[#8080A0] uppercase font-bold text-[10px] block mb-2">Live Raw JSON Recipe</span>
-                      <pre className="text-[10px] font-mono text-[#A89EFF] leading-normal select-all">
+                    <div className="p-4 bg-white rounded-xl overflow-x-auto">
+                      <span className="text-slate-500 uppercase font-bold text-[10px] block mb-2">Live Raw JSON Recipe</span>
+                      <pre className="text-[10px] font-mono text-indigo-600 leading-normal select-all">
                         {JSON.stringify(aiGeneratedRecipe, null, 2)}
                       </pre>
                     </div>
@@ -1456,7 +1456,7 @@ export default function Dashboard() {
           {/* TAB 9B: AI AUTOMATIC DAILY CURATION & APPROVAL QUEUE */}
           {activeTab === 'ai_curation' && (
             <div className="space-y-6">
-              <div className="border-b border-[#1C1C2E] pb-4 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+              <div className="border-b border-slate-200 pb-4 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <div>
                   <div className="flex items-center gap-2">
                     <h2 className="text-2xl font-extrabold text-white">
@@ -1464,12 +1464,12 @@ export default function Dashboard() {
                     </h2>
                     <span className="text-[10px] uppercase font-black text-rose-400 bg-rose-400/10 px-2 py-0.5 rounded border border-rose-400/20">Automatic Mode</span>
                   </div>
-                  <p className="text-xs text-[#8080A0]">Command Gemini 3.5 Flash to automatically design daily high-end templates. Approve or reject them to control what goes live on the public website.</p>
+                  <p className="text-xs text-slate-500">Command Gemini 3.5 Flash to automatically design daily high-end templates. Approve or reject them to control what goes live on the public website.</p>
                 </div>
                 <div className="flex gap-2.5">
                   <button 
                     onClick={loadCurationTemplates}
-                    className="p-2.5 bg-[#12121E] hover:bg-[#1C1C2E] border border-[#28283E] text-[#A89EFF] rounded-xl text-xs font-bold transition-all flex items-center gap-2"
+                    className="p-2.5 bg-slate-50 hover:bg-[#1C1C2E] border border-slate-200 text-indigo-600 rounded-xl text-xs font-bold transition-all flex items-center gap-2"
                   >
                     <RefreshCw className="w-4 h-4" /> Refresh
                   </button>
@@ -1494,17 +1494,17 @@ export default function Dashboard() {
               </div>
 
               {/* SCHEDULE PLANNER PANEL */}
-              <div className="bg-[#0A0A12] border border-[#1D1D30] rounded-2xl p-6 space-y-6">
-                <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 pb-4 border-b border-[#1C1C2E]">
+              <div className="bg-white border border-[#1D1D30] rounded-2xl p-6 space-y-6">
+                <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 pb-4 border-b border-slate-200">
                   <div>
                     <h3 className="text-sm font-extrabold text-white uppercase tracking-wider flex items-center gap-2">
                       <Clock className="w-4 h-4 text-rose-500 animate-pulse" /> Gemini Time-Trigger & Challenge Planner
                     </h3>
-                    <p className="text-xs text-[#8080A0] mt-1">Configure when Gemini automatically wakes up to design a fresh batch of 10 coordinated templates based on a daily creative challenge.</p>
+                    <p className="text-xs text-slate-500 mt-1">Configure when Gemini automatically wakes up to design a fresh batch of 10 coordinated templates based on a daily creative challenge.</p>
                   </div>
                   {scheduleConfig && (
-                    <div className="flex items-center gap-3 bg-[#12121F] px-4 py-2 rounded-xl border border-[#28283E]">
-                      <span className="text-xs text-[#8080A0]">Scheduler Status:</span>
+                    <div className="flex items-center gap-3 bg-[#12121F] px-4 py-2 rounded-xl border border-slate-200">
+                      <span className="text-xs text-slate-500">Scheduler Status:</span>
                       <button
                         onClick={() => updateSchedule({ enabled: !scheduleConfig.enabled })}
                         disabled={updatingSchedule}
@@ -1526,31 +1526,31 @@ export default function Dashboard() {
                     <div className="lg:col-span-7 space-y-4">
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                          <label className="block text-[10px] text-[#8080A0] uppercase font-black tracking-widest mb-1.5 font-bold">Scheduled Trigger Time (24h)</label>
+                          <label className="block text-[10px] text-slate-500 uppercase font-black tracking-widest mb-1.5 font-bold">Scheduled Trigger Time (24h)</label>
                           <input 
                             type="time" 
                             defaultValue={scheduleConfig.time}
                             onBlur={(e) => updateSchedule({ time: e.target.value })}
-                            className="w-full bg-[#12121E] border border-[#1D1D30] focus:border-rose-500 rounded-xl px-4 py-2.5 text-sm font-mono text-white outline-none transition-colors"
+                            className="w-full bg-slate-50 border border-[#1D1D30] focus:border-rose-500 rounded-xl px-4 py-2.5 text-sm font-mono text-slate-900 outline-none transition-colors"
                           />
                         </div>
                         <div>
-                          <label className="block text-[10px] text-[#8080A0] uppercase font-black tracking-widest mb-1.5 font-bold">Last Automatic Execution</label>
-                          <div className="w-full bg-[#12121E]/50 border border-[#1D1D30] rounded-xl px-4 py-2.5 text-sm font-mono text-gray-400">
+                          <label className="block text-[10px] text-slate-500 uppercase font-black tracking-widest mb-1.5 font-bold">Last Automatic Execution</label>
+                          <div className="w-full bg-slate-50/50 border border-[#1D1D30] rounded-xl px-4 py-2.5 text-sm font-mono text-gray-400">
                             {scheduleConfig.lastRunDate ? scheduleConfig.lastRunDate : "Never triggered yet"}
                           </div>
                         </div>
                       </div>
 
                       <div>
-                        <label className="block text-[10px] text-[#8080A0] uppercase font-black tracking-widest mb-1.5 font-bold">Gemini Daily Challenge Topic & Theme Guidelines</label>
+                        <label className="block text-[10px] text-slate-500 uppercase font-black tracking-widest mb-1.5 font-bold">Gemini Daily Challenge Topic & Theme Guidelines</label>
                         <div className="flex gap-2">
                           <input 
                             type="text" 
                             id="challenge_input"
                             defaultValue={scheduleConfig.dailyChallenge}
                             placeholder="e.g. Futuristic Neon Synthwave, Luxury Obsidian Marble"
-                            className="flex-1 bg-[#12121E] border border-[#1D1D30] focus:border-rose-500 rounded-xl px-4 py-2.5 text-sm text-white outline-none transition-colors"
+                            className="flex-1 bg-slate-50 border border-[#1D1D30] focus:border-rose-500 rounded-xl px-4 py-2.5 text-sm text-slate-900 outline-none transition-colors"
                           />
                           <button
                             onClick={() => {
@@ -1562,7 +1562,7 @@ export default function Dashboard() {
                             Save Challenge
                           </button>
                         </div>
-                        <p className="text-[10px] text-[#8080A0] mt-1.5">
+                        <p className="text-[10px] text-slate-500 mt-1.5">
                           💡 The daily challenge prompt instructs Gemini to use unique styles, color patterns, custom elements, and coordinates. This ensures that every day has a completely fresh aesthetic signature!
                         </p>
                       </div>
@@ -1574,18 +1574,18 @@ export default function Dashboard() {
                       
                       <div className="space-y-2 max-h-40 overflow-y-auto pr-1">
                         {!scheduleConfig.history || scheduleConfig.history.length === 0 ? (
-                          <div className="text-center py-6 text-xs text-[#8080A0]">No logs recorded yet. Daily runs will register here automatically.</div>
+                          <div className="text-center py-6 text-xs text-slate-500">No logs recorded yet. Daily runs will register here automatically.</div>
                         ) : (
                           scheduleConfig.history.map((log: any, idx: number) => (
-                            <div key={idx} className="flex justify-between items-start text-[11px] p-2 bg-[#12121E]/70 border border-[#1D1D30] rounded-lg">
+                            <div key={idx} className="flex justify-between items-start text-[11px] p-2 bg-slate-50/70 border border-[#1D1D30] rounded-lg">
                               <div className="space-y-0.5 max-w-[70%]">
                                 <span className={`font-mono font-bold ${log.status === 'success' ? 'text-emerald-400' : 'text-rose-400'}`}>
                                   {log.status === 'success' ? '✓ SUCCESS' : '✗ ERROR'}
                                 </span>
                                 <div className="text-white truncate font-medium">{log.themeTitle}</div>
-                                <div className="text-[9px] text-[#8080A0]">{new Date(log.timestamp).toLocaleString()}</div>
+                                <div className="text-[9px] text-slate-500">{new Date(log.timestamp).toLocaleString()}</div>
                               </div>
-                              <div className="text-right text-[10px] text-[#8080A0] font-mono">
+                              <div className="text-right text-[10px] text-slate-500 font-mono">
                                 {log.date} @ {log.time}
                               </div>
                             </div>
@@ -1603,23 +1603,23 @@ export default function Dashboard() {
 
               {/* Status and Analytics Summary Cards */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div className="bg-[#0A0A12] border border-[#1C1C2E] p-4 rounded-xl">
-                  <span className="text-[10px] text-[#8080A0] uppercase font-black tracking-wider block">Total Queue Size</span>
-                  <span className="text-2xl font-black text-white font-mono mt-1 block">{curationTemplates.length}</span>
+                <div className="bg-white border border-slate-200 p-4 rounded-xl">
+                  <span className="text-[10px] text-slate-500 uppercase font-black tracking-wider block">Total Queue Size</span>
+                  <span className="text-2xl font-black text-slate-800 font-mono mt-1 block">{curationTemplates.length}</span>
                 </div>
-                <div className="bg-[#0A0A12] border border-amber-500/20 p-4 rounded-xl">
+                <div className="bg-white border border-amber-500/20 p-4 rounded-xl">
                   <span className="text-[10px] text-amber-400 uppercase font-black tracking-wider block">Pending Curation</span>
                   <span className="text-2xl font-black text-amber-400 font-mono mt-1 block">
                     {curationTemplates.filter(t => t.status === 'pending').length}
                   </span>
                 </div>
-                <div className="bg-[#0A0A12] border border-emerald-500/20 p-4 rounded-xl">
+                <div className="bg-white border border-emerald-500/20 p-4 rounded-xl">
                   <span className="text-[10px] text-emerald-400 uppercase font-black tracking-wider block">Approved & Live</span>
                   <span className="text-2xl font-black text-emerald-400 font-mono mt-1 block">
                     {curationTemplates.filter(t => t.status === 'approved').length}
                   </span>
                 </div>
-                <div className="bg-[#0A0A12] border border-rose-500/20 p-4 rounded-xl">
+                <div className="bg-white border border-rose-500/20 p-4 rounded-xl">
                   <span className="text-[10px] text-rose-400 uppercase font-black tracking-wider block">Rejected Designs</span>
                   <span className="text-2xl font-black text-rose-400 font-mono mt-1 block">
                     {curationTemplates.filter(t => t.status === 'rejected').length}
@@ -1645,20 +1645,20 @@ export default function Dashboard() {
               {loadingCuration ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {[...Array(3)].map((_, i) => (
-                    <div key={i} className="bg-[#0A0A12] border border-[#1C1C2E] rounded-2xl p-5 space-y-4 animate-pulse">
-                      <div className="aspect-[3/4] bg-[#12121E] rounded-xl flex items-center justify-center">
+                    <div key={i} className="bg-white border border-slate-200 rounded-2xl p-5 space-y-4 animate-pulse">
+                      <div className="aspect-[3/4] bg-slate-50 rounded-xl flex items-center justify-center">
                         <RefreshCw className="w-8 h-8 text-[#7C6EFA] animate-spin" />
                       </div>
-                      <div className="h-4 bg-[#12121E] rounded w-3/4"></div>
-                      <div className="h-3 bg-[#12121E] rounded w-1/2"></div>
+                      <div className="h-4 bg-slate-50 rounded w-3/4"></div>
+                      <div className="h-3 bg-slate-50 rounded w-1/2"></div>
                     </div>
                   ))}
                 </div>
               ) : curationTemplates.length === 0 ? (
-                <div className="bg-[#0A0A12] border border-dashed border-[#1D1D30] rounded-2xl p-12 text-center max-w-2xl mx-auto space-y-4">
+                <div className="bg-white border border-dashed border-[#1D1D30] rounded-2xl p-12 text-center max-w-2xl mx-auto space-y-4">
                   <div className="text-4xl">🔮</div>
                   <h3 className="text-base font-bold text-white">No Designs in Curation Database</h3>
-                  <p className="text-xs text-[#8080A0]">The template curation queue is currently empty. Click the button above to trigger the batch-generation of 10 daily coordinated poster templates and asset frames using Gemini 3.5 Flash automatically!</p>
+                  <p className="text-xs text-slate-500">The template curation queue is currently empty. Click the button above to trigger the batch-generation of 10 daily coordinated poster templates and asset frames using Gemini 3.5 Flash automatically!</p>
                   <button 
                     onClick={handleTriggerDailyGeneration}
                     className="py-2.5 px-6 bg-gradient-to-r from-rose-500 to-amber-500 hover:brightness-110 text-white font-extrabold text-xs uppercase tracking-wider rounded-xl transition-all shadow-md inline-flex items-center gap-2"
@@ -1671,15 +1671,15 @@ export default function Dashboard() {
                   {/* PENDING ITEMS SECTION */}
                   {curationTemplates.some(t => t.status === 'pending') && (
                     <div className="space-y-4">
-                      <h3 className="text-sm font-extrabold text-amber-400 uppercase tracking-widest flex items-center gap-2 border-b border-[#1C1C2E] pb-2">
+                      <h3 className="text-sm font-extrabold text-amber-400 uppercase tracking-widest flex items-center gap-2 border-b border-slate-200 pb-2">
                         <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span> Pending Review & Approval ({curationTemplates.filter(t => t.status === 'pending').length})
                       </h3>
                       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {curationTemplates.filter(t => t.status === 'pending').map(t => (
-                          <div key={t.id} className="bg-[#0A0A12] border border-[#1C1C2E] rounded-2xl p-5 flex flex-col md:flex-row gap-5 hover:border-amber-500/30 transition-colors shadow-lg">
+                          <div key={t.id} className="bg-white border border-slate-200 rounded-2xl p-5 flex flex-col md:flex-row gap-5 hover:border-amber-200 transition-colors shadow-lg">
                             {/* Canvas Mini-Preview */}
                             <div 
-                              className="w-full md:w-36 aspect-[3/4] md:h-52 rounded-xl overflow-hidden relative shadow-inner border border-white/5 bg-[#12121E] flex flex-col justify-between p-3 flex-shrink-0"
+                              className="w-full md:w-36 aspect-[3/4] md:h-52 rounded-xl overflow-hidden relative shadow-inner border border-slate-200 bg-slate-50 flex flex-col justify-between p-3 flex-shrink-0"
                               style={{
                                 background: t.bgType === 'gradient' && t.gradient 
                                   ? `linear-gradient(${t.gradient.angle || '135deg'}, ${t.gradient.from}, ${t.gradient.via ? t.gradient.via + ', ' : ''}${t.gradient.to})`
@@ -1716,20 +1716,20 @@ export default function Dashboard() {
                             {/* Curation details */}
                             <div className="flex-grow flex flex-col justify-between space-y-3">
                               <div className="space-y-1.5">
-                                <span className="text-[9px] bg-amber-500/10 text-amber-400 font-extrabold px-2 py-0.5 rounded border border-amber-500/20 uppercase tracking-wide">
+                                <span className="text-[9px] bg-amber-50/80 text-amber-400 font-extrabold px-2 py-0.5 rounded border border-amber-500/20 uppercase tracking-wide">
                                   PENDING REVIEW
                                 </span>
                                 <h4 className="font-extrabold text-white text-sm tracking-tight">{t.title}</h4>
-                                <p className="text-[11px] text-[#8080A0] leading-relaxed line-clamp-2">{t.description}</p>
+                                <p className="text-[11px] text-slate-500 leading-relaxed line-clamp-2">{t.description}</p>
                               </div>
 
                               <div className="space-y-2">
                                 <div className="flex items-center justify-between gap-2">
-                                  <span className="text-[10px] text-[#8080A0] font-bold">Category</span>
+                                  <span className="text-[10px] text-slate-500 font-bold">Category</span>
                                   <select 
                                     value={t.category} 
                                     onChange={(e) => handleUpdateCurationCategory(t.id, e.target.value)}
-                                    className="bg-[#06060F] border border-[#28283E] text-white text-[11px] rounded px-2 py-1 outline-none font-semibold focus:border-amber-500"
+                                    className="bg-white border border-slate-200 text-white text-[11px] rounded px-2 py-1 outline-none font-semibold focus:border-amber-500"
                                   >
                                     <option value="Posters">Posters</option>
                                     <option value="vCards">vCards</option>
@@ -1740,24 +1740,24 @@ export default function Dashboard() {
                                   </select>
                                 </div>
                                 <div className="flex items-center justify-between gap-2">
-                                  <span className="text-[10px] text-[#8080A0] font-bold">Dot Pattern</span>
-                                  <span className="text-[11px] text-white font-mono uppercase bg-black/40 px-2 py-0.5 rounded border border-white/5">
+                                  <span className="text-[10px] text-slate-500 font-bold">Dot Pattern</span>
+                                  <span className="text-[11px] text-slate-800 font-mono uppercase bg-black/40 px-2 py-0.5 rounded border border-slate-200">
                                     {t.qrConfig?.dotsStyle}
                                   </span>
                                 </div>
                               </div>
 
                               {/* Action buttons */}
-                              <div className="flex gap-2 pt-2 border-t border-[#1C1C2E]">
+                              <div className="flex gap-2 pt-2 border-t border-slate-200">
                                 <button 
                                   onClick={() => handleApproveTemplate(t.id)}
-                                  className="flex-grow py-1.5 bg-gradient-to-r from-emerald-500 to-teal-600 hover:brightness-110 text-white font-bold text-[11px] rounded-lg transition-all shadow-md flex items-center justify-center gap-1"
+                                  className="flex-grow py-1.5 bg-gradient-to-r from-emerald-500 to-teal-600 hover:brightness-110 text-slate-800 font-bold text-[11px] rounded-lg transition-all shadow-md flex items-center justify-center gap-1"
                                 >
                                   <Check className="w-3.5 h-3.5" /> Approve & Publish
                                 </button>
                                 <button 
                                   onClick={() => handleRejectTemplate(t.id)}
-                                  className="py-1.5 px-3 bg-[#12121E] hover:bg-rose-500/10 border border-[#28283E] hover:border-rose-500/30 text-rose-400 font-bold text-[11px] rounded-lg transition-all"
+                                  className="py-1.5 px-3 bg-slate-50 hover:bg-rose-500/10 border border-slate-200 hover:border-rose-500/30 text-rose-400 font-bold text-[11px] rounded-lg transition-all"
                                 >
                                   Reject
                                 </button>
@@ -1772,15 +1772,15 @@ export default function Dashboard() {
                   {/* APPROVED & LIVE SECTION */}
                   {curationTemplates.some(t => t.status === 'approved') && (
                     <div className="space-y-4 pt-4">
-                      <h3 className="text-sm font-extrabold text-emerald-400 uppercase tracking-widest flex items-center gap-2 border-b border-[#1C1C2E] pb-2">
+                      <h3 className="text-sm font-extrabold text-emerald-400 uppercase tracking-widest flex items-center gap-2 border-b border-slate-200 pb-2">
                         <span className="w-2 h-2 rounded-full bg-emerald-400"></span> Live Approved Gallery ({curationTemplates.filter(t => t.status === 'approved').length})
                       </h3>
                       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {curationTemplates.filter(t => t.status === 'approved').map(t => (
-                          <div key={t.id} className="bg-[#0A0A12] border border-[#1C1C2E] rounded-2xl p-5 flex flex-col md:flex-row gap-5 hover:border-emerald-500/30 transition-colors shadow-lg">
+                          <div key={t.id} className="bg-white border border-slate-200 rounded-2xl p-5 flex flex-col md:flex-row gap-5 hover:border-emerald-500/30 transition-colors shadow-lg">
                             {/* Canvas Mini-Preview */}
                             <div 
-                              className="w-full md:w-36 aspect-[3/4] md:h-52 rounded-xl overflow-hidden relative shadow-inner border border-white/5 bg-[#12121E] flex flex-col justify-between p-3 flex-shrink-0"
+                              className="w-full md:w-36 aspect-[3/4] md:h-52 rounded-xl overflow-hidden relative shadow-inner border border-slate-200 bg-slate-50 flex flex-col justify-between p-3 flex-shrink-0"
                               style={{
                                 background: t.bgType === 'gradient' && t.gradient 
                                   ? `linear-gradient(${t.gradient.angle || '135deg'}, ${t.gradient.from}, ${t.gradient.via ? t.gradient.via + ', ' : ''}${t.gradient.to})`
@@ -1818,29 +1818,29 @@ export default function Dashboard() {
                                   ✓ LIVE & PUBLISHED
                                 </span>
                                 <h4 className="font-extrabold text-white text-sm tracking-tight">{t.title}</h4>
-                                <p className="text-[11px] text-[#8080A0] leading-relaxed line-clamp-2">{t.description}</p>
+                                <p className="text-[11px] text-slate-500 leading-relaxed line-clamp-2">{t.description}</p>
                               </div>
 
                               <div className="space-y-2">
                                 <div className="flex items-center justify-between gap-2">
-                                  <span className="text-[10px] text-[#8080A0] font-bold">Category</span>
+                                  <span className="text-[10px] text-slate-500 font-bold">Category</span>
                                   <span className="text-[11px] text-white font-semibold">
                                     {t.category}
                                   </span>
                                 </div>
                                 <div className="flex items-center justify-between gap-2">
-                                  <span className="text-[10px] text-[#8080A0] font-bold">Published</span>
-                                  <span className="text-[10px] text-[#8080A0] font-mono">
+                                  <span className="text-[10px] text-slate-500 font-bold">Published</span>
+                                  <span className="text-[10px] text-slate-500 font-mono">
                                     {t.approvedAt ? new Date(t.approvedAt).toLocaleDateString() : 'Today'}
                                   </span>
                                 </div>
                               </div>
 
                               {/* Action buttons */}
-                              <div className="flex gap-2 pt-2 border-t border-[#1C1C2E]">
+                              <div className="flex gap-2 pt-2 border-t border-slate-200">
                                 <button 
                                   onClick={() => handleRejectTemplate(t.id)}
-                                  className="flex-grow py-1.5 bg-[#12121E] hover:bg-[#1C1C2E] border border-[#28283E] text-[#8080A0] hover:text-white font-bold text-[11px] rounded-lg transition-all flex items-center justify-center gap-1"
+                                  className="flex-grow py-1.5 bg-slate-50 hover:bg-[#1C1C2E] border border-slate-200 text-slate-500 hover:text-slate-800 font-bold text-[11px] rounded-lg transition-all flex items-center justify-center gap-1"
                                 >
                                   Unpublish (Reject)
                                 </button>
@@ -1862,15 +1862,15 @@ export default function Dashboard() {
                   {/* REJECTED SECTION */}
                   {curationTemplates.some(t => t.status === 'rejected') && (
                     <div className="space-y-4 pt-4">
-                      <h3 className="text-sm font-extrabold text-rose-500 uppercase tracking-widest flex items-center gap-2 border-b border-[#1C1C2E] pb-2">
+                      <h3 className="text-sm font-extrabold text-rose-500 uppercase tracking-widest flex items-center gap-2 border-b border-slate-200 pb-2">
                         Rejected / Removed Archive ({curationTemplates.filter(t => t.status === 'rejected').length})
                       </h3>
                       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 opacity-60">
                         {curationTemplates.filter(t => t.status === 'rejected').map(t => (
-                          <div key={t.id} className="bg-[#0A0A12] border border-[#1C1C2E] rounded-2xl p-5 flex flex-col md:flex-row gap-5">
+                          <div key={t.id} className="bg-white border border-slate-200 rounded-2xl p-5 flex flex-col md:flex-row gap-5">
                             {/* Canvas Mini-Preview */}
                             <div 
-                              className="w-full md:w-36 aspect-[3/4] md:h-52 rounded-xl overflow-hidden relative shadow-inner border border-white/5 bg-[#12121E] flex flex-col justify-between p-3 flex-shrink-0 grayscale"
+                              className="w-full md:w-36 aspect-[3/4] md:h-52 rounded-xl overflow-hidden relative shadow-inner border border-slate-200 bg-slate-50 flex flex-col justify-between p-3 flex-shrink-0 grayscale"
                               style={{
                                 background: t.bgType === 'gradient' && t.gradient 
                                   ? `linear-gradient(${t.gradient.angle || '135deg'}, ${t.gradient.from}, ${t.gradient.via ? t.gradient.via + ', ' : ''}${t.gradient.to})`
@@ -1904,10 +1904,10 @@ export default function Dashboard() {
                               </div>
 
                               {/* Action buttons */}
-                              <div className="flex gap-2 pt-2 border-t border-[#1C1C2E]">
+                              <div className="flex gap-2 pt-2 border-t border-slate-200">
                                 <button 
                                   onClick={() => handleApproveTemplate(t.id)}
-                                  className="flex-grow py-1.5 bg-[#12121E] hover:bg-[#1C1C2E] border border-[#28283E] text-white font-bold text-[11px] rounded-lg transition-all"
+                                  className="flex-grow py-1.5 bg-slate-50 hover:bg-[#1C1C2E] border border-slate-200 text-slate-800 font-bold text-[11px] rounded-lg transition-all"
                                 >
                                   Re-Approve & Live
                                 </button>
@@ -1933,7 +1933,7 @@ export default function Dashboard() {
           {/* TAB: AI 100-TOOLS DESIGN FACTORY */}
           {activeTab === 'ai_tools_generator' && (
             <div className="space-y-6">
-              <div className="border-b border-[#1C1C2E] pb-4 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+              <div className="border-b border-slate-200 pb-4 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <div>
                   <div className="flex items-center gap-2">
                     <h2 className="text-2xl font-extrabold text-white flex items-center gap-2">
@@ -1944,16 +1944,16 @@ export default function Dashboard() {
                       Gemini Coordinated V2
                     </span>
                   </div>
-                  <p className="text-xs text-[#8080A0] mt-1">
+                  <p className="text-xs text-slate-500 mt-1">
                     Select any of our 100 specialized QR tools to generate and curate 10 unique, perfectly coordinated premium card variations instantly using Gemini 3.5 Flash.
                   </p>
                 </div>
 
                 <div className="flex flex-wrap gap-2 text-xs">
-                  <div className="bg-[#12121E] border border-[#1C1C2E] px-3 py-1.5 rounded-lg flex items-center gap-2 text-gray-400">
+                  <div className="bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-lg flex items-center gap-2 text-gray-400">
                     <span className="font-bold text-white">{QR_TOOLS.length}</span> Total Tools
                   </div>
-                  <div className="bg-[#12121E] border border-[#1C1C2E] px-3 py-1.5 rounded-lg flex items-center gap-2 text-gray-400">
+                  <div className="bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-lg flex items-center gap-2 text-gray-400">
                     <span className="font-bold text-emerald-400">
                       {curationTemplates.filter(t => t.status === 'approved' && t.toolId).length}
                     </span> Active Layouts
@@ -1977,8 +1977,8 @@ export default function Dashboard() {
 
               {/* Generator Modal overlay when generating */}
               {isGeneratingToolTemplates && (
-                <div className="bg-black/80 backdrop-blur-md border border-[#28283E] rounded-2xl p-12 text-center max-w-xl mx-auto space-y-6 shadow-2xl animate-fade-in">
-                  <div className="w-16 h-16 rounded-full bg-indigo-500/10 border border-indigo-500/30 flex items-center justify-center mx-auto">
+                <div className="bg-white/95 backdrop-blur-md border border-slate-200 rounded-2xl p-12 text-center max-w-xl mx-auto space-y-6 shadow-2xl animate-fade-in">
+                  <div className="w-16 h-16 rounded-full bg-indigo-50/80 border border-indigo-200 flex items-center justify-center mx-auto">
                     <RefreshCw className="w-8 h-8 text-indigo-400 animate-spin" />
                   </div>
                   <div className="space-y-2">
@@ -1986,7 +1986,7 @@ export default function Dashboard() {
                     <p className="text-xs text-indigo-300 font-mono italic animate-pulse">
                       "{toolGeneratingMessage || 'Connecting to Gemini...'}"
                     </p>
-                    <p className="text-[11px] text-[#8080A0] max-w-md mx-auto">
+                    <p className="text-[11px] text-slate-500 max-w-md mx-auto">
                       Gemini is generating 10 fully customized QR layouts matching Cyberpunk, Luxury, Kawaii, Retro, Organic, and Brutalist themes for {selectedTool?.name}.
                     </p>
                   </div>
@@ -1996,19 +1996,19 @@ export default function Dashboard() {
               {/* Display generated list for selected tool */}
               {!isGeneratingToolTemplates && generatedToolTemplates.length > 0 && selectedTool && (
                 <div className="space-y-6 bg-[#07070F] border border-indigo-500/25 rounded-2xl p-6 animate-fade-in">
-                  <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-[#1C1C2E] pb-4">
+                  <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-slate-200 pb-4">
                     <div>
                       <span className="text-[10px] text-indigo-400 font-bold uppercase tracking-wider block">Currently Curating</span>
                       <h3 className="text-lg font-black text-white flex items-center gap-2">
-                        {selectedTool.name} <span className="text-xs bg-[#12121E] text-gray-400 border border-[#28283E] font-normal px-2.5 py-0.5 rounded-full">{selectedTool.category}</span>
+                        {selectedTool.name} <span className="text-xs bg-slate-50 text-gray-400 border border-slate-200 font-normal px-2.5 py-0.5 rounded-full">{selectedTool.category}</span>
                       </h3>
-                      <p className="text-xs text-[#8080A0] mt-1">{selectedTool.description}</p>
+                      <p className="text-xs text-slate-500 mt-1">{selectedTool.description}</p>
                     </div>
 
                     <div className="flex gap-2.5 self-stretch md:self-auto">
                       <button 
                         onClick={() => setGeneratedToolTemplates([])}
-                        className="flex-1 md:flex-none px-4 py-2 bg-[#12121E] hover:bg-[#1C1C2E] border border-[#28283E] text-white font-bold text-xs rounded-xl transition-all"
+                        className="flex-1 md:flex-none px-4 py-2 bg-slate-50 hover:bg-[#1C1C2E] border border-slate-200 text-slate-800 font-bold text-xs rounded-xl transition-all"
                       >
                         Back to Tools
                       </button>
@@ -2029,14 +2029,14 @@ export default function Dashboard() {
                       const bgStyle = isGrad && template.gradient ? {
                         background: `linear-gradient(${template.gradient.angle || '135deg'}, ${template.gradient.from}, ${template.gradient.via ? template.gradient.via + ', ' : ''}${template.gradient.to})`
                       } : {
-                        background: '#12121E'
+                        background: '#F8FAFC'
                       };
 
                       return (
-                        <div key={template.id} className="bg-[#0A0A12] border border-[#1C1C2E] hover:border-indigo-500/20 rounded-2xl p-5 flex flex-col justify-between gap-5 transition-all shadow-lg hover:shadow-indigo-500/5">
+                        <div key={template.id} className="bg-white border border-slate-200 hover:border-indigo-500/20 rounded-2xl p-5 flex flex-col justify-between gap-5 transition-all shadow-lg hover:shadow-indigo-500/5">
                           <div className="space-y-4">
                             {/* Card Canvas Mockup */}
-                            <div className="aspect-[3/4] rounded-xl overflow-hidden relative shadow-inner border border-white/5" style={bgStyle}>
+                            <div className="aspect-[3/4] rounded-xl overflow-hidden relative shadow-inner border border-slate-200" style={bgStyle}>
                               {/* Emojis overlay */}
                               {template.visualOverlay?.emojis?.map((em, eIdx) => (
                                 <div 
@@ -2093,15 +2093,15 @@ export default function Dashboard() {
                             </div>
 
                             <div>
-                              <span className="text-[10px] bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 px-2 py-0.5 rounded font-mono">
+                              <span className="text-[10px] bg-indigo-50/80 border border-indigo-500/20 text-indigo-400 px-2 py-0.5 rounded font-mono">
                                 Aesthetic #{idx + 1}
                               </span>
                               <h4 className="font-extrabold text-white text-sm mt-1.5 leading-tight">{template.title}</h4>
-                              <p className="text-[11px] text-[#8080A0] mt-1 leading-normal line-clamp-2">{template.description}</p>
+                              <p className="text-[11px] text-slate-500 mt-1 leading-normal line-clamp-2">{template.description}</p>
                             </div>
                           </div>
 
-                          <div className="flex gap-2 pt-2 border-t border-[#1C1C2E]">
+                          <div className="flex gap-2 pt-2 border-t border-slate-200">
                             <button 
                               onClick={() => handleApproveToolTemplate(template)}
                               className="flex-grow py-2 bg-indigo-500 hover:bg-indigo-600 text-white font-extrabold text-xs rounded-xl transition-all shadow-md flex items-center justify-center gap-1"
@@ -2110,7 +2110,7 @@ export default function Dashboard() {
                             </button>
                             <button 
                               onClick={() => setGeneratedToolTemplates(prev => prev.filter(t => t.id !== template.id))}
-                              className="py-2 px-3 bg-[#12121E] hover:bg-[#1C1C2E] border border-[#28283E] text-rose-400 font-bold text-xs rounded-xl transition-all"
+                              className="py-2 px-3 bg-slate-50 hover:bg-[#1C1C2E] border border-slate-200 text-rose-400 font-bold text-xs rounded-xl transition-all"
                               title="Discard"
                             >
                               Discard
@@ -2127,15 +2127,15 @@ export default function Dashboard() {
               {(!selectedTool || generatedToolTemplates.length === 0) && !isGeneratingToolTemplates && (
                 <div className="space-y-4 animate-fade-in">
                   {/* Filter and search control board */}
-                  <div className="bg-[#0A0A12] border border-[#1C1C2E] rounded-2xl p-5 flex flex-col md:flex-row gap-4 justify-between items-stretch md:items-center">
+                  <div className="bg-white border border-slate-200 rounded-2xl p-5 flex flex-col md:flex-row gap-4 justify-between items-stretch md:items-center">
                     <div className="flex-grow relative">
-                      <Search className="absolute left-3.5 top-3 w-4 h-4 text-[#4E4E6E]" />
+                      <Search className="absolute left-3.5 top-3 w-4 h-4 text-slate-450" />
                       <input 
                         type="text" 
                         value={searchToolQuery}
                         onChange={(e) => setSearchToolQuery(e.target.value)}
                         placeholder="Search all 100 tools by name, description, or slug..."
-                        className="w-full bg-[#06060F] border border-[#1C1C2E] focus:border-indigo-500/50 rounded-xl pl-10 pr-4 py-2.5 text-xs text-white outline-none transition-all placeholder-[#4E4E6E]"
+                        className="w-full bg-white border border-slate-200 focus:border-indigo-500/50 rounded-xl pl-10 pr-4 py-2.5 text-xs text-slate-900 outline-none transition-all placeholder-slate-450"
                       />
                     </div>
 
@@ -2143,7 +2143,7 @@ export default function Dashboard() {
                       <select 
                         value={filterToolCategory}
                         onChange={(e) => setFilterToolCategory(e.target.value)}
-                        className="bg-[#06060F] border border-[#1C1C2E] rounded-xl px-4 py-2.5 text-xs text-white outline-none focus:border-indigo-500/50"
+                        className="bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-xs text-slate-900 outline-none focus:border-indigo-500/50"
                       >
                         <option value="">All Categories</option>
                         {Array.from(new Set(QR_TOOLS.map(t => t.category))).map(cat => (
@@ -2154,7 +2154,7 @@ export default function Dashboard() {
                       <select 
                         value={filterToolStatus}
                         onChange={(e) => setFilterToolStatus(e.target.value as any)}
-                        className="bg-[#06060F] border border-[#1C1C2E] rounded-xl px-4 py-2.5 text-xs text-white outline-none focus:border-indigo-500/50"
+                        className="bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-xs text-slate-900 outline-none focus:border-indigo-500/50"
                       >
                         <option value="all">All Statuses</option>
                         <option value="unassigned">No Templates Yet</option>
@@ -2164,8 +2164,8 @@ export default function Dashboard() {
                   </div>
 
                   {/* List Grid */}
-                  <div className="bg-[#0A0A12] border border-[#1C1C2E] rounded-2xl overflow-hidden shadow-lg">
-                    <div className="p-4 border-b border-[#1C1C2E] bg-black/20 flex justify-between items-center">
+                  <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-lg">
+                    <div className="p-4 border-b border-slate-200 bg-slate-50 flex justify-between items-center">
                       <h3 className="text-xs font-black text-white uppercase tracking-wider">
                         A2ZQR Catalog Tools Index
                       </h3>
@@ -2174,7 +2174,7 @@ export default function Dashboard() {
                       </span>
                     </div>
 
-                    <div className="divide-y divide-[#1C1C2E] max-h-[600px] overflow-y-auto scrollbar-thin scrollbar-thumb-[#1C1C2E]">
+                    <div className="divide-y divide-slate-200 max-h-[600px] overflow-y-auto scrollbar-thin scrollbar-thumb-[#1C1C2E]">
                       {QR_TOOLS
                         .filter(tool => {
                           const matchesSearch = tool.name.toLowerCase().includes(searchToolQuery.toLowerCase()) || 
@@ -2191,11 +2191,11 @@ export default function Dashboard() {
                           const approvedTemplatesCount = curationTemplates.filter(ct => ct.toolId === tool.id && ct.status === 'approved').length;
 
                           return (
-                            <div key={tool.id} className="p-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 hover:bg-[#12121E]/30 transition-colors">
+                            <div key={tool.id} className="p-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 hover:bg-slate-50/30 transition-colors">
                               <div className="space-y-1">
                                 <div className="flex flex-wrap items-center gap-2">
                                   <h4 className="font-extrabold text-white text-xs tracking-tight">{tool.name}</h4>
-                                  <span className="text-[9px] uppercase tracking-wider font-extrabold px-1.5 py-0.5 rounded bg-black text-[#8080A0] border border-[#1C1C2E]">
+                                  <span className="text-[9px] uppercase tracking-wider font-extrabold px-1.5 py-0.5 rounded bg-black text-slate-500 border border-slate-200">
                                     {tool.category}
                                   </span>
                                   {approvedTemplatesCount > 0 ? (
@@ -2203,12 +2203,12 @@ export default function Dashboard() {
                                       {approvedTemplatesCount} LIVE DESIGNS
                                     </span>
                                   ) : (
-                                    <span className="text-[9px] font-black uppercase bg-amber-500/10 border border-amber-500/20 text-amber-400 px-2 py-0.5 rounded-full">
+                                    <span className="text-[9px] font-black uppercase bg-amber-50/80 border border-amber-500/20 text-amber-400 px-2 py-0.5 rounded-full">
                                       NO LAYOUT
                                     </span>
                                   )}
                                 </div>
-                                <p className="text-[11px] text-[#8080A0] leading-normal max-w-xl">{tool.description}</p>
+                                <p className="text-[11px] text-slate-500 leading-normal max-w-xl">{tool.description}</p>
                               </div>
 
                               <button 
@@ -2230,41 +2230,41 @@ export default function Dashboard() {
           {/* TAB 10: MOCKUPS SANDBOX */}
           {activeTab === 'mockups' && (
             <div className="space-y-6">
-              <div className="border-b border-[#1C1C2E] pb-4">
+              <div className="border-b border-slate-200 pb-4">
                 <h2 className="text-2xl font-extrabold text-white flex items-center gap-2">
                   <Eye className="w-6 h-6 text-emerald-400" /> Mockup Sandbox Preview
                 </h2>
-                <p className="text-xs text-[#8080A0]">Review your printed templates inside high-class physical environments.</p>
+                <p className="text-xs text-slate-500">Review your printed templates inside high-class physical environments.</p>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="bg-[#0A0A12] border border-[#1C1C2E] rounded-2xl overflow-hidden group hover:border-[#7C6EFA] transition-all">
-                  <div className="h-44 bg-[#12121E] flex items-center justify-center text-4xl border-b border-[#1C1C2E]">
+                <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden group hover:border-[#7C6EFA] transition-all">
+                  <div className="h-44 bg-slate-50 flex items-center justify-center text-4xl border-b border-slate-200">
                     ☕🍽️
                   </div>
                   <div className="p-5 space-y-2">
                     <h3 className="font-bold text-white text-sm">Cozy Table Menu Stand</h3>
-                    <p className="text-xs text-[#8080A0]">Realistic wooden tabletop stand with warm lights and plant shadow overlay.</p>
+                    <p className="text-xs text-slate-500">Realistic wooden tabletop stand with warm lights and plant shadow overlay.</p>
                   </div>
                 </div>
 
-                <div className="bg-[#0A0A12] border border-[#1C1C2E] rounded-2xl overflow-hidden group hover:border-[#7C6EFA] transition-all">
-                  <div className="h-44 bg-[#12121E] flex items-center justify-center text-4xl border-b border-[#1C1C2E]">
+                <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden group hover:border-[#7C6EFA] transition-all">
+                  <div className="h-44 bg-slate-50 flex items-center justify-center text-4xl border-b border-slate-200">
                     🍷🌹
                   </div>
                   <div className="p-5 space-y-2">
                     <h3 className="font-bold text-white text-sm">Luxury Event Banquet</h3>
-                    <p className="text-xs text-[#8080A0]">Sleek glass holder next to golden champagne and silver plate setups.</p>
+                    <p className="text-xs text-slate-500">Sleek glass holder next to golden champagne and silver plate setups.</p>
                   </div>
                 </div>
 
-                <div className="bg-[#0A0A12] border border-[#1C1C2E] rounded-2xl overflow-hidden group hover:border-[#7C6EFA] transition-all">
-                  <div className="h-44 bg-[#12121E] flex items-center justify-center text-4xl border-b border-[#1C1C2E]">
+                <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden group hover:border-[#7C6EFA] transition-all">
+                  <div className="h-44 bg-slate-50 flex items-center justify-center text-4xl border-b border-slate-200">
                     🛍️🏢
                   </div>
                   <div className="p-5 space-y-2">
                     <h3 className="font-bold text-white text-sm">Boutique Checkout Desk</h3>
-                    <p className="text-xs text-[#8080A0]">Gleaming quartz counter space in front of apparel displays.</p>
+                    <p className="text-xs text-slate-500">Gleaming quartz counter space in front of apparel displays.</p>
                   </div>
                 </div>
               </div>
@@ -2274,14 +2274,14 @@ export default function Dashboard() {
           {/* TAB 11: BULK GENERATOR */}
           {activeTab === 'bulk' && (
             <div className="space-y-6">
-              <div className="border-b border-[#1C1C2E] pb-4">
+              <div className="border-b border-slate-200 pb-4">
                 <h2 className="text-2xl font-extrabold text-white flex items-center gap-2">
                   <Settings2 className="w-6 h-6 text-indigo-400" /> Batch Bulk Generator Engine
                 </h2>
-                <p className="text-xs text-[#8080A0]">Generate hundreds of QR Codes instantly using CSV lists.</p>
+                <p className="text-xs text-slate-500">Generate hundreds of QR Codes instantly using CSV lists.</p>
               </div>
 
-              <div className="bg-[#0A0A12] border border-[#1C1C2E] rounded-2xl p-6">
+              <div className="bg-white border border-slate-200 rounded-2xl p-6">
                 <form onSubmit={handleBulkGenerate} className="space-y-4">
                   <div className="space-y-1.5">
                     <label className="text-xs text-white font-extrabold block">Bulk Raw Input (Format: Label, Destination URL)</label>
@@ -2289,7 +2289,7 @@ export default function Dashboard() {
                       value={bulkInput}
                       onChange={(e) => setBulkInput(e.target.value)}
                       rows={5}
-                      className="w-full bg-[#06060F] border border-[#28283E] rounded-xl p-4 text-xs font-mono text-white outline-none focus:border-[#7C6EFA]"
+                      className="w-full bg-white border border-slate-200 rounded-xl p-4 text-xs font-mono text-slate-900 outline-none focus:border-[#7C6EFA]"
                       placeholder="Table 1, https://ezqr.io/t1..."
                     />
                   </div>
@@ -2303,22 +2303,22 @@ export default function Dashboard() {
               </div>
 
               {bulkResult && (
-                <div className="bg-[#0A0A12] border border-[#1C1C2E] rounded-2xl p-6 space-y-4 animate-fade-in">
-                  <div className="flex justify-between items-center border-b border-[#1C1C2E] pb-3">
+                <div className="bg-white border border-slate-200 rounded-2xl p-6 space-y-4 animate-fade-in">
+                  <div className="flex justify-between items-center border-b border-slate-200 pb-3">
                     <h3 className="text-sm font-bold text-white uppercase tracking-wider">Compiled Output Batch ({bulkResult.length} files)</h3>
                     <button 
                       onClick={() => alert('Simulated high-res asset folder zip downloaded!')}
-                      className="px-3.5 py-1.5 bg-[#7C6EFA]/10 border border-[#7C6EFA]/30 hover:bg-[#7C6EFA]/20 text-xs text-[#A89EFF] font-bold rounded-lg transition-colors flex items-center gap-1.5"
+                      className="px-3.5 py-1.5 bg-[#7C6EFA]/10 border border-[#7C6EFA]/30 hover:bg-[#7C6EFA]/20 text-xs text-indigo-600 font-bold rounded-lg transition-colors flex items-center gap-1.5"
                     >
                       <Download className="w-3.5 h-3.5" /> Download ZIP Archive
                     </button>
                   </div>
                   <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-4">
                     {bulkResult.map((r, i) => (
-                      <div key={i} className="p-3 bg-[#12121E] border border-[#1C1C2E] rounded-xl text-center space-y-2">
+                      <div key={i} className="p-3 bg-slate-50 border border-slate-200 rounded-xl text-center space-y-2">
                         <img src={r.qrUrl} className="w-24 h-24 mx-auto rounded" alt={r.label} />
                         <span className="font-extrabold text-[11px] text-white block truncate">{r.label}</span>
-                        <span className="text-[9px] text-[#8080A0] block truncate font-mono">{r.url}</span>
+                        <span className="text-[9px] text-slate-500 block truncate font-mono">{r.url}</span>
                       </div>
                     ))}
                   </div>
@@ -2330,36 +2330,36 @@ export default function Dashboard() {
           {/* TAB 12: USER UPLOADS */}
           {activeTab === 'uploads' && (
             <div className="space-y-6">
-              <div className="border-b border-[#1C1C2E] pb-4">
+              <div className="border-b border-slate-200 pb-4">
                 <h2 className="text-2xl font-extrabold text-white flex items-center gap-2">
                   <UploadCloud className="w-6 h-6 text-emerald-400" /> Brand Media Uploads
                 </h2>
-                <p className="text-xs text-[#8080A0]">Manage uploaded high-fidelity vector company logos and background design files.</p>
+                <p className="text-xs text-slate-500">Manage uploaded high-fidelity vector company logos and background design files.</p>
               </div>
 
               {/* Mock Upload Box */}
-              <div className="bg-[#0A0A12] border border-dashed border-[#28283E] rounded-2xl p-8 flex flex-col justify-center items-center text-center cursor-pointer hover:border-[#7C6EFA] hover:bg-[#12121E]/5 transition-all relative">
+              <div className="bg-white border border-dashed border-slate-200 rounded-2xl p-8 flex flex-col justify-center items-center text-center cursor-pointer hover:border-[#7C6EFA] hover:bg-slate-50/5 transition-all relative">
                 <input 
                   type="file" 
                   onChange={handleMockAssetUpload}
                   className="absolute inset-0 opacity-0 cursor-pointer"
                 />
-                <UploadCloud className="w-10 h-10 text-[#A89EFF] mb-3" />
+                <UploadCloud className="w-10 h-10 text-indigo-600 mb-3" />
                 <span className="font-bold text-sm text-white">Drag & Drop brand assets here</span>
-                <span className="text-xs text-[#8080A0] mt-1">Supports transparent SVGs, high-res PNGs, and custom backgrounds.</span>
+                <span className="text-xs text-slate-500 mt-1">Supports transparent SVGs, high-res PNGs, and custom backgrounds.</span>
               </div>
 
               {/* Assets Registry List */}
-              <div className="bg-[#0A0A12] border border-[#1C1C2E] rounded-2xl p-6 space-y-4">
+              <div className="bg-white border border-slate-200 rounded-2xl p-6 space-y-4">
                 <h3 className="text-sm font-bold text-white uppercase tracking-wider">Asset Catalog</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {uploadedAssets.map(a => (
-                    <div key={a.id} className="p-4 bg-[#12121E] border border-[#1C1C2E] rounded-xl flex items-center justify-between">
+                    <div key={a.id} className="p-4 bg-slate-50 border border-slate-200 rounded-xl flex items-center justify-between">
                       <div className="flex items-center gap-3">
                         <div className="w-10 h-10 rounded-lg bg-black/40 flex items-center justify-center text-lg">📁</div>
                         <div>
                           <span className="font-bold text-xs text-white block">{a.name}</span>
-                          <span className="text-[10px] text-[#8080A0]">{a.size} • {a.type}</span>
+                          <span className="text-[10px] text-slate-500">{a.size} • {a.type}</span>
                         </div>
                       </div>
                       <button 
@@ -2378,35 +2378,35 @@ export default function Dashboard() {
           {/* TAB 13: CATEGORIES / QR DIRECTORIES */}
           {activeTab === 'categories' && (
             <div className="space-y-6">
-              <div className="border-b border-[#1C1C2E] pb-4">
+              <div className="border-b border-slate-200 pb-4">
                 <h2 className="text-2xl font-extrabold text-white flex items-center gap-2">
                   <Tag className="w-6 h-6 text-[#7C6EFA]" /> Category Directories Config
                 </h2>
-                <p className="text-xs text-[#8080A0]">Manage category listings, colors, and global directory grouping codes.</p>
+                <p className="text-xs text-slate-500">Manage category listings, colors, and global directory grouping codes.</p>
               </div>
 
               {/* Add New Category */}
-              <div className="bg-[#0A0A12] border border-[#1C1C2E] rounded-2xl p-6">
+              <div className="bg-white border border-slate-200 rounded-2xl p-6">
                 <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-4">Register New Catalog Category</h3>
                 <form onSubmit={handleCreateCategory} className="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
                   <div className="space-y-1.5">
-                    <label className="text-[10px] text-[#8080A0] uppercase font-bold">Category Name</label>
+                    <label className="text-[10px] text-slate-500 uppercase font-bold">Category Name</label>
                     <input 
                       type="text" 
                       value={newCategoryName}
                       onChange={(e) => setNewCategoryName(e.target.value)}
                       placeholder="e.g. Pet Care & Vet" 
-                      className="w-full bg-[#06060F] border border-[#28283E] text-xs px-4 py-3 rounded-xl text-white outline-none"
+                      className="w-full bg-white border border-slate-200 text-xs px-4 py-3 rounded-xl text-slate-900 outline-none"
                       required
                     />
                   </div>
                   <div className="space-y-1.5">
-                    <label className="text-[10px] text-[#8080A0] uppercase font-bold">Theme Color Accents</label>
+                    <label className="text-[10px] text-slate-500 uppercase font-bold">Theme Color Accents</label>
                     <input 
                       type="color" 
                       value={newCategoryColor}
                       onChange={(e) => setNewCategoryColor(e.target.value)}
-                      className="w-full h-11 bg-transparent cursor-pointer rounded border border-[#28283E]"
+                      className="w-full h-11 bg-transparent cursor-pointer rounded border border-slate-200"
                     />
                   </div>
                   <button 
@@ -2421,7 +2421,7 @@ export default function Dashboard() {
               {/* Categories Catalog */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 {categories.map(c => (
-                  <div key={c.id} className="p-5 bg-[#0A0A12] border border-[#1C1C2E] rounded-2xl space-y-3 relative group hover:border-indigo-500/25 transition-all">
+                  <div key={c.id} className="p-5 bg-white border border-slate-200 rounded-2xl space-y-3 relative group hover:border-indigo-500/25 transition-all">
                     <div className="flex justify-between items-center">
                       <span className="w-3.5 h-3.5 rounded-full" style={{ backgroundColor: c.color }}></span>
                       <button 
@@ -2433,7 +2433,7 @@ export default function Dashboard() {
                     </div>
                     <div>
                       <h4 className="font-bold text-white text-sm">{c.name}</h4>
-                      <span className="text-[11px] text-[#8080A0] font-mono">{c.count} active campaigns</span>
+                      <span className="text-[11px] text-slate-500 font-mono">{c.count} active campaigns</span>
                     </div>
                   </div>
                 ))}
@@ -2444,21 +2444,21 @@ export default function Dashboard() {
           {/* TAB 14: SEO MANAGER */}
           {activeTab === 'seo' && (
             <div className="space-y-6">
-              <div className="border-b border-[#1C1C2E] pb-4">
+              <div className="border-b border-slate-200 pb-4">
                 <h2 className="text-2xl font-extrabold text-white flex items-center gap-2">
                   <Search className="w-6 h-6 text-indigo-400" /> Search Engine Optimization (SEO) Config
                 </h2>
-                <p className="text-xs text-[#8080A0]">Configure automated sitemaps, robots.txt indexing rules, and meta tags schema.</p>
+                <p className="text-xs text-slate-500">Configure automated sitemaps, robots.txt indexing rules, and meta tags schema.</p>
               </div>
 
-              <div className="bg-[#0A0A12] border border-[#1C1C2E] rounded-2xl p-6 space-y-4">
+              <div className="bg-white border border-slate-200 rounded-2xl p-6 space-y-4">
                 <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-2">Google Indexing Settings</h3>
-                <div className="space-y-3 text-xs text-[#8080A0]">
-                  <div className="flex justify-between items-center p-3 bg-[#12121E]/80 rounded-xl">
+                <div className="space-y-3 text-xs text-slate-500">
+                  <div className="flex justify-between items-center p-3 bg-slate-50/80 rounded-xl">
                     <span>Target Indexing Rule</span>
                     <span className="font-mono text-emerald-400 font-bold">INDEX, FOLLOW (Robots active)</span>
                   </div>
-                  <div className="flex justify-between items-center p-3 bg-[#12121E]/80 rounded-xl">
+                  <div className="flex justify-between items-center p-3 bg-slate-50/80 rounded-xl">
                     <span>XML Dynamic Sitemap</span>
                     <span className="font-mono text-white hover:underline cursor-pointer">/sitemap.xml</span>
                   </div>
@@ -2470,35 +2470,35 @@ export default function Dashboard() {
           {/* TAB 15: BLOG PUBLISHING */}
           {activeTab === 'blog' && (
             <div className="space-y-6">
-              <div className="border-b border-[#1C1C2E] pb-4">
+              <div className="border-b border-slate-200 pb-4">
                 <h2 className="text-2xl font-extrabold text-white flex items-center gap-2">
                   <BookOpen className="w-6 h-6 text-amber-400" /> Console Blog Engine
                 </h2>
-                <p className="text-xs text-[#8080A0]">Publish helpful articles, dynamic QR use cases, and tips for printed brand templates.</p>
+                <p className="text-xs text-slate-500">Publish helpful articles, dynamic QR use cases, and tips for printed brand templates.</p>
               </div>
 
               {/* Create new post */}
-              <div className="bg-[#0A0A12] border border-[#1C1C2E] rounded-2xl p-6">
+              <div className="bg-white border border-slate-200 rounded-2xl p-6">
                 <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-4">Compose Fresh Tutorial</h3>
                 <form onSubmit={handleCreatePost} className="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
                   <div className="space-y-1.5 md:col-span-2">
-                    <label className="text-[10px] text-[#8080A0] uppercase font-bold">Article Title</label>
+                    <label className="text-[10px] text-slate-500 uppercase font-bold">Article Title</label>
                     <input 
                       type="text" 
                       value={newPostTitle}
                       onChange={(e) => setNewPostTitle(e.target.value)}
                       placeholder="e.g. 5 Mistakes to Avoid when Printing Restaurant Menu QR Badges" 
-                      className="w-full bg-[#06060F] border border-[#28283E] text-xs px-4 py-3 rounded-xl text-white outline-none"
+                      className="w-full bg-white border border-slate-200 text-xs px-4 py-3 rounded-xl text-slate-900 outline-none"
                       required
                     />
                   </div>
                   <div className="flex gap-2">
                     <div className="flex-1 space-y-1.5">
-                      <label className="text-[10px] text-[#8080A0] uppercase font-bold">Status</label>
+                      <label className="text-[10px] text-slate-500 uppercase font-bold">Status</label>
                       <select 
                         value={newPostStatus}
                         onChange={(e: any) => setNewPostStatus(e.target.value)}
-                        className="w-full bg-[#06060F] border border-[#28283E] text-xs px-3 py-3 rounded-xl text-white outline-none"
+                        className="w-full bg-white border border-slate-200 text-xs px-3 py-3 rounded-xl text-slate-900 outline-none"
                       >
                         <option value="Published">Published</option>
                         <option value="Draft">Draft</option>
@@ -2515,17 +2515,17 @@ export default function Dashboard() {
               </div>
 
               {/* Published registry list */}
-              <div className="bg-[#0A0A12] border border-[#1C1C2E] rounded-2xl p-6 space-y-4">
+              <div className="bg-white border border-slate-200 rounded-2xl p-6 space-y-4">
                 <h3 className="text-sm font-bold text-white uppercase tracking-wider">Active Blog Posts</h3>
                 <div className="space-y-2">
                   {blogPosts.map(p => (
-                    <div key={p.id} className="p-4 bg-[#12121E]/60 border border-[#1C1C2E] rounded-xl flex justify-between items-center text-xs">
+                    <div key={p.id} className="p-4 bg-slate-50/60 border border-slate-200 rounded-xl flex justify-between items-center text-xs">
                       <div className="space-y-0.5">
                         <span className="font-bold text-white block">{p.title}</span>
-                        <span className="text-[10px] text-[#8080A0]">By {p.author} • {p.status === 'Published' ? '🟢 Published' : '🟡 Draft'}</span>
+                        <span className="text-[10px] text-slate-500">By {p.author} • {p.status === 'Published' ? '🟢 Published' : '🟡 Draft'}</span>
                       </div>
                       <div className="flex items-center gap-4">
-                        <span className="font-mono text-white font-bold">{p.views.toLocaleString()} views</span>
+                        <span className="font-mono text-slate-800 font-bold">{p.views.toLocaleString()} views</span>
                         <button 
                           onClick={() => handleDeletePost(p.id)}
                           className="text-red-400 hover:text-red-300 font-bold"
@@ -2543,25 +2543,25 @@ export default function Dashboard() {
           {/* TAB 16: WHITE-LABEL SETTINGS */}
           {activeTab === 'settings' && (
             <div className="space-y-6">
-              <div className="border-b border-[#1C1C2E] pb-4">
+              <div className="border-b border-slate-200 pb-4">
                 <h2 className="text-2xl font-extrabold text-white flex items-center gap-2">
                   <Settings className="w-6 h-6 text-purple-400" /> White-Label Settings
                 </h2>
-                <p className="text-xs text-[#8080A0]">Configure your brand's unique custom dynamic short-linking domains.</p>
+                <p className="text-xs text-slate-500">Configure your brand's unique custom dynamic short-linking domains.</p>
               </div>
 
-              <div className="bg-[#0A0A12] border border-[#1C1C2E] rounded-2xl p-6 space-y-4">
+              <div className="bg-white border border-slate-200 rounded-2xl p-6 space-y-4">
                 <div className="space-y-1.5">
                   <label className="text-xs text-white font-extrabold block">Custom Short-Link Domain Routing</label>
                   <input 
                     type="text" 
                     value={domainSettings.customDomain}
                     onChange={(e) => setDomainSettings({ ...domainSettings, customDomain: e.target.value })}
-                    className="w-full bg-[#06060F] border border-[#28283E] text-xs px-4 py-3 rounded-xl text-white outline-none"
+                    className="w-full bg-white border border-slate-200 text-xs px-4 py-3 rounded-xl text-slate-900 outline-none"
                     placeholder="e.g. qr.mybrand.com"
                   />
                 </div>
-                <div className="p-4 bg-[#12121E] border border-[#28283E] rounded-xl flex justify-between items-center text-xs text-[#8080A0]">
+                <div className="p-4 bg-slate-50 border border-slate-200 rounded-xl flex justify-between items-center text-xs text-slate-500">
                   <span>Active SSL Certificates (Let's Encrypt)</span>
                   <span className="text-emerald-400 font-bold">🟢 Active & Verified</span>
                 </div>
@@ -2577,7 +2577,7 @@ export default function Dashboard() {
         </div>
 
         {/* Console global footer */}
-        <footer className="h-14 border-t border-[#1C1C2E] px-8 flex items-center justify-between bg-[#0A0A12] text-xs text-[#4E4E6E] shrink-0">
+        <footer className="h-14 border-t border-slate-200 px-8 flex items-center justify-between bg-white text-xs text-slate-500 shrink-0">
           <span>© 2026 A2ZQR console · Designed by Suvash Astrologer</span>
           <span>Google AI Studio Host integration active</span>
         </footer>
@@ -2589,21 +2589,21 @@ export default function Dashboard() {
 // Reusable Stat/Kpi Card
 function KpiCard({ title, value, trend, trendUp, icon, desc }: any) {
   return (
-    <div className="bg-[#0A0A12] border border-[#1C1C2E] rounded-2xl p-5 flex flex-col justify-between hover:border-[#28283E] transition-colors shadow-lg">
+    <div className="bg-white border border-slate-200 rounded-2xl p-5 flex flex-col justify-between hover:border-slate-300 transition-colors shadow-sm">
       <div className="flex items-center justify-between mb-2">
-        <span className="text-xs text-[#8080A0] font-bold uppercase tracking-wider">{title}</span>
-        <div className="p-2 bg-[#12121E] text-[#A89EFF] rounded-lg border border-[#1C1C2E]">
+        <span className="text-xs text-slate-500 font-bold uppercase tracking-wider">{title}</span>
+        <div className="p-2 bg-indigo-50 text-indigo-600 rounded-lg border border-indigo-100">
           {icon}
         </div>
       </div>
       <div className="space-y-1">
-        <div className="text-2xl font-black text-white font-mono leading-none">{value}</div>
+        <div className="text-2xl font-black text-slate-900 font-mono leading-none">{value}</div>
         {trend ? (
-          <span className={`text-[10px] font-bold ${trendUp ? 'text-emerald-400' : 'text-red-400'}`}>
+          <span className={`text-[10px] font-bold ${trendUp ? 'text-emerald-600' : 'text-red-600'}`}>
             {trendUp ? '↑' : '↓'} {trend} vs last cycle
           </span>
         ) : (
-          <span className="text-[10px] text-[#8080A0] font-medium leading-none block">{desc}</span>
+          <span className="text-[10px] text-slate-500 font-medium leading-none block">{desc}</span>
         )}
       </div>
     </div>
@@ -2645,63 +2645,65 @@ function SidebarLink({ id, label, icon, active, onClick, count, badge }: any) {
 // Helper rows/boxes
 function PosterRatioRow({ label, size, res, active }: any) {
   return (
-    <div className={`p-3 rounded-xl border flex items-center justify-between text-xs ${active ? 'bg-indigo-500/10 border-indigo-500/30 text-white' : 'bg-[#12121E] border-[#1C1C2E] text-[#8080A0]'}`}>
+    <div className={`p-3 rounded-xl border flex items-center justify-between text-xs ${active ? 'bg-indigo-55/15 border-indigo-200 text-indigo-700' : 'bg-slate-50 border-slate-200 text-slate-500'}`}>
       <div>
-        <span className="font-extrabold text-white block">{label}</span>
-        <span className="text-[10px] font-mono text-[#8080A0]">{size}</span>
+        <span className="font-extrabold text-slate-800 block">{label}</span>
+        <span className="text-[10px] font-mono text-slate-400">{size}</span>
       </div>
-      <span className="font-mono font-bold text-[#A89EFF]">{res}</span>
+      <span className="font-mono font-bold text-indigo-600">{res}</span>
     </div>
   );
 }
 
 function StickerShapeCard({ name, desc, icon, active }: any) {
   return (
-    <div className={`p-4 rounded-xl border text-center space-y-1.5 transition-all ${active ? 'bg-amber-500/10 border-amber-500/30 text-white' : 'bg-[#12121E] border-[#1C1C2E] text-[#8080A0]'}`}>
+    <div className={`p-4 rounded-xl border text-center space-y-1.5 transition-all ${active ? 'bg-amber-50 border-amber-200 text-amber-700' : 'bg-slate-50 border-slate-200 text-slate-500'}`}>
       <span className="text-2xl block">{icon}</span>
-      <span className="font-bold text-[11px] block text-white leading-none">{name}</span>
-      <span className="text-[9px] text-[#8080A0] block leading-tight">{desc}</span>
+      <span className="font-bold text-[11px] block text-slate-800 leading-none">{name}</span>
+      <span className="text-[9px] text-slate-400 block leading-tight">{desc}</span>
     </div>
   );
 }
 
 function FrameOverlayCard({ title, borderStyle, color, active }: any) {
   return (
-    <div className={`p-4 rounded-2xl border space-y-2 transition-all ${active ? 'bg-indigo-500/10 border-indigo-500/30' : 'bg-[#12121E] border-[#1C1C2E]'}`}>
+    <div className={`p-4 rounded-2xl border space-y-2 transition-all ${active ? 'bg-indigo-50 border-indigo-200' : 'bg-slate-50 border-slate-200'}`}>
       <div className="flex justify-between items-center">
-        <h4 className="font-extrabold text-xs text-white leading-tight">{title}</h4>
-        {active && <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>}
+        <h4 className="font-extrabold text-xs text-slate-800 leading-tight">{title}</h4>
+        {active && <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>}
       </div>
-      <p className="text-[10px] text-[#8080A0] leading-snug">{borderStyle}</p>
-      <span className="text-[9px] font-mono text-[#A89EFF] block font-bold">{color}</span>
+      <p className="text-[10px] text-slate-500 leading-snug">{borderStyle}</p>
+      <span className="text-[9px] font-mono text-indigo-600 block font-bold">{color}</span>
     </div>
   );
 }
 
+// Helper SVG card
 function SvgThumbnailCard({ label, cat, preview }: any) {
   return (
-    <div className="p-4 bg-[#0A0A12] border border-[#1C1C2E] rounded-xl text-center space-y-2 hover:border-indigo-500/35 transition-all">
+    <div className="p-4 bg-white border border-slate-200 rounded-xl text-center space-y-2 hover:border-indigo-500/35 transition-all">
       <div className="text-3xl h-10 flex items-center justify-center">{preview}</div>
-      <span className="font-extrabold text-[10.5px] text-white block truncate">{label}</span>
-      <span className="text-[8px] text-[#4E4E6E] block uppercase font-mono tracking-wider">{cat}</span>
+      <span className="font-extrabold text-[10.5px] text-slate-800 block truncate">{label}</span>
+      <span className="text-[8px] text-slate-400 block uppercase font-mono tracking-wider">{cat}</span>
     </div>
   );
 }
 
+// Helper theme pack box
 function ThemePackBox({ name, cat, font, color, bg, icons }: any) {
   return (
-    <div className="p-5 bg-[#0A0A12] border border-[#1C1C2E] rounded-2xl space-y-4 hover:border-indigo-500/25 transition-all">
+    <div className="p-5 bg-white border border-slate-200 rounded-2xl space-y-4 hover:border-indigo-500/25 transition-all">
       <div className="space-y-1">
-        <span className="text-[9px] bg-indigo-500/15 border border-indigo-500/20 text-[#A89EFF] px-2 py-0.5 rounded-full uppercase tracking-wider font-extrabold">{cat}</span>
-        <h4 className="font-bold text-white text-base mt-2">{name}</h4>
+        <span className="text-[9px] bg-indigo-50 border border-indigo-100 text-indigo-600 px-2 py-0.5 rounded-full uppercase tracking-wider font-extrabold">{cat}</span>
+        <h4 className="font-bold text-slate-800 text-base mt-2">{name}</h4>
       </div>
-      <div className="space-y-1 text-xs text-[#8080A0]">
-        <div>Typography pairing: <span className="text-white font-mono">{font}</span></div>
-        <div>Matched Palette: <span className="text-white font-mono">{color}</span></div>
-        <div>Default Background: <span className="text-white font-mono">{bg}</span></div>
+      <div className="space-y-1 text-xs text-slate-500">
+        <div>Typography pairing: <span className="text-slate-700 font-mono">{font}</span></div>
+        <div>Matched Palette: <span className="text-slate-700 font-mono">{color}</span></div>
+        <div>Default Background: <span className="text-slate-700 font-mono">{bg}</span></div>
         <div className="flex gap-1 mt-2">
           {icons.map((ico: any) => (
-            <span key={ico} className="text-[9px] font-bold bg-[#12121E] text-white border border-[#28283E] px-2 py-0.5 rounded font-mono">#{ico}</span>
+            <span key={ico} className="text-[9px] font-bold bg-slate-100 text-slate-700 border border-slate-200 px-2 py-0.5 rounded font-mono">#{ico}</span>
           ))}
         </div>
       </div>

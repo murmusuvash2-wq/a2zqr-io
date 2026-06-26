@@ -1,100 +1,37 @@
-<div align="center">
+# A2ZQR - Premium All-in-One QR Experience Platform
 
-# 👋 Hi, I'm Suva
+A2ZQR is a high-performance, beautiful, and developer-friendly QR experience platform designed to generate dynamic QR codes, creative shapes, posters, templates, stickers, and manage real-time analytics.
 
-### Founder of A2ZQR
+## 🚀 Live Demo
+Check out the live application on Vercel:
+**[https://a2zqr.vercel.app](https://a2zqr.vercel.app)**
 
-Build. Design. Innovate.
+## 🌟 Key Features
+- **100+ Tools**: Complete suite of utility and generation tools.
+- **Creative Shapes & Frames**: Go beyond classic square matrices with custom designs (Lotus, Sakura, Fibonacci, and more).
+- **Control Center Dashboard**: White-themed secure workspace for templates, dynamic routing, and redirection management.
+- **Print Guides & Templates**: Export high DPI vector/image formats ready for commercial print.
+- **Fast and Secure**: Powered by React, Vite, and server-side Gemini API.
 
----
+## 🛠️ Development Setup
 
-<img src="https://readme-typing-svg.demolab.com?font=Syne&weight=700&size=28&duration=3000&pause=1000&color=6C63FF&center=true&vCenter=true&width=700&lines=Founder+of+A2ZQR;Building+Next-Generation+QR+Platform;UI%2FUX+%7C+Frontend+%7C+SEO;Always+Learning+Something+New" />
+### Prerequisite
+Make sure you have Node.js installed.
 
-</div>
+### Installation
+```bash
+npm install
+```
 
----
+### Run Dev Server
+```bash
+npm run dev
+```
 
-# 🚀 About Me
-
-- 🚀 Building **A2ZQR**
-- 🎨 Passionate about Premium UI/UX
-- ⚡ Creating Beautiful QR Experiences
-- 🌍 Interested in Web Apps & Micro SaaS
-- 💡 Learning Performance, SEO & Scalable Architecture
-
----
-
-# 🛠 Tech Stack
-
-<p align="center">
-
-<img src="https://skillicons.dev/icons?i=html,css,js,php,mysql,git,github,vscode" />
-
-</p>
-
----
-
-# 🌟 Current Project
-
-## A2ZQR
-
-A modern QR Platform focused on:
-
-- Beautiful QR Codes
-- Premium Templates
-- QR Frames
-- Posters
-- Stickers
-- SVG Export
-- Business QR
-- Art QR
-- Future Dynamic QR Platform
+### Build for Production
+```bash
+npm run build
+```
 
 ---
-
-# 📊 GitHub Stats
-
-<div align="center">
-
-![](https://github-readme-stats.vercel.app/api?username=YOUR_USERNAME&show_icons=true&theme=tokyonight&hide_border=true)
-
-![](https://github-readme-streak-stats.herokuapp.com/?user=YOUR_USERNAME&theme=tokyonight&hide_border=true)
-
-![](https://github-readme-stats.vercel.app/api/top-langs/?username=YOUR_USERNAME&layout=compact&theme=tokyonight&hide_border=true)
-
-</div>
-
----
-
-# 🏆 Goals
-
-- Build the best QR Platform
-- Create world-class UI/UX
-- Launch Premium SaaS
-- Scale globally
-
----
-
-# 🌐 Connect
-
-- GitHub: https://github.com/murmusuvash2-wg
-
----
-
-<div align="center">
-
-### ⭐ Thanks for visiting!
-
-Building the future of QR with ❤️
-
-</div>
-## Run Locally
-
-**Prerequisites:**  Node.js
-
-
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+*Created and maintained by Suvash Astrologer.*
