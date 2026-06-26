@@ -206,12 +206,36 @@ export default function Dashboard() {
         })
       });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Failed to generate templates from backend');
+      let responseText = "";
+      try {
+        responseText = await response.text();
+      } catch (textErr) {
+        throw new Error(`Failed to read response stream: ${response.statusText || response.status}`);
       }
 
-      const data = await response.json();
+      let data: any;
+      try {
+        data = JSON.parse(responseText);
+      } catch (parseErr) {
+        console.warn("Backend responded with non-JSON content:", responseText);
+        let errorMessage = `Server responded with an unexpected error (${response.status})`;
+        if (responseText.includes("<title>")) {
+          const titleMatch = responseText.match(/<title>([\s\S]*?)<\/title>/i);
+          if (titleMatch && titleMatch[1]) {
+            errorMessage = `Server Error: ${titleMatch[1].trim()}`;
+          }
+        } else if (responseText.length > 0 && responseText.length < 200) {
+          errorMessage = `Server Error: ${responseText}`;
+        } else if (response.status === 504 || response.status === 502) {
+          errorMessage = `Gateway Timeout (504): Gemini is taking longer to respond due to high demand. Please try again in a moment!`;
+        }
+        throw new Error(errorMessage);
+      }
+
+      if (!response.ok) {
+        throw new Error(data.error || `Server responded with status ${response.status}`);
+      }
+
       if (data.templates && Array.isArray(data.templates)) {
         setGeneratedToolTemplates(data.templates);
         setToolSuccessMessage(`Successfully generated 10 premium design variations tailored specifically for "${tool.name}"!`);
@@ -334,10 +358,36 @@ export default function Dashboard() {
     setCurationSuccess(null);
     try {
       const response = await fetch('/api/daily-templates?force=true');
-      if (!response.ok) {
-        throw new Error('Server returned an error generating daily templates');
+      
+      let responseText = "";
+      try {
+        responseText = await response.text();
+      } catch (textErr) {
+        throw new Error(`Failed to read response stream: ${response.statusText || response.status}`);
       }
-      const data = await response.json();
+
+      let data: any;
+      try {
+        data = JSON.parse(responseText);
+      } catch (parseErr) {
+        console.warn("Backend responded with non-JSON content:", responseText);
+        let errorMessage = `Server responded with an unexpected error (${response.status})`;
+        if (responseText.includes("<title>")) {
+          const titleMatch = responseText.match(/<title>([\s\S]*?)<\/title>/i);
+          if (titleMatch && titleMatch[1]) {
+            errorMessage = `Server Error: ${titleMatch[1].trim()}`;
+          }
+        } else if (responseText.length > 0 && responseText.length < 200) {
+          errorMessage = `Server Error: ${responseText}`;
+        } else if (response.status === 504 || response.status === 502) {
+          errorMessage = `Gateway Timeout (504): Gemini is taking longer to respond due to high demand. Please try again in a moment!`;
+        }
+        throw new Error(errorMessage);
+      }
+
+      if (!response.ok) {
+        throw new Error(data.error || `Server responded with status ${response.status}`);
+      }
       
       // Save these 10 templates as "pending" in the Firestore DB
       const freshTemplates: TemplateDesign[] = (data.templates || []).map((t: any) => ({
@@ -760,21 +810,21 @@ export default function Dashboard() {
 
   // Loaded Dashboard UI
   return (
-    <div id="dashboard-root" className="min-h-screen bg-[#040408] text-white flex flex-col md:flex-row font-['Syne',sans-serif]">
+    <div id="dashboard-root" className="min-h-screen bg-[#F8FAFC] text-slate-900 flex flex-col md:flex-row font-['Syne',sans-serif]">
       {/* 1. LEFT SIDEBAR CONSOLE LAYOUT */}
-      <aside className="w-full md:w-[280px] bg-[#0A0A12] border-r border-[#1C1C2E] flex flex-col justify-between shrink-0 select-none">
+      <aside className="w-full md:w-[280px] bg-white border-r border-slate-200 flex flex-col justify-between shrink-0 select-none">
         <div>
           {/* Logo Area */}
-          <div className="p-6 border-b border-[#1C1C2E] flex items-center justify-between">
+          <div className="p-6 border-b border-slate-200 flex items-center justify-between">
             <div className="flex items-center gap-2.5">
               <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-[#7C6EFA] to-[#C084FC] flex items-center justify-center text-white shadow-md">
                 <QrCode className="w-4 h-4" />
               </div>
-              <span className="font-extrabold text-lg tracking-tight">
-                A2Z<em className="font-normal not-italic text-[#A89EFF]">QR</em> Panel
+              <span className="font-extrabold text-lg tracking-tight text-slate-900">
+                A2Z<em className="font-normal not-italic text-indigo-600">QR</em> Panel
               </span>
             </div>
-            <span className="text-[9px] bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded-full font-bold">
+            <span className="text-[9px] bg-emerald-50 border border-emerald-200 text-emerald-700 px-2 py-0.5 rounded-full font-bold">
               v2.1
             </span>
           </div>
@@ -830,20 +880,20 @@ export default function Dashboard() {
         </div>
 
         {/* User Info footer */}
-        <div className="p-4 border-t border-[#1C1C2E] bg-black/20">
+        <div className="p-4 border-t border-slate-200 bg-slate-50">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2.5">
               <div className="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center text-white text-xs font-bold font-mono">
                 AD
               </div>
               <div>
-                <div className="text-[11px] font-extrabold text-white leading-tight">Suvash Admin</div>
-                <div className="text-[9px] text-emerald-400 font-bold uppercase tracking-wide">Sync Live</div>
+                <div className="text-[11px] font-extrabold text-slate-800 leading-tight">Suvash Admin</div>
+                <div className="text-[9px] text-emerald-600 font-bold uppercase tracking-wide">Sync Live</div>
               </div>
             </div>
             <button 
               onClick={handleLogout}
-              className="p-1.5 bg-[#1C1C2E] hover:bg-red-500/10 text-[#8080A0] hover:text-red-400 rounded-lg transition-colors"
+              className="p-1.5 bg-slate-100 hover:bg-red-50 text-slate-500 hover:text-red-600 border border-slate-200 rounded-lg transition-colors"
               title="Logout session"
             >
               <ArrowLeft className="w-4 h-4" />
@@ -853,15 +903,15 @@ export default function Dashboard() {
       </aside>
 
       {/* 2. CORE CENTRAL STAGE LAYOUT */}
-      <main className="flex-1 min-h-screen bg-[#040408] flex flex-col justify-between overflow-x-hidden">
+      <main className="flex-1 min-h-screen bg-[#F8FAFC] flex flex-col justify-between overflow-x-hidden text-slate-900">
         {/* Top bar header */}
-        <header className="h-16 border-b border-[#1C1C2E] px-6 md:px-8 flex items-center justify-between bg-[#0A0A12]/80 backdrop-blur-xl sticky top-0 z-40">
+        <header className="h-16 border-b border-slate-200 px-6 md:px-8 flex items-center justify-between bg-white/80 backdrop-blur-xl sticky top-0 z-40">
           <div className="flex items-center gap-3">
             <span className="text-[10px] bg-gradient-to-r from-[#7C6EFA] to-[#C084FC] text-white font-extrabold px-2.5 py-1 rounded-md tracking-wider uppercase">
               CONSOLE {userRole.toUpperCase()} MODE
             </span>
-            <div className="hidden sm:flex items-center gap-1.5 text-xs text-[#8080A0]">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+            <div className="hidden sm:flex items-center gap-1.5 text-xs text-slate-500">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping"></span>
               <span>Cluster Active (0.0.0.0:3000)</span>
             </div>
           </div>
@@ -869,14 +919,14 @@ export default function Dashboard() {
           <div className="flex items-center gap-4">
             <button 
               onClick={() => { window.location.href = '/'; }}
-              className="flex items-center gap-1.5 px-3.5 py-1.5 bg-[#12121E] border border-[#1C1C2E] text-xs font-bold text-[#A89EFF] hover:text-white rounded-lg hover:border-[#28283E] transition-all"
+              className="flex items-center gap-1.5 px-3.5 py-1.5 bg-slate-100 border border-slate-200 text-xs font-bold text-indigo-600 hover:text-indigo-800 rounded-lg hover:border-slate-300 transition-all"
             >
               <ArrowLeft className="w-3.5 h-3.5" /> Launch Studio Editor
             </button>
-            <div className="w-px h-4 bg-[#1C1C2E]"></div>
+            <div className="w-px h-4 bg-slate-200"></div>
             <div className="flex items-center gap-2">
-              <span className="text-xs text-[#8080A0] font-semibold hidden md:inline">Suvash Astrology</span>
-              <div className="w-8 h-8 rounded-full bg-[#12121E] border border-[#28283E] flex items-center justify-center text-indigo-400 text-xs font-extrabold">
+              <span className="text-xs text-slate-600 font-semibold hidden md:inline">Suvash Astrology</span>
+              <div className="w-8 h-8 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center text-indigo-600 text-xs font-extrabold">
                 SA
               </div>
             </div>
@@ -2568,18 +2618,18 @@ function SidebarLink({ id, label, icon, active, onClick, count, badge }: any) {
       onClick={() => onClick(id)}
       className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-extrabold transition-all border ${
         isSelected 
-          ? 'bg-gradient-to-r from-[#7C6EFA]/10 to-[#C084FC]/5 border-indigo-500/30 text-white shadow-sm'
-          : 'bg-transparent border-transparent text-[#8080A0] hover:text-white hover:bg-white/5'
+          ? 'bg-indigo-50 border-indigo-200 text-indigo-700 shadow-sm'
+          : 'bg-transparent border-transparent text-slate-600 hover:text-slate-900 hover:bg-slate-100'
       }`}
     >
       <div className="flex items-center gap-2.5">
-        <span className={`transition-colors ${isSelected ? 'text-[#A89EFF]' : 'text-[#4E4E6E] group-hover:text-white'}`}>
+        <span className={`transition-colors ${isSelected ? 'text-indigo-600' : 'text-slate-400 group-hover:text-slate-900'}`}>
           {icon}
         </span>
         <span className="tracking-tight text-[11.5px]">{label}</span>
       </div>
       {count !== undefined && (
-        <span className="text-[9px] px-2 py-0.5 rounded-full bg-black/40 border border-[#1C1C2E] text-[#8080A0] font-mono font-bold">
+        <span className="text-[9px] px-2 py-0.5 rounded-full bg-slate-100 border border-slate-200 text-slate-600 font-mono font-bold">
           {count}
         </span>
       )}

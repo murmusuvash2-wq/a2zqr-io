@@ -445,12 +445,35 @@ export default function PremiumTemplates({
         body: JSON.stringify({ prompt: promptInput })
       });
 
-      if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.error || `Server responded with status ${response.status}`);
+      let responseText = "";
+      try {
+        responseText = await response.text();
+      } catch (textErr) {
+        throw new Error(`Failed to read response stream: ${response.statusText || response.status}`);
       }
 
-      const generatedTemplate = await response.json();
+      let generatedTemplate: any;
+      try {
+        generatedTemplate = JSON.parse(responseText);
+      } catch (parseErr) {
+        console.warn("Backend responded with non-JSON content:", responseText);
+        let errorMessage = `Server responded with an unexpected error (${response.status})`;
+        if (responseText.includes("<title>")) {
+          const titleMatch = responseText.match(/<title>([\s\S]*?)<\/title>/i);
+          if (titleMatch && titleMatch[1]) {
+            errorMessage = `Server Error: ${titleMatch[1].trim()}`;
+          }
+        } else if (responseText.length > 0 && responseText.length < 200) {
+          errorMessage = `Server Error: ${responseText}`;
+        } else if (response.status === 504 || response.status === 502) {
+          errorMessage = `Gateway Timeout (504): Gemini is taking longer to respond due to high demand. Please try again in a moment!`;
+        }
+        throw new Error(errorMessage);
+      }
+
+      if (!response.ok) {
+        throw new Error(generatedTemplate.error || `Server responded with status ${response.status}`);
+      }
       
       // Assign a unique ID
       generatedTemplate.id = `ai-${Date.now()}`;

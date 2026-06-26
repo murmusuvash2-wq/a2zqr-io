@@ -93,6 +93,41 @@ async function startServer() {
     }
   }
 
+  async function generateContentWithFallback(ai: any, params: any) {
+    const modelsToTry = [
+      "gemini-3.5-flash",
+      "gemini-flash-latest",
+      "gemini-3.1-flash-lite"
+    ];
+    
+    let lastError: any = null;
+    for (const model of modelsToTry) {
+      let retries = 2;
+      while (retries >= 0) {
+        try {
+          console.log(`[Gemini Request] Attempting call with model: ${model} (Retries left: ${retries})`);
+          const response = await ai.models.generateContent({
+            ...params,
+            model: model
+          });
+          return response;
+        } catch (err: any) {
+          lastError = err;
+          console.warn(`[Gemini Warning] Model ${model} failed (Retries left: ${retries}):`, err.message || err);
+          
+          const isTransient = err.message?.includes("503") || err.message?.includes("UNAVAILABLE") || err.message?.includes("429") || err.message?.includes("demand");
+          if (isTransient && retries > 0) {
+            const delay = (3 - retries) * 1000;
+            console.log(`[Gemini Retry] Waiting ${delay}ms before retrying...`);
+            await new Promise(resolve => setTimeout(resolve, delay));
+          }
+          retries--;
+        }
+      }
+    }
+    throw lastError || new Error("All Gemini models and retries failed due to high service demand.");
+  }
+
   async function generateTemplatesForTheme(themePrompt: string, themeTitle: string, categoryName: string) {
     const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {
@@ -108,8 +143,7 @@ async function startServer() {
       }
     });
 
-    const response = await ai.models.generateContent({
-      model: "gemini-3.5-flash",
+    const response = await generateContentWithFallback(ai, {
       contents: `Generate exactly 10 premium, gorgeous, visually striking, and perfectly coordinated QR code templates for our DAILY curated gallery theme: "${themePrompt}".
 Each of the 10 designs must have a highly professional layout, gorgeous coordinates, distinct titles, and premium matching color schemes. Categories must be distributed or fit the general theme.`,
       config: {
@@ -355,9 +389,8 @@ Adhere strictly to the response schema. Ensure that your output contains exactly
         }
       });
 
-      // Call Gemini 3.5 Flash to generate a high-quality coordinated layout configuration
-      const response = await ai.models.generateContent({
-        model: "gemini-3.5-flash",
+      // Call Gemini with robust fallback to generate a high-quality coordinated layout configuration
+      const response = await generateContentWithFallback(ai, {
         contents: `Generate a gorgeous, visually striking, and perfectly coordinated QR Code poster or card template design based on this prompt: "${prompt}". 
 Select premium, cohesive, and high-contrast color pairings, beautiful coordinate layouts, and matching QR code eye/dot pattern styles.
 Ensure you specify a matching "layoutType" (preferably "dynamic_custom" if a custom artistic illustration overlay is required, otherwise "artistic_portrait", "kawaii_pastel", "mascot_bear", or "japan_travel").
@@ -531,8 +564,7 @@ Adhere strictly to the provided response schema. Return valid JSON only.`,
 
       console.log(`[Gemini Tool Generation] Designing 10 premium variations for tool: ${toolName} (${toolId})`);
 
-      const response = await ai.models.generateContent({
-        model: "gemini-3.5-flash",
+      const response = await generateContentWithFallback(ai, {
         contents: `Generate exactly 10 premium, gorgeous, and highly distinct QR Code card/poster template variations for our specialized tool: "${toolName}".
 Tool purpose & description: "${toolDescription || ''}".
 Category classification: "${toolCategory || 'Posters'}".
