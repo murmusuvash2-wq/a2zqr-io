@@ -1,96 +1,123 @@
 @import "tailwindcss";
 
-/* Light Theme High Visibility Overrides */
-#dashboard-root {
-  background-color: #f8fafc !important;
+/* 1. Global Reset for the Dashboard Page to ensure light theme */
+#dashboard-root, 
+body, 
+html {
+  background-color: #ffffff !important;
+  background: #ffffff !important;
   color: #0f172a !important;
 }
 
 #dashboard-root aside {
   background-color: #ffffff !important;
   border-right: 1px solid #e2e8f0 !important;
-}
-
-#dashboard-root aside * {
-  border-color: #e2e8f0 !important;
-}
-
-#dashboard-root header {
-  background-color: rgba(255, 255, 255, 0.9) !important;
-  border-bottom: 1px solid #e2e8f0 !important;
   color: #0f172a !important;
 }
 
 #dashboard-root main {
-  background-color: #f8fafc !important;
+  background-color: #ffffff !important;
+  color: #0f172a !important;
 }
 
-/* Backgrounds & Cards */
-#dashboard-root .bg-\[\#0A0A12\],
-#dashboard-root .bg-\[\#12121E\],
-#dashboard-root .bg-\[\#07070F\],
-#dashboard-root .bg-\[\#06060F\],
-#dashboard-root .bg-\[\#11111E\],
-#dashboard-root .bg-\[\#1A1A2E\],
-#dashboard-root .bg-\[\#131326\],
-#dashboard-root .bg-\[\#040408\],
+#dashboard-root header {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  border-bottom: 1px solid #e2e8f0 !important;
+  color: #0f172a !important;
+}
+
+/* 2. Convert all dark background classes to light-themed (white or very light slate) */
+#dashboard-root .bg-black,
+#dashboard-root .bg-slate-950,
+#dashboard-root .bg-slate-900,
+#dashboard-root .bg-slate-800,
+#dashboard-root .bg-zinc-950,
+#dashboard-root .bg-zinc-900,
+#dashboard-root .bg-zinc-800,
+#dashboard-root .bg-neutral-950,
+#dashboard-root .bg-neutral-900,
+#dashboard-root .bg-[#05050A],
+#dashboard-root .bg-[#07070F],
+#dashboard-root .bg-[#12121F],
+#dashboard-root .bg-[#1C1C30],
+#dashboard-root .bg-[#1C1C2E],
+#dashboard-root .bg-[#0A0A12],
+#dashboard-root .bg-[#12121E],
 #dashboard-root .bg-black\/20,
 #dashboard-root .bg-black\/40,
+#dashboard-root .bg-black\/60,
 #dashboard-root .bg-black\/80 {
   background-color: #ffffff !important;
+  background: #ffffff !important;
   border-color: #cbd5e1 !important;
   color: #0f172a !important;
 }
 
-#dashboard-root .bg-\[\#12121E\],
-#dashboard-root .bg-\[\#0A0A12\],
-#dashboard-root .bg-\[\#06060F\],
-#dashboard-root .bg-\[\#07070F\] {
-  background-color: #ffffff !important;
-}
-
-/* Sub-panels and inner sections */
-#dashboard-root .bg-\[\#06060F\] {
+/* For slightly darker accents inside white theme */
+#dashboard-root .bg-slate-50,
+#dashboard-root .bg-slate-100,
+#dashboard-root .bg-gray-100 {
   background-color: #f1f5f9 !important;
 }
 
-/* Borders */
-#dashboard-root .border-\[\#1C1C2E\],
-#dashboard-root .border-\[\#28283E\],
-#dashboard-root .border-r-\[\#1C1C2E\],
-#dashboard-root .border-b-\[\#1C1C2E\],
-#dashboard-root .border-t-\[\#1C1C2E\],
-#dashboard-root .border-slate-800,
-#dashboard-root .border-dashed,
-#dashboard-root .divide-\[\#1C1C2E\] > *,
-#dashboard-root .divide-y > * {
-  border-color: #e2e8f0 !important;
+/* 3. Convert all white/light-colored text classes to dark text */
+#dashboard-root .text-white,
+#dashboard-root .text-slate-50,
+#dashboard-root .text-slate-100,
+#dashboard-root .text-slate-200,
+#dashboard-root .text-slate-300,
+#dashboard-root .text-slate-400,
+#dashboard-root .text-gray-100,
+#dashboard-root .text-gray-200,
+#dashboard-root .text-gray-300,
+#dashboard-root .text-gray-400,
+#dashboard-root .text-[#F2F2FF],
+#dashboard-root .text-[#8080A0],
+#dashboard-root .text-[#4E4E6E] {
+  color: #0f172a !important;
 }
 
-/* Texts */
-#dashboard-root .text-white,
 #dashboard-root h1,
 #dashboard-root h2,
 #dashboard-root h3,
 #dashboard-root h4,
 #dashboard-root h5,
 #dashboard-root h6,
-#dashboard-root strong {
+#dashboard-root strong,
+#dashboard-root b,
+#dashboard-root label,
+#dashboard-root span,
+#dashboard-root p,
+#dashboard-root div {
   color: #0f172a !important;
 }
 
-#dashboard-root .text-\[\#8080A0\],
-#dashboard-root .text-\[\#4E4E6E\],
-#dashboard-root .text-gray-400,
-#dashboard-root .text-slate-400,
-#dashboard-root .text-gray-500,
-#dashboard-root .text-slate-500,
-#dashboard-root p,
-#dashboard-root span:not(.text-emerald-400):not(.text-indigo-400):not(.text-red-400):not(.text-rose-400):not(.text-amber-400) {
-  color: #334155 !important;
+/* Standard exceptions for colorful text badges/alerts (success/error/info) */
+#dashboard-root .text-emerald-500,
+#dashboard-root .text-emerald-600,
+#dashboard-root .text-emerald-400 {
+  color: #059669 !important;
+}
+#dashboard-root .text-indigo-500,
+#dashboard-root .text-indigo-600,
+#dashboard-root .text-indigo-400,
+#dashboard-root .text-[#7C6EFA] {
+  color: #4f46e5 !important;
+}
+#dashboard-root .text-rose-500,
+#dashboard-root .text-rose-600,
+#dashboard-root .text-rose-400,
+#dashboard-root .text-red-500,
+#dashboard-root .text-red-600 {
+  color: #e11d48 !important;
+}
+#dashboard-root .text-amber-500,
+#dashboard-root .text-amber-600,
+#dashboard-root .text-amber-400 {
+  color: #d97706 !important;
 }
 
-/* Inputs, Textareas, Selects */
+/* Form items, inputs, textareas, selects */
 #dashboard-root input,
 #dashboard-root select,
 #dashboard-root textarea {
@@ -104,94 +131,13 @@
   color: #94a3b8 !important;
 }
 
-/* Buttons and Actions */
-#dashboard-root .bg-\[\#12121E\]:not(.hover\:brightness-110),
-#dashboard-root .bg-\[\#1C1C2E\] {
-  background-color: #f1f5f9 !important;
-  color: #0f172a !important;
-  border-color: #cbd5e1 !important;
-}
-
-#dashboard-root .bg-\[\#12121E\]:hover,
-#dashboard-root .bg-\[\#1C1C2E\]:hover {
-  background-color: #e2e8f0 !important;
-}
-
-#dashboard-root button:not(.bg-indigo-500):not(.bg-emerald-500):not(.bg-red-500):not(.bg-rose-500):not(.bg-amber-500):not(.bg-gradient-to-r) {
-  color: #334155;
-}
-
-#dashboard-root button:hover {
-  background-color: #f1f5f9 !important;
-}
-
-/* Sidebar Specifics */
-#dashboard-root aside button {
-  color: #475569 !important;
-}
-
-#dashboard-root aside button:hover {
-  background-color: #f1f5f9 !important;
-  color: #0f172a !important;
-}
-
-#dashboard-root aside button.bg-gradient-to-r {
-  background: linear-gradient(to right, rgba(79, 70, 229, 0.1), rgba(139, 92, 246, 0.05)) !important;
-  border-color: rgba(79, 70, 229, 0.3) !important;
-  color: #4f46e5 !important;
-}
-
-/* Badges & Accents */
-#dashboard-root .bg-emerald-500\/10 {
-  background-color: rgba(16, 185, 129, 0.15) !important;
-  color: #059669 !important;
-}
-
-#dashboard-root .bg-indigo-500\/10,
-#dashboard-root .bg-indigo-400\/10 {
-  background-color: rgba(79, 70, 229, 0.15) !important;
-  color: #4f46e5 !important;
-}
-
-#dashboard-root .bg-amber-500\/10,
-#dashboard-root .bg-amber-400\/10 {
-  background-color: rgba(245, 158, 11, 0.15) !important;
-  color: #d97706 !important;
-}
-
-#dashboard-root .bg-rose-500\/10 {
-  background-color: rgba(244, 63, 94, 0.15) !important;
-  color: #e11d48 !important;
-}
-
-#dashboard-root .text-emerald-400 {
-  color: #059669 !important;
-}
-
-#dashboard-root .text-indigo-400,
-#dashboard-root .text-\[\#A89EFF\] {
-  color: #4f46e5 !important;
-}
-
-#dashboard-root .text-amber-400 {
-  color: #d97706 !important;
-}
-
-#dashboard-root .text-rose-400 {
-  color: #e11d48 !important;
-}
-
-/* Form items labels */
-#dashboard-root label {
-  color: #334155 !important;
-}
-
 /* Charts Grid */
 #dashboard-root .recharts-cartesian-grid-horizontal line,
 #dashboard-root .recharts-cartesian-grid-vertical line {
-  stroke: #cbd5e1 !important;
+  stroke: #e2e8f0 !important;
 }
 
 #dashboard-root .recharts-text {
-  fill: #475569 !important;
+  fill: #64748b !important;
 }
+
