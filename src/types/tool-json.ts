@@ -53,7 +53,7 @@ export interface ToolJSON {
   // SEO (from toolContent.ts)
   seo: {
     title: string;
-    metaDescription: string;
+    metaDescription?: string;
     keywords: string[];
   };
   

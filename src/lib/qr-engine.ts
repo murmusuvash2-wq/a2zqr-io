@@ -109,7 +109,8 @@ export class QREngine {
    * Export as PDF (A4, 300dpi)
    */
   async exportPDF(): Promise<Blob> {
-    const { jsPDF } = await import('jspdf');
+    const jsPDFModule = await import('jspdf');
+    const jsPDF = jsPDFModule.default || jsPDFModule;
     
     // Generate high-res canvas
     const canvas = await this.renderToCanvas(600); // 300dpi at 2"

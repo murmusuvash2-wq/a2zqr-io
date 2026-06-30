@@ -34,8 +34,8 @@ const COLORS = {
 
 // Admin credentials from environment or fallback to empty string
 const getAdminCredentials = () => ({
-  email: import.meta.env.VITE_ADMIN_EMAIL || '',
-  password: import.meta.env.VITE_ADMIN_PASSWORD || ''
+  email: (import.meta as any).env?.VITE_ADMIN_EMAIL || '',
+  password: (import.meta as any).env?.VITE_ADMIN_PASSWORD || ''
 });
 
 export default function Dashboard() {
@@ -681,7 +681,7 @@ export default function Dashboard() {
     setNewQrTarget('');
     
     // Update category counts
-    setCategories(prev => prev.map(c => {
+    setCategories((prev: any[]) => prev.map((c: any) => {
       if (c.name.includes(newQrCategory) || newQrCategory.includes(c.name)) {
         return { ...c, count: c.count + 1 };
       }
@@ -691,7 +691,7 @@ export default function Dashboard() {
 
   const handleDeleteQr = (id: string) => {
     if (confirm('Are you sure you want to delete this Dynamic QR Code? Scanners will experience redirection breakdown.')) {
-      setDynamicQRs(dynamicQRs.filter(q => q.id !== id));
+      setDynamicQRs(dynamicQRs.filter((q: any) => q.id !== id));
     }
   };
 
@@ -701,7 +701,7 @@ export default function Dashboard() {
   };
 
   const saveRedirectionEdit = (id: string) => {
-    setDynamicQRs(dynamicQRs.map(q => {
+    setDynamicQRs(dynamicQRs.map((q: any) => {
       if (q.id === id) {
         return { ...q, targetUrl: editingQrTarget };
       }

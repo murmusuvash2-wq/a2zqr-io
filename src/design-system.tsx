@@ -90,7 +90,7 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
       <Component
         ref={ref as any}
         className={cn(baseStyles, variants[variant], paddings[padding], isInteractive && "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ez-border-focus)] focus-visible:ring-offset-2 text-left w-full", className)}
-        {...props}
+        {...(props as any)}
       >
         {children}
       </Component>
@@ -293,7 +293,7 @@ export const Modal = ({ isOpen, onClose, title, size = 'md', showClose = true, f
   
   return (
     <div className={cn("fixed inset-0 z-[var(--ez-z-modal,100)] flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-sm", !reducedMotion && "animate-in fade-in duration-200")}>
-      <div ref={modalRef} role="dialog" aria-modal="true" aria-labelledby="modal-title" className={cn("bg-white w-full shadow-xl overflow-hidden flex flex-col", sizes[size], fullScreenOnMobile !== false ? "md:max-h-[90vh] max-h-screen md:rounded-2xl rounded-none md:m-0 fixed inset-0 md:inset-auto" : "max-h-[90vh] rounded-2xl", !reducedMotion && "zoom-in-95")}>
+      <div ref={modalRef} role="dialog" aria-modal="true" aria-labelledby="modal-title" className={cn("bg-white w-full shadow-xl overflow-hidden flex flex-col", sizes[size as keyof typeof sizes], fullScreenOnMobile !== false ? "md:max-h-[90vh] max-h-screen md:rounded-2xl rounded-none md:m-0 fixed inset-0 md:inset-auto" : "max-h-[90vh] rounded-2xl", !reducedMotion && "zoom-in-95")}>
         <div className="flex items-center justify-between p-6 border-b border-slate-100">
           <h2 id="modal-title" className="text-xl font-bold text-slate-900">{title}</h2>
           {showClose && (
